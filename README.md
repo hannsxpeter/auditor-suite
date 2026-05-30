@@ -1,6 +1,6 @@
 # codeauditor
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/aihxp/codeauditor?sort=semver)](https://github.com/aihxp/codeauditor/releases) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![checks](https://github.com/aihxp/codeauditor/actions/workflows/checks.yml/badge.svg)](https://github.com/aihxp/codeauditor/actions/workflows/checks.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/aihxp/codeauditor?sort=semver)](https://github.com/aihxp/codeauditor/releases) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 **codeauditor is an installable skill for AI coding agents.** You install it once, then run it from whichever AI coding tool you use. It audits a codebase end to end, writes a single scored report (`codeaudit.md`), and prints the verdict right in your chat.
 
