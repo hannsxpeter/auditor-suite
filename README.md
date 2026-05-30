@@ -32,13 +32,25 @@ Only tools actually present on the machine are touched. Tools without a skill or
 
 ## Install
 
-From this repo:
+### From source
 
 ```sh
+git clone https://github.com/aihxp/codeauditor
+cd codeauditor
 ./install.sh
 ```
 
-It detects every supported tool under your home directory and installs the command into each. Re-run it any time after editing the engine to re-sync all tools.
+It detects every supported tool under your home directory and installs the command into each. Re-run it any time after editing the engine to re-sync all tools. Append `uninstall` to remove it.
+
+### Via npm (GitHub Packages)
+
+The command is also published as an npm package on GitHub Packages, [`@aihxp/codeauditor`](https://github.com/aihxp/codeauditor/pkgs/npm/codeauditor). GitHub Packages requires authentication even for public packages, so add a one-time line to `~/.npmrc` (`//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN`, using a token with `read:packages`), then run:
+
+```sh
+npx --registry=https://npm.pkg.github.com @aihxp/codeauditor
+```
+
+That runs the same installer and renders the command into every detected tool. Append `uninstall` to remove it.
 
 To add a tool the installer does not know about, copy the engine into that tool's command or prompt directory (wrapping it in whatever frontmatter the tool expects), or use the `AGENTS.md` directive.
 

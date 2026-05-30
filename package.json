@@ -1,0 +1,51 @@
+{
+  "name": "@aihxp/codeauditor",
+  "version": "1.0.0",
+  "description": "Cross-tool AI command that audits a codebase end to end and writes codeaudit.md: a scored, prioritized report you or another agent can act on. Works in Claude Code, Codex, Gemini, Cursor, opencode, Windsurf, Antigravity, and pi.",
+  "keywords": [
+    "code-audit",
+    "code-review",
+    "code-quality",
+    "static-analysis",
+    "security-audit",
+    "ai",
+    "llm",
+    "ai-agents",
+    "claude-code",
+    "codex",
+    "gemini",
+    "cursor",
+    "opencode",
+    "windsurf",
+    "antigravity",
+    "developer-tools"
+  ],
+  "homepage": "https://github.com/aihxp/codeauditor#readme",
+  "bugs": {
+    "url": "https://github.com/aihxp/codeauditor/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aihxp/codeauditor.git"
+  },
+  "license": "MIT",
+  "author": "aihxp",
+  "bin": {
+    "codeauditor": "install.sh"
+  },
+  "files": [
+    "engine/",
+    "install.sh",
+    "AGENTS.md",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+    "CODE_OF_CONDUCT.md"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  }
+}
