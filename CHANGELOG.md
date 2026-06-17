@@ -4,6 +4,36 @@ All notable changes to uxauditor are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-06-17
+
+A self-audit (`uxaudit.md`) of the installer's developer experience, driven to
+zero. No change to the audit engine or its output; this release is entirely
+about the install/inspect command-line experience.
+
+### Added
+- `install.sh` now has a real command-line interface: `--help`/`-h` (prints usage
+  and exits), `--version`/`-v`, `--dry-run`/`-n` (preview the would-write targets
+  without writing), and `list`/`status` (show what is installed in each detected
+  tool).
+- A `VERSION` file, the single source of the version reported by `install.sh --version`.
+- opencode detection honors `XDG_CONFIG_HOME`.
+
+### Changed
+- `install.sh` rejects unrecognized arguments (prints usage to stderr, exits 2)
+  instead of silently treating anything that is not `uninstall` as an install.
+- When no supported tools are detected, the installer now lists the exact
+  directories it checked and the next step (open the tool, or copy the engine per
+  `AGENTS.md`) instead of a bare "Nothing to install".
+- The post-install output surfaces the re-sync, `--dry-run`, `list`, and
+  `uninstall` commands.
+- README "from a release download" instructions are version-agnostic
+  (`unzip uxauditor-*.zip`) so they do not break on future releases.
+
+### Fixed
+- `./install.sh --help` (and typos like `uninstal`) no longer perform an install.
+
+[1.1.0]: https://github.com/aihxp/uxauditor/releases/tag/v1.1.0
+
 ## [1.0.0] - 2026-06-17
 
 First release.
