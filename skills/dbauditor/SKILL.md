@@ -1,9 +1,9 @@
 ---
 name: dbauditor
-description: Audit the database layer of the codebase end to end (schema, relationships, indexing, queries, transactions, migrations, data protection, search, and scale), write dbaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never connects to a live database, never runs migrations, never mutates data.
+description: Audit the database layer of the codebase end to end (schema, relationships, indexing, queries, transactions, migrations, data protection, search, and scale), write dbaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never connects to a live database, never runs migrations, never mutates data. Invoke with /dbauditor in Claude Code or $dbauditor in Codex.
 ---
 
-> Invocation: type `/dbauditor` to run this command. Treat any text after it as the optional path-or-scope argument (a subpath, a schema name, or a single engine).
+> Invocation: type `/dbauditor` (Claude Code) or `$dbauditor` (Codex) to run this command. The same skill works in both tools. Treat any text after it as the optional path-or-scope argument (a subpath, a schema name, or a single engine).
 
 # dbauditor
 
