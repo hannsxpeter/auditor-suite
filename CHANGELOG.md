@@ -30,9 +30,16 @@ about the install/inspect command-line experience.
   `uninstall` commands.
 - README "from a release download" instructions are version-agnostic
   (`unzip uxauditor-*.zip`) so they do not break on future releases.
+- The cross-tool table and run instructions document the correct per-tool
+  invocation: `$uxauditor` for the Codex skill, `/uxauditor` for the Codex prompt
+  and the Claude Code skill.
 
 ### Fixed
 - `./install.sh --help` (and typos like `uninstal`) no longer perform an install.
+- Codex slash command now installs into `~/.codex/prompts/` (which Codex reads)
+  instead of `~/.codex/commands/` (which it ignores), so `/uxauditor` works in
+  Codex. The Codex skill at `~/.codex/skills/uxauditor/` already provided
+  `$uxauditor`.
 
 [1.1.0]: https://github.com/aihxp/uxauditor/releases/tag/v1.1.0
 

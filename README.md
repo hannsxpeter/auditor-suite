@@ -71,8 +71,9 @@ Re-run `./install.sh` any time after editing the engine to re-sync every tool.
 
 After installing, open your AI coding tool in the project you want to audit, then run the command:
 
-- **Codex, Gemini, Cursor, Windsurf, opencode, pi:** type `/uxauditor`
-- **Claude Code, Antigravity:** say "audit my UX" (the skill triggers on its own), or invoke the `uxauditor` skill directly
+- **Codex:** type `$uxauditor` (the installed skill) or `/uxauditor` (the installed prompt)
+- **Gemini, Cursor, Windsurf, opencode, pi:** type `/uxauditor`
+- **Claude Code, Antigravity:** type `/uxauditor`, or say "audit my UX" (the skill triggers on its own)
 
 The agent analyzes the product, writes `uxaudit.md` at the project root, and prints a summary in the chat: the overall score and grade, the per-dimension scorecard, the top fixes, and finding counts by severity. From there you can ask that same agent to start fixing, or hand `uxaudit.md` to another agent that will act on it.
 
@@ -90,8 +91,8 @@ The behavior lives in one file, [`engine/uxauditor.md`](engine/uxauditor.md). Th
 
 | Tool | Installed as | How you run it |
 |---|---|---|
-| Claude Code | skill (`~/.claude/skills/uxauditor/`) | ask "audit my UX" (auto-triggers) |
-| OpenAI Codex CLI | skill + command (`~/.codex/`) | `/uxauditor` |
+| Claude Code | skill (`~/.claude/skills/uxauditor/`) | `/uxauditor`, or ask "audit my UX" (auto-triggers) |
+| OpenAI Codex CLI | skill + prompt (`~/.codex/`) | `$uxauditor` (skill) or `/uxauditor` (prompt) |
 | Gemini CLI | skill + command (`~/.gemini/`) | `/uxauditor` |
 | Cursor | skill + command (`~/.cursor/`) | `/uxauditor` |
 | Windsurf | command (`~/.windsurf/commands/`) | `/uxauditor` |

@@ -111,7 +111,7 @@ echo "mode: $MODE   name: $NAME   version: $VERSION"
 echo ""
 
 detect "$HOME/.claude"             "Claude Code"                   && emit_skill "$HOME/.claude/skills"
-detect "$HOME/.codex"              "Codex CLI"                     && { emit_skill "$HOME/.codex/skills"; emit_cmd "$HOME/.codex/commands"; }
+detect "$HOME/.codex"              "Codex CLI"                     && { emit_skill "$HOME/.codex/skills"; emit_cmd "$HOME/.codex/prompts"; }   # skill -> $NAME, prompt -> /$NAME
 detect "$HOME/.gemini"             "Gemini CLI"                    && { emit_skill "$HOME/.gemini/skills"; emit_cmd "$HOME/.gemini/commands"; }
 detect "$HOME/.cursor"             "Cursor"                        && { emit_skill "$HOME/.cursor/skills"; emit_cmd "$HOME/.cursor/commands"; }
 detect "$HOME/.antigravity"        "Antigravity"                   && emit_skill "$HOME/.antigravity/skills"
@@ -158,8 +158,9 @@ for line in "${changed[@]}"; do echo "  $line"; done
 if [ "$MODE" = "install" ]; then
   echo ""
   echo "Invoke it:"
-  echo "  Claude Code / Antigravity:  ask \"audit my UX\" (skill auto-triggers), or /$NAME"
-  echo "  Codex / Gemini / Cursor / Windsurf / opencode / pi:  /$NAME"
+  echo "  Claude Code / Antigravity:  /$NAME, or ask \"audit my UX\" (skill auto-triggers)"
+  echo "  Codex:  \$$NAME (skill), or /$NAME (prompt)"
+  echo "  Gemini / Cursor / Windsurf / opencode / pi:  /$NAME"
   echo "  Any other tool:  see AGENTS.md, or paste $ENGINE as the prompt"
   echo ""
   echo "Re-sync after editing the engine:  ./install.sh"
