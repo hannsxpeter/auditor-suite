@@ -1,0 +1,32 @@
+{
+  "name": "llmauditor",
+  "version": "0.1.0",
+  "description": "Read-only LLM-integration audit skill: audits how a codebase uses Large Language Models across 12 dimensions (prompt construction, model selection and routing, provider API usage, reliability, security and trust boundaries, agents and tools, RAG and vector search, structured output, cost, speed, evaluation, observability), writes a scored, prioritized llmaudit.md, and reports the verdict in chat. Works in both Claude Code (/llmauditor) and Codex ($llmauditor).",
+  "author": {
+    "name": "aihxp"
+  },
+  "homepage": "https://github.com/aihxp/llmauditor",
+  "repository": "https://github.com/aihxp/llmauditor",
+  "license": "MIT",
+  "keywords": [
+    "llm",
+    "llm-audit",
+    "ai",
+    "ai-engineering",
+    "prompt-engineering",
+    "prompt-injection",
+    "rag",
+    "agents",
+    "tool-use",
+    "model-context-protocol",
+    "owasp-llm",
+    "llm-security",
+    "evals",
+    "observability",
+    "cost-optimization",
+    "audit",
+    "claude-code",
+    "codex",
+    "skill"
+  ]
+}
