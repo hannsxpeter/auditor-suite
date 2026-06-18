@@ -34,7 +34,17 @@ cd codeauditor-1.0.0
 ./install.sh
 ```
 
-Re-run `./install.sh` any time after editing the engine to re-sync every tool. Run `./install.sh uninstall` to remove it from every tool.
+Re-run `./install.sh` any time after editing the engine to re-sync every tool. Run `./install.sh uninstall` to remove it from every tool. Either way, it installs into each tool's user-level config (for example `~/.claude/skills/`, `~/.codex/skills/`), so the skill is available globally in every project, not just one.
+
+### Optional: a global installer command
+
+To run the installer from any directory, put it on your PATH (from the repo root):
+
+```sh
+ln -sf "$PWD/install.sh" ~/.local/bin/codeauditor-install
+```
+
+Then `codeauditor-install` re-syncs every tool from anywhere, and `codeauditor-install uninstall` removes it. The installer resolves its own path through the symlink, so it still finds the engine.
 
 ## How to run it
 
