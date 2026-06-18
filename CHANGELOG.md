@@ -8,6 +8,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 - Continuous integration checks (`.github/workflows/checks.yml`): the build fails on any em dash, en dash, or emoji in tracked files, on a stray old skill name, and on an installer that is not valid bash.
+- Per-tool invocation tokens. Each installed artifact now states how to run it: Codex uses `$codeauditor` (its skills use a `$` prefix), and every other tool uses `/codeauditor`. The token appears in both the description and an invocation note in the body.
 
 ## [1.0.0] - 2026-05-30
 

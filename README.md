@@ -40,8 +40,9 @@ Re-run `./install.sh` any time after editing the engine to re-sync every tool. R
 
 After installing, open your AI coding tool in the project you want to audit, then run the command:
 
-- **Codex, Gemini, Cursor, Windsurf, opencode, pi:** type `/codeauditor`
-- **Claude Code, Antigravity:** say "audit my codebase" (the skill triggers on its own), or invoke the `codeauditor` skill directly
+- **Codex:** type `$codeauditor` (Codex skills use a `$` prefix)
+- **Gemini, Cursor, Windsurf, opencode, pi:** type `/codeauditor`
+- **Claude Code, Antigravity:** type `/codeauditor`, or say "audit my codebase" (the skill triggers on its own)
 
 The agent analyzes the project, writes `codeaudit.md` at the project root, and prints a summary in the chat: the overall score and grade, the per-dimension scorecard, the top fixes, and finding counts by severity. From there you can ask that same agent to start fixing, or hand `codeaudit.md` to another agent that will act on it.
 
@@ -53,8 +54,8 @@ The behavior lives in one file, [`engine/codeauditor.md`](engine/codeauditor.md)
 
 | Tool | Installed as | How you run it |
 |---|---|---|
-| Claude Code | skill (`~/.claude/skills/codeauditor/`) | ask "audit my codebase" (auto-triggers) |
-| OpenAI Codex CLI | skill + command (`~/.codex/`) | `/codeauditor` |
+| Claude Code | skill (`~/.claude/skills/codeauditor/`) | `/codeauditor` (or ask "audit my codebase") |
+| OpenAI Codex CLI | skill + command (`~/.codex/`) | `$codeauditor` |
 | Gemini CLI | skill + command (`~/.gemini/`) | `/codeauditor` |
 | Cursor | skill + command (`~/.cursor/`) | `/codeauditor` |
 | Windsurf | command (`~/.windsurf/commands/`) | `/codeauditor` |
