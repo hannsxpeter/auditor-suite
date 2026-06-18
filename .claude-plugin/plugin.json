@@ -1,0 +1,22 @@
+{
+  "name": "secauditor",
+  "version": "0.1.0",
+  "description": "Read-only security audit skill: audits a codebase for vulnerabilities across 11 dimensions, writes a scored, prioritized secaudit.md, and reports the verdict in chat. Works in both Claude Code (/secauditor) and Codex ($secauditor).",
+  "author": {
+    "name": "aihxp"
+  },
+  "homepage": "https://github.com/aihxp/secauditor",
+  "repository": "https://github.com/aihxp/secauditor",
+  "license": "MIT",
+  "keywords": [
+    "security",
+    "security-audit",
+    "owasp",
+    "sast",
+    "vulnerability",
+    "audit",
+    "claude-code",
+    "codex",
+    "skill"
+  ]
+}
