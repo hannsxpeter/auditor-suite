@@ -1,0 +1,36 @@
+{
+  "name": "seoauditor",
+  "version": "0.1.0",
+  "description": "Read-only SEO and AI-visibility audit skill: audits how a codebase makes a website discoverable to search engines and AI answer engines across 12 dimensions (crawlability and indexation, rendering and content-in-HTML, on-page content and semantics, canonicalization, structured data, AI/generative-engine visibility, URL architecture and technical config, Core Web Vitals code signals, social metadata, internationalization, feeds and syndication, and SEO observability), writes a scored, prioritized seoaudit.md, and reports the verdict in chat. Works in both Claude Code (/seoauditor) and Codex ($seoauditor).",
+  "author": {
+    "name": "aihxp"
+  },
+  "homepage": "https://github.com/aihxp/seoauditor",
+  "repository": "https://github.com/aihxp/seoauditor",
+  "license": "MIT",
+  "keywords": [
+    "seo",
+    "seo-audit",
+    "technical-seo",
+    "geo",
+    "aeo",
+    "generative-engine-optimization",
+    "answer-engine-optimization",
+    "ai-search",
+    "llms-txt",
+    "structured-data",
+    "schema-org",
+    "core-web-vitals",
+    "robots-txt",
+    "sitemap",
+    "canonicalization",
+    "hreflang",
+    "open-graph",
+    "crawlability",
+    "indexation",
+    "audit",
+    "claude-code",
+    "codex",
+    "skill"
+  ]
+}
