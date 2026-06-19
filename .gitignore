@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# Editor / tooling
+.idea/
+.vscode/
+*.swp
+
+# Build artifacts (release tarballs are attached to GitHub Releases, not committed)
+*.tgz
+*.tar.gz
+dist/
