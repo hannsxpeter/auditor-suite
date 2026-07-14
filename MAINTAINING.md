@@ -72,7 +72,8 @@ description.
 ## History and lineage
 
 The seven skills were consolidated from standalone repos on 2026-07-14 with
-full history via subtree merges. To trace a file across the boundary use
-`git log --follow skills/<skill>/SKILL.md`. The pre-consolidation layouts
+full history via subtree merges. To trace a skill across the boundary use
+`git log -- skills/<skill>/`; the subtree merge connects the standalone
+commits as ancestors of main. The pre-consolidation layouts
 (engine files, per-repo installers, plugin manifests) are all reachable in
 history if archaeology is ever needed.

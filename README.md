@@ -114,7 +114,7 @@ Auditors do not call each other. The harness is the router.
 
 ## Lineage
 
-This monorepo consolidated seven standalone repos on 2026-07-14. Each was merged with its full git history preserved (subtree merges), so `git log --follow` works across the boundary.
+This monorepo consolidated seven standalone repos on 2026-07-14. Each was merged with its full git history preserved (subtree merges), so every pre-consolidation commit is reachable here; trace a skill's past with `git log -- skills/<skill-name>/`.
 
 | Skill | Former repo | Final standalone version |
 |---|---|---|
