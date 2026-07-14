@@ -1,0 +1,26 @@
+{
+  "name": "auditor-suite",
+  "description": "Bundle of all seven auditor-suite specialist skills. Installing this plugin pulls every auditor via dependencies; install one of the specialists directly if you want only that skill.",
+  "version": "1.0.0",
+  "author": {
+    "name": "aihxp",
+    "url": "https://github.com/hannsxpeter"
+  },
+  "homepage": "https://github.com/hannsxpeter/auditor-suite",
+  "repository": "https://github.com/hannsxpeter/auditor-suite",
+  "license": "MIT",
+  "keywords": [
+    "auditor-suite",
+    "meta",
+    "bundle"
+  ],
+  "dependencies": [
+    "codeauditor",
+    "secauditor",
+    "dbauditor",
+    "llmauditor",
+    "seoauditor",
+    "uiauditor",
+    "uxauditor"
+  ]
+}
