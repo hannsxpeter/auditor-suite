@@ -56,4 +56,4 @@ First release.
 - Project documentation: README, LICENSE, this changelog, and a
   `.claude-plugin/plugin.json` manifest.
 
-[0.1.0]: https://github.com/aihxp/seoauditor/releases/tag/v0.1.0
+[0.1.0]: https://github.com/hannsxpeter/seoauditor/releases/tag/v0.1.0
