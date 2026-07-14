@@ -1,0 +1,25 @@
+{
+  "name": "dbauditor",
+  "version": "0.1.1",
+  "description": "Read-only database audit skill: audits a codebase's data layer across 11 dimensions (schema, relationships, indexing, queries, transactions, migrations, data protection, search, scale), writes a scored, prioritized dbaudit.md, and reports the verdict in chat. Works in both Claude Code (/dbauditor) and Codex ($dbauditor).",
+  "author": {
+    "name": "aihxp"
+  },
+  "homepage": "https://github.com/hannsxpeter/dbauditor",
+  "repository": "https://github.com/hannsxpeter/dbauditor",
+  "license": "MIT",
+  "keywords": [
+    "database",
+    "database-audit",
+    "sql",
+    "schema",
+    "indexing",
+    "query-performance",
+    "referential-integrity",
+    "migrations",
+    "audit",
+    "claude-code",
+    "codex",
+    "skill"
+  ]
+}
