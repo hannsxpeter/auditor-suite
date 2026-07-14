@@ -4,6 +4,22 @@ All notable changes to uxauditor are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [auditor-suite 1.0.0] - 2026-07-14
+
+Moved into the [auditor-suite](https://github.com/hannsxpeter/auditor-suite)
+monorepo as `skills/uxauditor/`, with the standalone repo's full git history
+preserved. Standalone versioning is retired; the skill now follows the
+auditor-suite release train.
+
+### Changed
+- `SKILL.md` now carries Agent Skills frontmatter directly (name, description,
+  and the `/uxauditor` and `$uxauditor` invocation tokens); previously the
+  frontmatter was synthesized at install time by the standalone installer. The
+  audit engine body is unchanged from `engine/uxauditor.md`.
+- The standalone per-tool installer, the npm packaging (`npx uxauditor` via
+  `package.json`), and the standalone `VERSION` file are retired in favor of
+  the hub installer (`install.sh`) and the suite release train.
+
 ## [1.1.0] - 2026-06-17
 
 A self-audit (`uxaudit.md`) of the installer's developer experience, driven to

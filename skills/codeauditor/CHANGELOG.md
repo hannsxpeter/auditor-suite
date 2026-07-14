@@ -4,12 +4,23 @@ All notable changes to codeauditor are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [auditor-suite 1.0.0] - 2026-07-14
 
-### Added
-- Continuous integration checks (`.github/workflows/checks.yml`): the build fails on any em dash, en dash, or emoji in tracked files, on a stray old skill name, and on an installer that is not valid bash.
-- Per-tool invocation tokens. Each installed artifact now states how to run it: Codex uses `$codeauditor` (its skills use a `$` prefix), and every other tool uses `/codeauditor`. The token appears in both the description and an invocation note in the body.
-- Optional global installer command: symlink `install.sh` onto your PATH (for example `~/.local/bin/codeauditor-install`) to install, update, or uninstall from any directory. The installer resolves its own path through the symlink, so it still finds the engine.
+Moved into the [auditor-suite](https://github.com/hannsxpeter/auditor-suite)
+monorepo as `skills/codeauditor/`, with the standalone repo's full git history
+preserved. Standalone versioning is retired; the skill now follows the
+auditor-suite release train.
+
+### Changed
+- `SKILL.md` now carries Agent Skills frontmatter directly (name, description,
+  and the `/codeauditor` and `$codeauditor` invocation tokens); previously the
+  frontmatter was synthesized at install time by the standalone installer. The
+  audit engine body is unchanged from `engine/codeauditor.md`.
+- The standalone per-tool installer, its planned global-command mode, and the
+  per-repo CI checks (formerly tracked here as unreleased work) are superseded
+  by the hub installer (`install.sh`) and the hub lint workflow, which enforce
+  the same rules suite-wide: no em dashes, en dashes, or emojis in tracked
+  files, and bash-valid scripts.
 
 ## [1.0.0] - 2026-05-30
 
