@@ -1,6 +1,6 @@
 # uxauditor
 
-[![checks](https://github.com/aihxp/uxauditor/actions/workflows/checks.yml/badge.svg)](https://github.com/aihxp/uxauditor/actions/workflows/checks.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/aihxp/uxauditor?sort=semver)](https://github.com/aihxp/uxauditor/releases) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![checks](https://github.com/hannsxpeter/uxauditor/actions/workflows/checks.yml/badge.svg)](https://github.com/hannsxpeter/uxauditor/actions/workflows/checks.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/aihxp/uxauditor?sort=semver)](https://github.com/hannsxpeter/uxauditor/releases) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 **uxauditor is an installable skill for AI coding agents.** You install it once, then run it from whichever AI coding tool you use. It audits a product's user experience end to end, its interface, user journeys, processes, and workflows, writes a single scored report (`uxaudit.md`), and prints the verdict right in your chat.
 
@@ -41,14 +41,14 @@ This fetches uxauditor and renders it into every detected AI tool in one step. T
 ### Option A: from source
 
 ```sh
-git clone https://github.com/aihxp/uxauditor
+git clone https://github.com/hannsxpeter/uxauditor
 cd uxauditor
 ./install.sh
 ```
 
 ### Option B: from a release download
 
-Download the `.zip` (or `.tar.gz`) for the [latest release](https://github.com/aihxp/uxauditor/releases/latest), then unzip it, `cd` into the extracted `uxauditor-<version>` directory, and run the installer. The wildcards below match whichever version you downloaded:
+Download the `.zip` (or `.tar.gz`) for the [latest release](https://github.com/hannsxpeter/uxauditor/releases/latest), then unzip it, `cd` into the extracted `uxauditor-<version>` directory, and run the installer. The wildcards below match whichever version you downloaded:
 
 ```sh
 unzip uxauditor-*.zip

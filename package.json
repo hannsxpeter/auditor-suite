@@ -36,10 +36,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aihxp/uxauditor.git"
+    "url": "git+https://github.com/hannsxpeter/uxauditor.git"
   },
-  "homepage": "https://github.com/aihxp/uxauditor#readme",
+  "homepage": "https://github.com/hannsxpeter/uxauditor#readme",
   "bugs": {
-    "url": "https://github.com/aihxp/uxauditor/issues"
+    "url": "https://github.com/hannsxpeter/uxauditor/issues"
   }
 }

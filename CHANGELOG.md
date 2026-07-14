@@ -41,7 +41,7 @@ about the install/inspect command-line experience.
   Codex. The Codex skill at `~/.codex/skills/uxauditor/` already provided
   `$uxauditor`.
 
-[1.1.0]: https://github.com/aihxp/uxauditor/releases/tag/v1.1.0
+[1.1.0]: https://github.com/hannsxpeter/uxauditor/releases/tag/v1.1.0
 
 ## [1.0.0] - 2026-06-17
 
@@ -55,4 +55,4 @@ First release.
 - [`AGENTS.md`](AGENTS.md) portable directive for any tool that reads `AGENTS.md`.
 - Repository scaffolding: README, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, LICENSE (MIT), `.editorconfig`, `.gitignore`, and a CI workflow that enforces plain-ASCII files and installer and engine consistency.
 
-[1.0.0]: https://github.com/aihxp/uxauditor/releases/tag/v1.0.0
+[1.0.0]: https://github.com/hannsxpeter/uxauditor/releases/tag/v1.0.0
