@@ -1,0 +1,28 @@
+# CODEOWNERS for the auditor-suite hub.
+#
+# This file routes pull-request review automatically. The current maintainer
+# is @hannsxpeter; the default rule covers everything. Path-specific rules
+# below make the high-blast-radius surfaces explicit, so a future
+# co-maintainer can see at a glance which files trigger which reviewers.
+
+# Default fallback: hub maintainer reviews everything.
+* @hannsxpeter
+
+# SUITE.md is the suite map every consumer reads. Changes cascade to docs.
+/SUITE.md @hannsxpeter
+
+# Install/uninstall scripts touch every consumer's filesystem. Bash 3.2
+# regressions and harness-detection mistakes break user installs silently.
+/install.sh @hannsxpeter
+/uninstall.sh @hannsxpeter
+
+# The meta-linter mechanically enforces suite discipline. A check that fails
+# to fail silently degrades the protection the suite has against drift.
+/scripts/ @hannsxpeter
+
+# CI workflows. A workflow regression cascades to every push.
+/.github/workflows/ @hannsxpeter
+
+# Plugin marketplace manifest. A manifest typo breaks Claude Code's
+# /plugin install command for every consumer.
+/.claude-plugin/marketplace.json @hannsxpeter

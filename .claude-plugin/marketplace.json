@@ -1,0 +1,54 @@
+{
+  "name": "auditor-suite",
+  "description": "Seven read-only audit skills for AI coding agents, plus a meta plugin that bundles them all.",
+  "owner": {
+    "name": "aihxp",
+    "url": "https://github.com/hannsxpeter"
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "homepage": "https://github.com/hannsxpeter/auditor-suite"
+  },
+  "plugins": [
+    {
+      "name": "auditor-suite",
+      "source": "./plugins/auditor-suite",
+      "description": "Install all seven auditor-suite skills in one shot. Pulls every auditor via plugin dependencies."
+    },
+    {
+      "name": "codeauditor",
+      "source": "./plugins/codeauditor",
+      "description": "Audit the codebase end to end, write codeaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never edits source. Invoke with /codeauditor in Claude Code or $codeauditor in Codex."
+    },
+    {
+      "name": "secauditor",
+      "source": "./plugins/secauditor",
+      "description": "Audit the codebase for security vulnerabilities end to end, write secaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never edits source, never runs exploits."
+    },
+    {
+      "name": "dbauditor",
+      "source": "./plugins/dbauditor",
+      "description": "Audit the database layer of the codebase end to end (schema, relationships, indexing, queries, transactions, migrations, data protection, search, and scale), write dbaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never connects to a live database, never runs migrations, never mutates data. Invoke with /dbauditor in Claude Code or $dbauditor in Codex."
+    },
+    {
+      "name": "llmauditor",
+      "source": "./plugins/llmauditor",
+      "description": "Audit how the codebase integrates Large Language Models end to end (prompt construction and context, model selection and routing, provider API and SDK usage, reliability, security and trust boundaries, agents and tools, RAG and vector search, structured output, cost, speed, evaluation, and observability), write llmaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never calls a model, never runs the app, never mutates data or indexes. Invoke with /llmauditor in Claude Code or $llmauditor in Codex."
+    },
+    {
+      "name": "seoauditor",
+      "source": "./plugins/seoauditor",
+      "description": "Audit how the codebase makes a website visible to search engines and AI answer engines end to end (crawlability and indexation, rendering and content-in-HTML, on-page content and semantics, canonicalization, structured data, AI/generative-engine visibility, URL architecture and technical config, Core Web Vitals code signals, social metadata, internationalization, feeds and syndication, and SEO observability), write seoaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never crawls the live site, never runs Lighthouse, never calls Search Console or a model. Invoke with /seoauditor in Claude Code or $seoauditor in Codex."
+    },
+    {
+      "name": "uiauditor",
+      "source": "./plugins/uiauditor",
+      "description": "Audit how the codebase implements its user interface end to end (accessibility, semantic markup, styling architecture, component and UI-state correctness, responsive layout, frontend performance, design-system consistency, assets and media, internationalization readiness, and native/cross-platform UI), write uiaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never runs the app, never opens a browser, never takes screenshots, never mutates source. Invoke with /uiauditor in Claude Code or $uiauditor in Codex."
+    },
+    {
+      "name": "uxauditor",
+      "source": "./plugins/uxauditor",
+      "description": "Audit the product's UX, user journeys, processes, and workflows end to end, write uxaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never edits source. Invoke with /uxauditor in Claude Code or $uxauditor in Codex."
+    }
+  ]
+}

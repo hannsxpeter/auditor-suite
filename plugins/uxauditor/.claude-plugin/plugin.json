@@ -1,0 +1,21 @@
+{
+  "name": "uxauditor",
+  "description": "Audit the product's UX, user journeys, processes, and workflows end to end, write uxaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never edits source. Invoke with /uxauditor in Claude Code or $uxauditor in Codex.",
+  "version": "1.0.0",
+  "author": {
+    "name": "aihxp",
+    "url": "https://github.com/hannsxpeter"
+  },
+  "homepage": "https://github.com/hannsxpeter/auditor-suite/tree/main/skills/uxauditor",
+  "repository": "https://github.com/hannsxpeter/auditor-suite/tree/main/skills/uxauditor",
+  "license": "MIT",
+  "keywords": [
+    "auditor-suite",
+    "ai-skill",
+    "audit",
+    "ux",
+    "user-journey",
+    "usability",
+    "heuristic-evaluation"
+  ]
+}

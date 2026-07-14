@@ -1,0 +1,21 @@
+{
+  "name": "seoauditor",
+  "description": "Audit how the codebase makes a website visible to search engines and AI answer engines end to end (crawlability and indexation, rendering and content-in-HTML, on-page content and semantics, canonicalization, structured data, AI/generative-engine visibility, URL architecture and technical config, Core Web Vitals code signals, social metadata, internationalization, feeds and syndication, and SEO observability), write seoaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never crawls the live site, never runs Lighthouse, never calls Search Console or a model. Invoke with /seoauditor in Claude Code or $seoauditor in Codex.",
+  "version": "1.0.0",
+  "author": {
+    "name": "aihxp",
+    "url": "https://github.com/hannsxpeter"
+  },
+  "homepage": "https://github.com/hannsxpeter/auditor-suite/tree/main/skills/seoauditor",
+  "repository": "https://github.com/hannsxpeter/auditor-suite/tree/main/skills/seoauditor",
+  "license": "MIT",
+  "keywords": [
+    "auditor-suite",
+    "ai-skill",
+    "audit",
+    "seo",
+    "geo",
+    "aeo",
+    "structured-data"
+  ]
+}

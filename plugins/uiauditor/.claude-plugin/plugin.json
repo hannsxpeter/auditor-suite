@@ -1,0 +1,21 @@
+{
+  "name": "uiauditor",
+  "description": "Audit how the codebase implements its user interface end to end (accessibility, semantic markup, styling architecture, component and UI-state correctness, responsive layout, frontend performance, design-system consistency, assets and media, internationalization readiness, and native/cross-platform UI), write uiaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never runs the app, never opens a browser, never takes screenshots, never mutates source. Invoke with /uiauditor in Claude Code or $uiauditor in Codex.",
+  "version": "1.0.0",
+  "author": {
+    "name": "aihxp",
+    "url": "https://github.com/hannsxpeter"
+  },
+  "homepage": "https://github.com/hannsxpeter/auditor-suite/tree/main/skills/uiauditor",
+  "repository": "https://github.com/hannsxpeter/auditor-suite/tree/main/skills/uiauditor",
+  "license": "MIT",
+  "keywords": [
+    "auditor-suite",
+    "ai-skill",
+    "audit",
+    "ui",
+    "accessibility",
+    "css",
+    "design-system"
+  ]
+}

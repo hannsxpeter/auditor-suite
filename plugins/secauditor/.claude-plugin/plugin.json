@@ -1,0 +1,21 @@
+{
+  "name": "secauditor",
+  "description": "Audit the codebase for security vulnerabilities end to end, write secaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never edits source, never runs exploits.",
+  "version": "1.0.0",
+  "author": {
+    "name": "aihxp",
+    "url": "https://github.com/hannsxpeter"
+  },
+  "homepage": "https://github.com/hannsxpeter/auditor-suite/tree/main/skills/secauditor",
+  "repository": "https://github.com/hannsxpeter/auditor-suite/tree/main/skills/secauditor",
+  "license": "MIT",
+  "keywords": [
+    "auditor-suite",
+    "ai-skill",
+    "audit",
+    "security",
+    "security-audit",
+    "owasp",
+    "sast"
+  ]
+}

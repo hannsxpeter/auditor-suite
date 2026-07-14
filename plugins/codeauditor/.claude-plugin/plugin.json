@@ -1,0 +1,20 @@
+{
+  "name": "codeauditor",
+  "description": "Audit the codebase end to end, write codeaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never edits source. Invoke with /codeauditor in Claude Code or $codeauditor in Codex.",
+  "version": "1.0.0",
+  "author": {
+    "name": "aihxp",
+    "url": "https://github.com/hannsxpeter"
+  },
+  "homepage": "https://github.com/hannsxpeter/auditor-suite/tree/main/skills/codeauditor",
+  "repository": "https://github.com/hannsxpeter/auditor-suite/tree/main/skills/codeauditor",
+  "license": "MIT",
+  "keywords": [
+    "auditor-suite",
+    "ai-skill",
+    "audit",
+    "code-audit",
+    "code-quality",
+    "static-analysis"
+  ]
+}
