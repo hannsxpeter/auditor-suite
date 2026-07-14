@@ -1,6 +1,6 @@
 # codeauditor
 
-[![checks](https://github.com/aihxp/codeauditor/actions/workflows/checks.yml/badge.svg)](https://github.com/aihxp/codeauditor/actions/workflows/checks.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/aihxp/codeauditor?sort=semver)](https://github.com/aihxp/codeauditor/releases) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![checks](https://github.com/hannsxpeter/codeauditor/actions/workflows/checks.yml/badge.svg)](https://github.com/hannsxpeter/codeauditor/actions/workflows/checks.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/aihxp/codeauditor?sort=semver)](https://github.com/hannsxpeter/codeauditor/releases) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 **codeauditor is an installable skill for AI coding agents.** You install it once, then run it from whichever AI coding tool you use. It audits a codebase end to end, writes a single scored report (`codeaudit.md`), and prints the verdict right in your chat.
 
@@ -19,14 +19,14 @@ codeauditor is a skill, so installing it means rendering it into your AI tools' 
 ### Option A: from source
 
 ```sh
-git clone https://github.com/aihxp/codeauditor
+git clone https://github.com/hannsxpeter/codeauditor
 cd codeauditor
 ./install.sh
 ```
 
 ### Option B: from a release download
 
-Download `codeauditor-1.0.0.zip` (or `.tar.gz`) from the [latest release](https://github.com/aihxp/codeauditor/releases/latest), then:
+Download `codeauditor-1.0.0.zip` (or `.tar.gz`) from the [latest release](https://github.com/hannsxpeter/codeauditor/releases/latest), then:
 
 ```sh
 unzip codeauditor-1.0.0.zip

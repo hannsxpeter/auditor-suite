@@ -41,4 +41,4 @@ First public release.
 - Downloadable release archive (`codeauditor-1.0.0.zip` and `.tar.gz`) attached
   to the GitHub release: unzip and run `./install.sh`.
 
-[1.0.0]: https://github.com/aihxp/codeauditor/releases/tag/v1.0.0
+[1.0.0]: https://github.com/hannsxpeter/codeauditor/releases/tag/v1.0.0
