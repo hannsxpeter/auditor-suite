@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Local harness state; never commit session or worktree data.
+.claude/
+
+# Release tarballs are attached to GitHub Releases, not committed.
+*.tar.gz
+*.tgz
+dist/
+
+# Generated audit reports from dogfooding the suite on itself.
+codeaudit.md
+dbaudit.md
+llmaudit.md
+secaudit.md
+seoaudit.md
+uiaudit.md
+uxaudit.md
