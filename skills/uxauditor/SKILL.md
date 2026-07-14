@@ -1,3 +1,8 @@
+---
+name: uxauditor
+description: Audit the product's UX, user journeys, processes, and workflows end to end, write uxaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never edits source. Invoke with /uxauditor in Claude Code or $uxauditor in Codex.
+---
+
 # uxauditor
 
 Audit the user experience of the product in the current working directory end to end: its interface, user journeys, processes, and workflows. Then do two things:

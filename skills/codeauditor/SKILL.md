@@ -1,3 +1,8 @@
+---
+name: codeauditor
+description: Audit the codebase end to end, write codeaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never edits source. Invoke with /codeauditor in Claude Code or $codeauditor in Codex.
+---
+
 # codeauditor
 
 Audit the codebase in the current working directory end to end, then do two things:
