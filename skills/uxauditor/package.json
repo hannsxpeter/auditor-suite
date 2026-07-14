@@ -1,0 +1,45 @@
+{
+  "name": "uxauditor",
+  "version": "1.1.0",
+  "description": "Read-only UX audit skill for AI coding agents: audit a product's UX, user journeys, processes, and workflows end to end and write a scored uxaudit.md. Installs as a skill or /uxauditor command across Claude Code, Codex, Gemini, Cursor, opencode, Windsurf, Antigravity, and pi.",
+  "bin": {
+    "uxauditor": "./install.sh"
+  },
+  "files": [
+    "install.sh",
+    "engine/",
+    "VERSION",
+    "AGENTS.md",
+    "SECURITY.md",
+    "CHANGELOG.md"
+  ],
+  "keywords": [
+    "ux",
+    "ux-audit",
+    "usability",
+    "accessibility",
+    "wcag",
+    "user-experience",
+    "design-review",
+    "heuristics",
+    "ai-agent",
+    "ai-agents",
+    "claude-code",
+    "codex",
+    "cursor",
+    "gemini",
+    "skill",
+    "slash-command",
+    "developer-tools"
+  ],
+  "author": "aihxp",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hannsxpeter/uxauditor.git"
+  },
+  "homepage": "https://github.com/hannsxpeter/uxauditor#readme",
+  "bugs": {
+    "url": "https://github.com/hannsxpeter/uxauditor/issues"
+  }
+}
