@@ -1,0 +1,10 @@
+# id	weight	applies	floor	name
+SEC	20	always	no	Security
+ARC	15	always	no	Architecture and Design
+QUAL	15	always	no	Code Quality and Maintainability
+TEST	15	always	no	Testing and Verification
+ERR	10	always	no	Error Handling and Resilience
+PERF	8	always	no	Performance and Efficiency
+DEP	7	always	no	Dependencies and Supply Chain
+DOC	5	always	no	Documentation and Drift
+OBS	5	always	no	Observability and Operability

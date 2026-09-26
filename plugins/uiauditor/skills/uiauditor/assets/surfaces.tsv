@@ -1,0 +1,11 @@
+# dim	label	flags	globs	regex
+_SURFACE	markup and templates	-	@web	<(html|body|main|div|span|button|a|img|input|form|section|template)([[:space:]>/]|$)
+_SURFACE	component files	-	*.jsx,*.tsx,*.vue,*.svelte,*.astro	.
+_SURFACE	stylesheets	-	@style	.
+_SURFACE	Angular, Lit, or custom-element components	-	*.ts,*.js,*.mjs	(@Component\(|templateUrl|customElements\.define|LitElement)
+_SURFACE	React Native or Expo screens	-	@code	from ['"]react-native['"]
+I18N	i18n runtime or message catalog	i	@code,@config	(i18next|next-intl|vue-i18n|@angular/localize|react-intl|@formatjs|@lingui|svelte-i18n|paraglide|@fluent/|gettext|useTranslation\(|FormattedMessage|defineMessages)
+I18N	message catalog files	-	*.po,*.pot,*.xlf,*.xliff,*.ftl,*.arb	.
+I18N	RTL or multi-locale requirement	i	@web,@code,@config	(dir=["'{]*rtl|dir:[[:space:]]*["']rtl|locales:[[:space:]]*\[)
+NATIVE	React Native, Expo, or react-native-web	-	@code,@config	(from ['"]react-native['"]|require\(['"]react-native['"]\)|"react-native":|"expo":|react-native-web)
+NATIVE	another native-mobile UI toolkit	-	*.dart,*.swift,*.kt,*.xml,pubspec.yaml	(package:flutter/|sdk:[[:space:]]*flutter|import SwiftUI|import UIKit|androidx\.compose|@Composable|<LinearLayout|<ConstraintLayout)
