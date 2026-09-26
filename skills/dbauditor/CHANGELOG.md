@@ -5,6 +5,89 @@ All notable changes to dbauditor are documented here. The format is based on
 skill versions with the auditor-suite release train named in the hub
 [`VERSION`](../../VERSION) file.
 
+## [auditor-suite 1.1.0] - 2026-09-26
+
+Restructured so the skill works for small and local models as well as frontier
+models. The audit knowledge is preserved; its shape changed.
+
+### Changed
+
+- `SKILL.md` is now a short spine (about 2,500 tokens, down from about 15,500):
+  contract, modes, an eight-step workflow checklist, the dimension table, and
+  judgment notes. Detail moved to files read only when a step needs them.
+- Each dimension's checklist became rule cards in `references/<DIM>.md` (71
+  cards, 21 of them tagged quick): where to look, how to confirm, when it is
+  not a finding, severity, the fix with its lock-safe migration, and how to
+  verify the fix. The eleven dimensions and their weights are unchanged.
+- The ownership map became card placement: each defect has one card, and the
+  other dimension's file names it on its "Not here" line.
+- The "security and data-loss floor" is now two floor dimensions, DBSEC and
+  TYPES: one Critical finding in either holds the overall score at 69. Scores
+  are computed by `scripts/score.sh` from the findings, so re-runs are
+  comparable; Suspected findings count half and never cap a score.
+- SCALE keeps its fixed weight of 2 (scores stay reproducible); growth now
+  raises the severity conditions in the SCALE cards instead of the weight.
+- The non-relational and analytics lens moved to `references/nonrelational.md`;
+  its findings use the scored dimension's ID instead of NOSQL or ANALYTICS.
+- Findings drop the `Owner` field (the ID prefix is the owning dimension) and
+  must quote the cited code in Evidence; `check-report.sh` verifies it. Medium
+  findings go to a new Schedule bucket.
+
+### Added
+
+- Modes: `quick` (Critical-class cards only, no score), `only=DIM,DIM`, and a
+  path scope.
+- Read-only scripts: `inventory.sh` (which also stops the audit when there is
+  no database layer), `scan.sh`, `new-report.sh`, `score.sh`, and
+  `check-report.sh`.
+- `references/example-report.md` (validated in CI against
+  `tests/fixtures/dbauditor/`), `references/facts.md` (dated engine and ORM
+  facts), `references/nonrelational.md`, and an eval case under
+  `evals/dbauditor/`.
+- Checks that were implicit before: queries that bypass the transaction handle
+  (TXN-R7), schema changes made by ORM sync at startup (MIGRATION-R5), Laravel
+  `foreignId()` and Rails `t.references` without a foreign key and Prisma
+  `relationMode = "prisma"` (INTEGRITY-R1), PostgreSQL 18 `NOT ENFORCED`
+  constraints (INTEGRITY-R3, CONSTRAINTS-R5), `UNIQUE (email, deleted_at)`
+  letting live duplicates through (CONSTRAINTS-R2), DDL queued without a
+  `lock_timeout` (MIGRATION-R2), and search results that skip the tenant filter
+  (SEARCH-R5, promoted from a paper-control note).
+
+### Fixed
+
+- `now()` is stable, not volatile: `ADD COLUMN ... DEFAULT now()` does not
+  rewrite the table on PostgreSQL 11 or later. The rewrite examples are now
+  `gen_random_uuid()`, `random()`, and `clock_timestamp()`.
+- Django `unique=True`, Prisma `@unique`, SQLAlchemy, TypeORM, and JPA unique
+  settings do create constraints through generated migrations; the rule now
+  says to check the migration. Rails and Laravel validations never do.
+- Prisma `onDelete` is emulated in the client only under
+  `relationMode = "prisma"`; otherwise Prisma Migrate writes it into the DDL.
+- SQL Server: `READ_COMMITTED_SNAPSHOT` does not stop lost updates, while
+  SNAPSHOT isolation detects write-write conflicts (error 3960) but still
+  allows write skew.
+- A 32-bit key makes inserts fail at 2,147,483,647; the read-only mode belongs
+  to transaction ID wraparound, now described separately in SCALE.
+- `DECIMAL` with no scale truncates cents on MySQL (10,0) and SQL Server
+  (18,0); PostgreSQL `NUMERIC` with no precision is not a defect.
+- Overlaps inside the skill now have one owner each: missing index versus
+  missing foreign key (INDEX-R1 and INTEGRITY-R1); an unvalidated foreign key
+  (INTEGRITY-R3) or CHECK (CONSTRAINTS-R5) rather than MIGRATION; a packed list
+  of IDs (SCHEMA-R1) versus a weak junction table (INTEGRITY-R6); a missing
+  unique on a natural key (CONSTRAINTS-R1, not SCHEMA); an idempotency key
+  column without UNIQUE (CONSTRAINTS-R1) versus no key at all (TXN-R3);
+  non-overlap and uniqueness races (CONSTRAINTS) versus write skew no
+  constraint can express (TXN-R5); a rewritable predicate (QUERY-R4) versus an
+  inherent expression that needs an index (INDEX-R5); leading-wildcard search
+  (SEARCH-R1 behind a search feature, otherwise QUERY-R4); OFFSET and unbounded
+  results (QUERY, not SCALE); random UUID keys (TYPES-R3, not SCALE); the
+  statement timeout (QUERY-R7) versus pool capacity and role-default lock
+  timeouts (SCALE); a parent key widened without its referencing columns
+  (INTEGRITY-R5, not SCALE); the keyset tiebreaker (QUERY-R3, not SCALE); a
+  cross-row copy (SCHEMA-R6) versus a same-row derived value (CONSTRAINTS-R5);
+  soft delete split into INTEGRITY-R7, CONSTRAINTS-R2, and a SCHEMA design
+  check.
+
 ## [auditor-suite 1.0.0] - 2026-07-14
 
 Moved into the [auditor-suite](https://github.com/hannsxpeter/auditor-suite)
