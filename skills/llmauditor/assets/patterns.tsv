@@ -1,0 +1,84 @@
+# card	flags	globs	regex
+LLMSEC-R1	iq	@code	join\([^)]*(page_content|body|text|chunk|doc|article|passage|snippet|hit|result|match|context)
+LLMSEC-R1	iq	@code	(pagecontent|chunks|docs|documents|passages|articles|results|hits)[^;]*\.join\(
+LLMSEC-R2	q	@code	(^|[^[:alnum:]_.])(eval|exec)\(|new Function\(|pickle\.loads?\(|os\.system\(|shell[[:space:]]*=[[:space:]]*True|execSync\(|child_process
+LLMSEC-R2	q	@code,@web	innerHTML|outerHTML|insertAdjacentHTML|dangerouslySetInnerHTML|v-html|\{@html|mark_safe\(|Markup\(|\|[[:space:]]*safe|\{\{\{|<%-|marked\(|marked\.parse|unsafe_allow_html|res\.send\([^)]*(<|`)
+LLMSEC-R2	iq	@code	\.(execute|executemany|exec_driver_sql|raw)\([[:space:]]*(f["']|[a-z_]*(sql|query|stmt)[a-z_]*[[:space:]]*[,)])|queryrawunsafe|executerawunsafe
+LLMSEC-R2	q	@code	(requests|httpx)\.(get|post)\([[:space:]]*[a-z_]*url[a-z_]*[[:space:]]*[,)]|fetch\([[:space:]]*[a-zA-Z_]*(url|Url|URL|href|link)[a-zA-Z_]*[[:space:]]*[,)]|urlopen\(
+LLMSEC-R3	iq	@code,*.prompt,*.jinja,*.jinja2,*.j2,*.mustache,*.liquid,*.txt,*.yaml,*.yml	(only|never|must not|do not|don't|cannot)[[:space:]][^"']{0,60}(admin|other users|other customers|another (user|customer|tenant)|other tenants|their own|permission|authori[sz]ed|access)|(always|only) (filter|query|return|show)[^"']{0,40}(tenant|user|customer|account|own)
+LLMSEC-R3	iq	@code	(is_admin|is_allowed|allowed|authorized|is_authorized|has_access|has_permission|permitted|can_access)[^=]*=[^=]*(json\.loads|json\.parse|parsed|completion|response|output|result|reply|answer)
+LLMSEC-R4	iq	@code,@config	service_role|superuser|admin_token|admin_key|admin_api_key|root_token|master_key|service_account_key|bypassrls
+LLMSEC-R4	iq	@code	(args|arguments|tool_input|tool_args|params|input|kwargs)\[["'](user_?id|tenant_?id|account_?id|customer_?id|org_?id|owner_?id)["']\]|\.get\(["'](user_?id|tenant_?id|account_?id|customer_?id|org_?id|owner_?id)["']
+LLMSEC-R5	iq	@code,*.prompt,*.jinja,*.jinja2,*.j2,*.mustache,*.txt,*.yaml,*.yml,*.json,*.md	\{[[:space:]]*[a-z0-9_.]*(api_?key|secret|token|passw|credential|bearer|private_key|conn_?str|dsn)[a-z0-9_.]*[[:space:]]*\}
+LLMSEC-R6	iq	@code	(^|[^[:alnum:]])(ssn|dob)([^[:alnum:]]|$)|social_security|date_of_birth|dateofbirth|diagnosis|patient|medical_record|card_number|cardnumber|credit_card|iban|passport_number|tax_id|national_id
+LLMSEC-R6	iq	@code	(json\.dumps|json\.stringify|model_dump_json)\([[:space:]]*(user|customer|patient|record|row|profile|account|member)[a-z_]*[[:space:]]*[,)]
+LLMSEC-R6	iq	@code	(log|logger|logging|console|print)[a-z_.]*\([^)]*(prompt|messages|completion|choices)
+LLMSEC-R7	iq	@code,@sql	similarity_search|max_marginal_relevance_search|as_retriever|get_relevant_documents|query_points|search_points|vector_search|vectorsearch|knnvector|knn|nearest_neighbors|<=>|<->|<#>|\.query\([[:space:]]*(vector|embedding|query_vector|queryvector|query_embeddings)|search\([^)]*(query_vector|vector=)
+LLMSEC-R7	iq	@code	conversationbuffermemory|chatmessagehistory|chat_history|conversation_history|memory_store|memorysaver|checkpointer|thread_id
+LLMSEC-R8	i	@code,@config	store[[:space:]]*[=:][[:space:]]*(true|false)|["']store["'][[:space:]]*:|responses\.create|previous_response_id|retention|zero[_ -]?data|data_residency|inference_geo
+PROMPT-R1	i	@code	(prompt|content|input)["']?[[:space:]]*[=:][[:space:]]*(f["']|["']{3}|`)|completions\.create\([^)]*prompt[[:space:]]*=|\.(invoke|predict|run|generate)\([[:space:]]*f["']
+PROMPT-R2	i	@code	(system|instructions?|developer|preamble)[a-z_]*[[:space:]]*[=:][[:space:]]*(f["']|`[^`]*\$\{)
+PROMPT-R2	i	@code	(system|instruction|rules|preamble)[a-z_]*\.format\(|["']role["'][[:space:]]*:[[:space:]]*["'](system|developer)["'][[:space:]]*,[[:space:]]*["']content["'][[:space:]]*:[[:space:]]*(f["']|[a-z_.]+\.format\()
+PROMPT-R4	i	@code	you are (a|an|the) |you're (a|an) |as an ai
+PROMPT-R5	i	@code	(chat_history|history|conversation|memory|messages)[a-z_]*[[:space:]]*(\+=|\.(append|push|extend|concat)\()
+MODEL-R1	i	@code,@config	["'](gpt-|chatgpt-|chat-latest|o[1-9]|claude-|anthropic\.claude|us\.anthropic|eu\.anthropic|apac\.anthropic|global\.anthropic|gemini-|gemma|mistral-|mixtral|codestral|magistral|command-(r|a|light|nightly)|llama|meta\.llama|qwen|deepseek|grok-|jamba|amazon\.nova|nova-)[a-z0-9.:@/_-]*["']
+MODEL-R2	i	@code,@config	["'](gpt-|chatgpt-|chat-latest|o[1-9]|claude-|anthropic\.claude|us\.anthropic|eu\.anthropic|apac\.anthropic|global\.anthropic|gemini-|gemma|mistral-|mixtral|codestral|magistral|command-(r|a|light|nightly)|llama|meta\.llama|qwen|deepseek|grok-|jamba|amazon\.nova|nova-|text-embedding|text-davinci|embed-)[a-z0-9.:@/_-]*["']
+MODEL-R3	i	@code	model["']?[[:space:]]*[=:][[:space:]]*["'][a-z0-9.:@/_-]+["']
+MODEL-R4	i	@code,@config	(temperature|top_p|top_k|topp|topk|frequency_penalty|presence_penalty)["']?[[:space:]]*[=:]
+MODEL-R5	i	@code,@config	(max_tokens|max_completion_tokens|max_output_tokens|maxoutputtokens|maxtokens|budget_tokens|thinking_budget|thinkingbudget|thinking_level|thinkinglevel|reasoning_effort|reasoningeffort|["']effort|thinking)["']?[[:space:]]*[=:]
+MODEL-R6	i	@code,@config	(fallback[a-z_]*|select_model|choose_model|pick_model|model_router|llm_router|route_model|model_for[a-z_]*|cascade[a-z_]*|escalat[a-z_]*)["']?[[:space:]]*[=:(]
+APIUSE-R1	i	@code	\.content\[0\]\.text|content\[0\]|choices\[0\]\.(message|text)|\.output_text|response\.text|resp\.text|completion\.text|candidates\[0\]
+APIUSE-R1	-	@code	stop_reason|finish_reason|finishReason|stopReason|incomplete_details|refusal
+APIUSE-R2	i	@code,*.prompt,*.jinja,*.jinja2,*.j2,*.mustache,*.txt,*.md	(only|valid|strict|pure|raw)[[:space:]]+json|(respond|reply|answer|output)[a-z ]{0,20} json|json only|in json format|action input:|final answer:|json_object
+APIUSE-R3	i	@code	(^|[^[:alnum:]_])tools[[:space:]]*=|["']tools["'][[:space:]]*:|tool_choice|tool_use|tool_calls|tool_result|functiondeclarations|function_declarations|bind_tools|function_call
+APIUSE-R4	i	@code	cache_control|cachedcontent|caches\.create|prompt_cache_key|prompt_cache_retention|cached_tokens|cache_read_input_tokens|cached_content_token_count|cachedcontenttokencount
+APIUSE-R5	-	@code	(OpenAI|AsyncOpenAI|AzureOpenAI|AsyncAzureOpenAI|Anthropic|AsyncAnthropic|AnthropicBedrock|AnthropicBedrockMantle|AnthropicVertex|AnthropicFoundry|Mistral|Groq|ClientV2)\(|genai\.Client\(|new (OpenAI|Anthropic|AzureOpenAI|GoogleGenAI|GoogleGenerativeAI|Mistral|Groq|CohereClient)\(|Chat(OpenAI|Anthropic|GoogleGenerativeAI|VertexAI|Bedrock|Mistral|Ollama)\(|boto3\.client\(["']bedrock
+APIUSE-R6	-	@code,@config	openai\.(ChatCompletion|Completion|Embedding|Edit)\.create|beta\.assistants|beta\.threads|/v1/assistants|/v1/threads|(client|openai|anthropic)\.completions\.create|HUMAN_PROMPT|AI_PROMPT|function_call[[:space:]]*=|functions[[:space:]]*=[[:space:]]*\[|google\.generativeai|google-generativeai|@google/generative-ai|text-davinci|gpt-3\.5-turbo-instruct
+RELIABILITY-R1	-	@code	(OpenAI|AsyncOpenAI|AzureOpenAI|Anthropic|AsyncAnthropic)\(|genai\.Client\(|new (OpenAI|Anthropic|GoogleGenAI)\(|[Tt]imeout["']?[[:space:]]*[=:]|Timeout\(|wait_for\(|AbortSignal\.timeout|deadline
+RELIABILITY-R2	-	@code	retry_if_exception_type|retry_if_exception|retry_if_not_exception_type|@retry|on_exception|max_retries|maxRetries|num_retries|stop_after_attempt|pRetry|p-retry|async-retry|RetryError
+RELIABILITY-R3	i	@code	(time\.sleep|asyncio\.sleep)\(|wait_fixed|wait_exponential\(|wait_incrementing|retry-after|retry_after|backoff\.(expo|constant)
+RELIABILITY-R5	-	*.py	except[^:]*:[[:space:]]*(pass|return|continue)
+RELIABILITY-R5	-	*.js,*.jsx,*.ts,*.tsx,*.mjs,*.cjs	catch[[:space:]]*(\([^)]*\))?[[:space:]]*\{[[:space:]]*\}|\.catch\([[:space:]]*[(]?[^)]*\)?[[:space:]]*=>[[:space:]]*(""|''|null|undefined|\[\]|\{[[:space:]]*\})
+RELIABILITY-R6	i	@code	asyncio\.gather|promise\.all|promise\.allsettled|threadpoolexecutor|processpoolexecutor|as_completed|semaphore|p-limit|plimit|bottleneck|circuit|breaker|fallback
+OUTPUT-R1	-	@code	(json\.loads|JSON\.parse|json\.decode|yaml\.safe_load|yaml\.load|ast\.literal_eval|orjson\.loads|ujson\.loads)\(
+OUTPUT-R1	i	@code	re\.(search|match|findall|fullmatch)\([^)]*(content|text|output|completion|answer|reply)|(content|completion|answer|reply|output_text)[a-z_.]*\.(match|split)\(
+OUTPUT-R2	-	@code	(replace|replaceAll|split|strip|lstrip|rstrip|removeprefix|removesuffix)\([^)]*```|\{\.\*\??\\?\}|(find|index|indexOf)\(["']\{["']\)|(rfind|rindex|lastIndexOf)\(["']\}["']\)
+OUTPUT-R3	-	@code	JSONDecodeError|ValidationError|ZodError|safeParse|OutputParserException|OutputFixingParser|RetryOutputParser
+OUTPUT-R4	i	@code,@config	additionalproperties|["']strict["']|strict[[:space:]]*[=:]|json_schema|response_format|responseschema|response_schema|response_json_schema|output_config|text_format|basemodel\)|z\.object\(
+OUTPUT-R5	i	@code	tool_calls\[[0-9]\]|\.function\.arguments|function_call\.arguments|\.arguments\)|tool_use\.input|block\.input|\.input\[["']|toolcall\.args|\.args\[["']|\.args\.get\(
+OUTPUT-R6	i	@code	\[["'](approved|approve|is_valid|valid|is_safe|safe|allowed|refund|decision|verdict|action|category|priority|team|queue|route)["']\]|\.(approved|is_valid|is_safe|verdict|decision)([^[:alnum:]_(]|$)|should_[a-z_]+
+COST-R1	i	@code	f["'][^"']*\{[^}]*(datetime|now\(|today|time\.time|uuid|request_id|trace_id|random)|\$\{[^}]*(date|now\(|uuid|randomuuid|requestid|traceid|math\.random)
+COST-R1	i	@code	\{[[:space:]]*(now|today|timestamp|current_time|current_date|request_id|trace_id|uuid)[a-z_]*[[:space:]]*(\}|\.|:)
+COST-R1	-	@code	cache_control|prompt_cache_key|cachedContent|CachedContent|sort_keys
+COST-R2	i	@code,@shell,@ci,@config	batches\.create|messages\.batches|/v1/batches|batchgeneratecontent|batch_size|celery|cron|nightly|backfill|apply_async
+COST-R3	i	@code,@config	quota|budget|spend|usage_limit|token_limit|monthly_limit|daily_limit|rate_?limit|ratelimiter|slowapi|limiter|throttle
+COST-R4	i	@code	lru_cache|functools\.cache|@cache|@cached|redis|memcache|cache\.(get|set)|content_hash|sha256|hashlib|dedupe|singleflight
+EVAL-R1	i	@code,@config,@ci,@docs	promptfoo|ragas|deepeval|trulens|inspect_ai|braintrust|langsmith|openai-evals|golden|eval_set|evalset|test_cases|benchmark
+EVAL-R2	-	test_*.py,*_test.py,*.test.ts,*.test.js,*.spec.ts,*.spec.js,*.test.tsx,*.spec.tsx,conftest.py	(OpenAI|Anthropic|AsyncOpenAI|AsyncAnthropic)\(|genai\.Client\(|API_KEY|messages\.create|chat\.completions\.create|generate_content|responses\.create|mock|Mock|patch\(|vcr|cassette|respx|nock|msw|MockTransport
+EVAL-R3	i	@ci	eval|promptfoo|ragas|deepeval|pytest|npm (run )?test|vitest|jest|threshold|baseline
+EVAL-R4	i	@code,*.prompt,*.jinja,*.jinja2,*.j2,*.txt,*.md	judge|grader|rubric|pairwise|llm_as_a_judge|compare_responses|score_with
+EVAL-R5	i	@code,@config	recall@|recall_at|precision_at|mrr|ndcg|hit_rate|faithfulness|groundedness|context_precision|context_recall|answer_relevancy
+OBSERV-R1	i	@code,@config	langfuse|langsmith|helicone|opentelemetry|otel_|otel-|openllmetry|traceloop|arize-phoenix|arize\.|phoenix\.otel|logfire|wandb|braintrust|@observe|@traceable|start_as_current_span|tracer\.
+OBSERV-R2	i	@code	\.usage|usage\.|input_tokens|output_tokens|prompt_tokens|completion_tokens|total_tokens|cached_tokens|usage_metadata|usagemetadata|len\([^)]*\)[[:space:]]*/[[:space:]]*4|tiktoken|count_tokens|counttokens
+OBSERV-R3	i	@code	trace_id|traceid|request_id|requestid|correlation_id|correlationid|conversation_id|x-request-id|contextvars|asynclocalstorage|run_id|parent_run
+OBSERV-R4	i	@code,@config	histogram|percentile|p95|p99|alerting|alertmanager|alert_rule|pagerduty|opsgenie|prometheus|statsd|datadog|metrics\.|logger\.(error|exception)|console\.error|sentry
+OBSERV-R5	i	@code,@config	callbackhandler|langchaintracer|callbacks[[:space:]]*=|langfuse\(|tracerprovider|instrumentor|\.instrument\(|traceloop\.init|sample_rate|sampling_rate|traces_sample_rate|sampler
+SPEED-R1	i	@code,@config	stream["']?[[:space:]]*[=:]|\.stream\(|streamtext|streamobject|text/event-stream|streamingresponse|eventsourceresponse|x-accel-buffering|proxy_buffering|for await|async for
+SPEED-R2	i	@code	embeddings\.create|embed_content|embedcontent|embed_documents|embed_query|embedmany|\.embed\(|asyncio\.gather|promise\.all
+SPEED-R3	-	@code	(^|[^.A-Za-z])(OpenAI|Anthropic|AzureOpenAI|Mistral|Groq)\(|requests\.(get|post)\(|genai\.Client\(
+SPEED-R4	i	@code	create_task|ensure_future|backgroundtasks|background_tasks|add_task|setimmediate|queuemicrotask|\.delay\(|apply_async|enqueue|waituntil
+RAG-R1	iq	@code,@config	embeddings\.create|embed_content|embedcontent|embed_documents|embed_query|embedmany|embedquery|embeddocuments|\.embed\(|sentencetransformer|embed[a-z_]*model|text-embedding|voyage-|embed-(english|multilingual|v[0-9])|nomic-embed|gemini-embedding|titan-embed|(^|[^[:alnum:]])(bge|e5|gte)-
+RAG-R2	i	@code,@sql	<->|<#>|<=>|<\+>|vector_(l2|ip|cosine|l1)_ops|distance[a-z_]*["']?[[:space:]]*[=:]|metric["']?[[:space:]]*[=:]|normalize|distance\.(cosine|dot|euclid)
+RAG-R3	i	@code,@sql,@ci,@config,@shell	reindex|re_embed|reembed|re-embed|upsert|delete[a-z_]*\([^)]*(vector|embedding|chunk)|embed[a-z_]*version|embedding_model|model_version|index_version
+RAG-R4	i	@code	chunk_size|chunksize|chunk_overlap|chunkoverlap|textsplitter|split_text|split_documents|chunker|chunk\(|\[i:i[[:space:]]*\+
+RAG-R6	i	@code,@config	top_k|topk|similarity_top_k|n_results|search_kwargs|score_threshold|similarity_threshold|min_score|rerank|bm25|hybrid|rank_fusion|rrf|limit[[:space:]]*=[[:space:]]*[0-9]+|limit[[:space:]]+(%s|\$[0-9]|[0-9]+)
+RAG-R7	i	@code	input_type|inputtype|task_type|tasktype|["']query: |["']passage: |search_query: |search_document: |retrieval_query|retrieval_document|prompt_name
+AGENT-R1	iq	@code	(def|function|async def|async function)[[:space:]]+[a-z_]*(send|delete|remove|drop|purge|transfer|refund|pay|charge|deploy|execute|exec|shell|run_command|write_file|publish|email|sms|cancel)[a-z_]*
+AGENT-R1	iq	@code,@config	["']name["'][[:space:]]*:[[:space:]]*["'][a-z_]*(send|delete|remove|drop|purge|transfer|refund|pay|charge|deploy|execute|exec|shell|run|write|publish|email|sms|cancel)[a-z_]*["']
+AGENT-R1	q	@code	@tool([^[:alnum:]_]|$)|@function_tool|@beta_tool|FunctionTool|StructuredTool|betaZodTool|tool\(\{
+AGENT-R2	iq	@code	while[[:space:]]*[(]?[[:space:]]*(true|1)[[:space:]]*\)?[[:space:]]*(:|\{)|for[[:space:]]*\([[:space:]]*;[[:space:]]*;|max_iterations|recursion_limit|recursionlimit|max_turns|maxturns|max_steps|maxsteps|stopwhen|stepcountis|max_iter|maximum_remote_calls
+AGENT-R3	i	@code,@config	["']description["'][[:space:]]*:[[:space:]]*["']["']|description[[:space:]]*=[[:space:]]*["']["']|input_schema|inputschema|["']parameters["'][[:space:]]*:|args_schema|functiondeclaration
+AGENT-R4	i	@code	is_error|iserror|["']role["'][[:space:]]*:[[:space:]]*["']tool["']|role:[[:space:]]*["']tool["']|tool_call_id|toolcallid|tool_use_id|execute_tool|run_tool|call_tool|dispatch_tool|functionresponse
+AGENT-R5	i	@code	fetchall\(\)|\.read\(\)|readfile|read_text\(\)|response\.text|resp\.text|json\.dumps\(|json\.stringify\(|\.content\.decode
+AGENT-R6	i	@code,@config,@infra	subprocess|os\.system|child_process|spawn\(|execa|write_text|writefile|shutil\.|sandbox|e2b|firecracker|gvisor|seccomp|egress|allowlist|allow_list|allowed_hosts|allowed_domains|chroot
+AGENT-R7	i	@code,@config	mcpservers|mcp_servers|modelcontextprotocol|mcpclient|mcpserver|clientsession|stdio_client|sse_client|streamablehttp|streamable_http|mcp_toolset|npx[[:space:]]+-y|uvx[[:space:]]

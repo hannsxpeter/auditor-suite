@@ -4,6 +4,73 @@ All notable changes to llmauditor are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [auditor-suite 1.1.0] - 2026-09-26
+
+Restructured so the skill works for small and local models as well as frontier
+models. The audit knowledge is preserved; its shape changed.
+
+### Changed
+
+- `SKILL.md` is now a short spine (about 2,400 tokens, down from about 15,900):
+  contract, modes, an eight-step workflow checklist, the dimension table, and
+  judgment notes (the lethal trifecta, source to sink, code over prompt text,
+  paper controls, static limits, calibration, model-id principles).
+- Each lens's checklist became rule cards in `references/<DIM>.md`: where to
+  look, how to confirm, when it is not a finding, severity, fix, and how to
+  verify the fix. The twelve dimensions, their weights, and the conditional
+  RAG and AGENT rules are unchanged.
+- The security and data-loss floor is now enforced by marking LLMSEC and AGENT
+  as floor dimensions: one Critical finding in either holds the overall score
+  at 69.
+- Scores are computed by `scripts/score.sh` from the findings, so re-runs are
+  comparable; Suspected findings count half and never cap a score.
+- Findings drop the `Owner` field (the ID prefix is the owning dimension) and
+  must quote the cited code in Evidence; `check-report.sh` verifies it.
+- Model-id guidance stays principle-based; provider naming conventions (which
+  ids are aliases and which are pinned snapshots) now live in a dated facts
+  file instead of the prompt.
+
+### Added
+
+- Modes: `quick` (the ten Critical-class cards, no score), `only=DIM,DIM`, and
+  a path scope.
+- Read-only scripts: `inventory.sh`, `scan.sh`, `new-report.sh`, `score.sh`,
+  `check-report.sh`, driven by `assets/` tables (93 search patterns that
+  compile under grep and ripgrep, and surface probes for the LLM surface, RAG,
+  and AGENT).
+- `references/facts.md`: dated facts with verify-at links, including the OWASP
+  LLM Top 10 2025 IDs mapped to the 2026 edition (published 2026-08-03), the
+  OWASP Top 10 for Agentic Applications, provider model-id conventions and
+  recent retirements, stop reasons, structured outputs, prompt caching, SDK
+  timeout and retry defaults, deprecated endpoints (including the Assistants
+  API shutdown on 2026-08-26), and agent-framework loop defaults.
+- `references/example-report.md` (validated in CI against
+  `tests/fixtures/llmauditor/`) and an eval case under `evals/llmauditor/`: a
+  multi-tenant helpdesk copilot with ten planted defects and two decoys.
+- Card detail for checks that were implicit before: user or tenant IDs taken
+  from tool arguments (LLMSEC-R4), destinations the model chooses freely, such
+  as email recipients (AGENT-R1), SDK error classes that do not subclass
+  Python's built-in `ConnectionError` (RELIABILITY-R2), and a pgvector query
+  operator that does not match the index operator class, so the index is
+  skipped (RAG-R2).
+
+### Fixed
+
+- Overlaps between lenses now have one owner each, so one defect is filed
+  once: the stop reason is APIUSE-R1 (a mishandled stop reason is a RELIABILITY
+  check); unvalidated parsing is OUTPUT-R1, which also covers the missing
+  native structured-output mechanism (APIUSE-R2 keeps prose tool intent and
+  validated calls); the missing cache mechanism is APIUSE-R4 and the busted
+  cache is COST-R1; model tier for cost or latency is MODEL-R6; output caps
+  are MODEL-R5; the Batch API is COST-R2; unbounded history is PROMPT-R5;
+  usage capture and cost attribution are OBSERV-R2; timeouts and fan-out
+  limits are RELIABILITY-R1 and RELIABILITY-R6; sync clients in async code and
+  buffered streams are SPEED-R3 and SPEED-R1; embedding mismatch and
+  deprecation are RAG-R1 and RAG-R3; retrieval evals are EVAL-R5; tool-argument
+  validation is OUTPUT-R5; security decisions on model flags are LLMSEC-R3 and
+  correctness decisions OUTPUT-R6; secrets and personal data in LLM logs are
+  LLMSEC-R5 and LLMSEC-R6.
+
 ## [auditor-suite 1.0.0] - 2026-07-14
 
 Moved into the [auditor-suite](https://github.com/hannsxpeter/auditor-suite)

@@ -1,0 +1,13 @@
+# id	weight	applies	floor	name
+LLMSEC	17	always	yes	Security, Trust Boundaries, Safety and Data Governance
+PROMPT	12	always	no	Prompt Construction and Context Management
+MODEL	10	always	no	Model Selection, Configuration and Routing
+APIUSE	10	always	no	Provider API and SDK Usage
+RELIABILITY	10	always	no	Reliability, Retries and Fallback
+OUTPUT	8	always	no	Output Handling and Structured-Output Consumption
+COST	6	always	no	Cost, Quotas and Token Efficiency
+EVAL	5	always	no	Evaluation, Testing and Quality
+OBSERV	5	always	no	Observability and Monitoring
+SPEED	4	always	no	Latency and Throughput
+RAG	7	conditional	no	Retrieval, RAG, Indexing and Vector Search
+AGENT	6	conditional	yes	Agent and Tool Integration
