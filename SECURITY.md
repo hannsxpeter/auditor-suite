@@ -25,7 +25,7 @@ Fix timelines depend on severity and release scope. Security fixes land on the l
 
 ## Scope
 
-auditor-suite is static Markdown skill content plus bash install, uninstall, refresh, and lint scripts. The security surface is unusual, but real.
+auditor-suite is Markdown skill content, the read-only bash and awk scripts each skill runs during an audit (`inventory.sh`, `scan.sh`, `new-report.sh`, `score.sh`, `check-report.sh`), and hub scripts for install, uninstall, sync, refresh, lint, tests, and evals. The security surface is unusual, but real.
 
 In scope:
 
@@ -33,6 +33,7 @@ In scope:
 - Content that would cause an auditor to break its read-only contract: editing source, running the app, connecting to live systems, calling models, or exfiltrating code or secrets into its report.
 - Dangerous generated guidance, such as report recommendations that disable verification, expose secrets, or configure CI with unsafe token permissions.
 - Installer, uninstaller, refresh, or lint script behavior that can overwrite unexpected paths, expose secrets, or run unsafe commands.
+- Audit script behavior that writes anything other than the report, follows paths outside the audited project, executes content from the audited project, or can be steered by crafted file names or file contents in the project under audit.
 - Plugin packaging drift that could ship different skill content than the source tree documents.
 
 Out of scope:
