@@ -1,0 +1,19 @@
+{
+  "name": "shopfront-api",
+  "version": "0.3.0",
+  "private": true,
+  "description": "REST API behind the Shopfront web store.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "jsonwebtoken": "^9.0.2",
+    "lodash": "4.17.15",
+    "mysql2": "^3.9.1",
+    "node-fetch": "^2.7.0"
+  }
+}

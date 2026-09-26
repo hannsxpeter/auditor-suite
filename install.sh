@@ -13,8 +13,9 @@
 #   ~/.agents/skills/<skill>/ path. Both harnesses read this path
 #   natively per the Agent Skills standard at agentskills.io. Future
 #   AgentSkills-compatible harnesses inherit support for free.
-# - For each of the seven auditors, symlinks SKILL.md (and references/
-#   when present) from skills/<skill>/ into every detected harness.
+# - For each of the seven auditors, symlinks the runtime payload from
+#   skills/<skill>/ into every detected harness: SKILL.md plus the
+#   references/, scripts/, and assets/ folders the skill reads and runs.
 # - Idempotent. Re-run anytime.
 # - Bash 3.2 compatible (macOS default). No associative arrays.
 #
@@ -34,8 +35,9 @@ HUB_DIR="$SCRIPT_DIR"
 SKILLS_DIR="$HUB_DIR/skills"
 TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
 
-# Seven auditors.
+# Seven auditors, and the runtime payload each one needs.
 SKILLS="codeauditor secauditor dbauditor llmauditor seoauditor uiauditor uxauditor"
+PAYLOAD="SKILL.md references scripts assets"
 
 # Platforms: name and skills-dir path. Parallel lists keep bash 3.2 compat.
 # Agent_Skills is the neutral Agent Skills standard path read by pi,
@@ -66,8 +68,8 @@ Usage: install.sh [-v] [-h]
   -h   show this help
 
 Detects Claude Code, Codex, Cursor, pi, and OpenClaw; installs the
-seven auditor-suite skills into every detected harness via file-level
-symlinks from this repo's skills/<skill>/ directory. pi and OpenClaw
+seven auditor-suite skills into every detected harness via symlinks to
+each skill's SKILL.md, references/, scripts/, and assets/ in this repo. pi and OpenClaw
 are served via the neutral Agent Skills path at ~/.agents/skills/.
 EOF
 }
@@ -208,28 +210,25 @@ link_item() {
 }
 
 install_skill_into_platform() {
-  local skill platform_name platform_dir src_skill_md src_refs dst_dir
+  local skill platform_name platform_dir src dst_dir item
   skill="$1"
   platform_name="$2"
   platform_dir="$3"
-  src_skill_md="$SKILLS_DIR/$skill/SKILL.md"
-  src_refs="$SKILLS_DIR/$skill/references"
+  src="$SKILLS_DIR/$skill"
   dst_dir="$platform_dir/$skill"
 
-  if [ ! -f "$src_skill_md" ]; then
-    err "$skill: SKILL.md missing at $src_skill_md"
+  if [ ! -f "$src/SKILL.md" ]; then
+    err "$skill: SKILL.md missing at $src/SKILL.md"
     return 1
   fi
 
   mkdir -p "$dst_dir"
-  if ! link_item "$src_skill_md" "$dst_dir/SKILL.md" "SKILL.md"; then
-    return 1
-  fi
-  if [ -d "$src_refs" ]; then
-    if ! link_item "$src_refs" "$dst_dir/references" "references/"; then
+  for item in $PAYLOAD; do
+    [ -e "$src/$item" ] || continue
+    if ! link_item "$src/$item" "$dst_dir/$item" "$item"; then
       return 1
     fi
-  fi
+  done
   PLATFORM_LINK_COUNT=$((PLATFORM_LINK_COUNT + 1))
   return 0
 }

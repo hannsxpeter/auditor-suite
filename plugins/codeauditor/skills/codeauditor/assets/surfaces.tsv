@@ -1,0 +1,4 @@
+# dim	label	flags	globs	regex
+# codeauditor has no conditional dimensions and no _SURFACE probe: all nine
+# dimensions apply to every codebase, and inventory.sh already stops when it
+# finds no source code.

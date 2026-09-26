@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
-# refresh-plugins.sh: re-vendor the canonical skill content into the Claude
-# Code plugin packaging under plugins/<skill>/skills/<skill>/SKILL.md.
+# refresh-plugins.sh: re-vendor the canonical skill payload into the Claude
+# Code plugin packaging under plugins/<skill>/skills/<skill>/.
 #
-# The canonical source of truth is skills/<skill>/SKILL.md. Run this after any
-# canonical skill change, then verify with: bash scripts/lint.sh plugin-sync
+# The payload is what a harness needs at runtime: SKILL.md, references/,
+# scripts/, and assets/. README, CHANGELOG, LICENSE, and evals stay in the
+# canonical tree only. The canonical source of truth is skills/<skill>/.
+#
+# Runs scripts/sync-shared.sh first so the shared core is current, then copies
+# the payload. Verify with: bash scripts/lint.sh plugin-sync
 #
 # Bash 3.2 compatible.
 
@@ -11,16 +15,24 @@ set -eu
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SKILLS="codeauditor secauditor dbauditor llmauditor seoauditor uiauditor uxauditor"
+PAYLOAD="SKILL.md references scripts assets"
+
+bash "$ROOT/scripts/sync-shared.sh" > /dev/null
 
 for s in $SKILLS; do
-  src="$ROOT/skills/$s/SKILL.md"
-  dst_dir="$ROOT/plugins/$s/skills/$s"
-  if [ ! -f "$src" ]; then
-    printf "missing canonical skill: %s\n" "$src" >&2
+  src="$ROOT/skills/$s"
+  dst="$ROOT/plugins/$s/skills/$s"
+  if [ ! -f "$src/SKILL.md" ]; then
+    printf "missing canonical skill: %s/SKILL.md\n" "$src" >&2
     exit 1
   fi
-  mkdir -p "$dst_dir"
-  cp "$src" "$dst_dir/SKILL.md"
+  mkdir -p "$dst"
+  for item in $PAYLOAD; do
+    rm -rf "$dst/$item"
+    if [ -e "$src/$item" ]; then
+      cp -Rp "$src/$item" "$dst/$item"
+    fi
+  done
   printf "refreshed %s\n" "$s"
 done
 

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Book {{ cls.name }}</h1>
+<p>{{ cls.starts }} with {{ cls.teacher }}. Free for members; drop-in visitors pay $18 at the door.</p>
+<form method="post" novalidate onsubmit="this.querySelector('button[type=submit]').disabled = true">
+  <label for="name">Your name</label>
+  <input id="name" name="name" autocomplete="name" {% if errors.name %}aria-invalid="true" aria-describedby="name-error"{% endif %}>
+  {% if errors.name %}<p class="field-error" id="name-error">{{ errors.name }}</p>{% endif %}
+  <label for="email">Email for your booking confirmation</label>
+  <input id="email" name="email" type="email" autocomplete="email" {% if errors.email %}aria-invalid="true" aria-describedby="email-error"{% endif %}>
+  {% if errors.email %}<p class="field-error" id="email-error">{{ errors.email }}</p>{% endif %}
+  <button type="submit">Book my place</button>
+</form>
+{% endblock %}

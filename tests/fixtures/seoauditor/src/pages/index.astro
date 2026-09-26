@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro'
+
+const business = {
+  '@context': 'https://schema.org',
+  '@type': 'BicycleStore',
+  name: 'Tidewater Bike Repair',
+  url: 'https://www.tidewaterbikes.example/',
+  telephone: '+1-757-555-0142',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '14 Harbor Street',
+    addressLocality: 'Norfolk',
+    addressRegion: 'VA',
+    postalCode: '23510',
+    addressCountry: 'US',
+  },
+}
+---
+
+<Base
+  title="Bike repair and tune-ups in Norfolk"
+  description="Same-week bike repair, tune-ups, and wheel builds at Tidewater Bike Repair in Norfolk, Virginia."
+>
+  <h1>Bike repair in Norfolk, done this week</h1>
+  <p>Drop your bike off any weekday. We call you with a quote before we start work.</p>
+  <h2>What we fix</h2>
+  <ul>
+    <li>Flat tires and tubeless setups</li>
+    <li>Brake and gear adjustments</li>
+    <li>Wheel truing and full wheel builds</li>
+  </ul>
+  <a href="/services">See services and prices</a>
+  <script type="application/ld+json" set:html={JSON.stringify(business)} />
+</Base>

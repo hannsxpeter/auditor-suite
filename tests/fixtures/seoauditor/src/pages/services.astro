@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro'
+
+const services = [
+  { name: 'Basic tune-up', price: 65, detail: 'Brakes, gears, and a safety check.' },
+  { name: 'Full overhaul', price: 180, detail: 'Strip, clean, and rebuild the drivetrain and bearings.' },
+  { name: 'Wheel true', price: 25, detail: 'True one wheel and tension the spokes.' },
+]
+---
+
+<Base
+  title="Services and prices"
+  description="Tune-up, overhaul, and wheel truing prices at Tidewater Bike Repair in Norfolk."
+>
+  <h1>Services and prices</h1>
+  <ul>
+    {services.map((service) => (
+      <li>
+        <h2>{service.name}: ${service.price}</h2>
+        <p>{service.detail}</p>
+      </li>
+    ))}
+  </ul>
+</Base>

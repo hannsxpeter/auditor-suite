@@ -20,3 +20,6 @@ secaudit.md
 seoaudit.md
 uiaudit.md
 uxaudit.md
+
+# Eval run output from scripts/eval.sh (claude plugin eval results).
+evals/results/

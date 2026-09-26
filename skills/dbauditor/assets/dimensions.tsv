@@ -1,0 +1,12 @@
+# id	weight	applies	floor	name
+INTEGRITY	14	always	no	Referential Integrity and Relationships
+INDEX	13	always	no	Indexing Strategy
+QUERY	12	always	no	Query Performance and Access Patterns
+DBSEC	12	always	yes	Security and Data Protection at the Database Layer
+SCHEMA	11	always	no	Schema Design and Data Modeling
+CONSTRAINTS	10	always	no	Constraints and Data Validation
+TXN	9	conditional	no	Transactions, Concurrency and Consistency
+TYPES	7	always	yes	Data Types and Storage Efficiency
+MIGRATION	6	conditional	no	Migrations and Schema Evolution
+SEARCH	4	conditional	no	Search and Text Retrieval
+SCALE	2	always	no	Scalability, Growth and Operations

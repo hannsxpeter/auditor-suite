@@ -1,7 +1,7 @@
 {
   "name": "uxauditor",
-  "description": "Audit the product's UX, user journeys, processes, and workflows end to end, write uxaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never edits source. Invoke with /uxauditor in Claude Code or $uxauditor in Codex.",
-  "version": "1.0.0",
+  "description": "Audits a product's user experience from its code, copy, routes, and config (usability heuristics, accessibility of core journeys, journeys and flows, process and workflow efficiency, interaction and visual design, information architecture, UX writing, onboarding and conversion, forms, perceived performance, trust and deceptive design) and writes uxaudit.md, a scored, prioritized, self-contained report, then prints the verdict in chat. Use when the user asks for a UX audit, a usability or heuristic review, a user journey or workflow audit, a dark-pattern check, or a review of onboarding, forms, or checkout. Read-only and static: never edits source, never runs the app, a browser, or a usability test. Modes: full (default), quick (Critical-class triage), only=DIM,DIM, or a path. Invoke with /uxauditor in Claude Code or $uxauditor in Codex.",
+  "version": "1.1.0",
   "author": {
     "name": "aihxp",
     "url": "https://github.com/hannsxpeter"

@@ -1,0 +1,13 @@
+# Brightdesk
+
+> Brightdesk is a shared inbox and help desk for small support teams. Plans start at $19 per agent per month.
+
+## Product
+
+- [Pricing](https://www.brightdesk.example/pricing): plans, prices, and what each plan includes
+- [Customer stories](https://www.brightdesk.example/customers): how small teams use Brightdesk
+
+## Help center
+
+- [Getting started](https://www.brightdesk.example/docs/getting-started): connect your support email and invite your team
+- [Automations](https://www.brightdesk.example/docs/automations): tag, assign, and close conversations with rules

@@ -1,7 +1,7 @@
 {
   "name": "codeauditor",
-  "description": "Audit the codebase end to end, write codeaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never edits source. Invoke with /codeauditor in Claude Code or $codeauditor in Codex.",
-  "version": "1.0.0",
+  "description": "Audits a whole codebase end to end across nine dimensions (a security survey, architecture, code quality, testing, error handling, performance, dependencies, documentation drift, and observability) and writes codeaudit.md, a scored, prioritized, self-contained report with an architecture map, then prints the verdict in chat. Use when the user asks for a code audit, a codebase health check, a whole-repo review, technical due diligence, or how healthy or production-ready a repo is. Read-only: never edits source and never runs the project, its tests, or its builds. Modes: full (default), quick (Critical-class triage), only=DIM,DIM, or a path. Invoke with /codeauditor in Claude Code or $codeauditor in Codex.",
+  "version": "1.1.0",
   "author": {
     "name": "aihxp",
     "url": "https://github.com/hannsxpeter"

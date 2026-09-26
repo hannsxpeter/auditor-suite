@@ -4,6 +4,71 @@ All notable changes to uiauditor are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [auditor-suite 1.1.0] - 2026-09-26
+
+Restructured so the skill works for small and local models as well as frontier
+models. The audit knowledge is preserved; its shape changed.
+
+### Changed
+
+- `SKILL.md` is now a short spine (about 2,700 tokens, down from about 15,400):
+  contract, modes, an eight-step workflow checklist, the dimension table, and
+  judgment notes. Detail moved to files read only when a step needs them.
+- Each dimension's checklist became rule cards in `references/<DIM>.md`: 60
+  cards, 14 of them tagged quick. The ten dimensions, their weights, the
+  conditional re-normalization, and the accessibility floor are unchanged.
+- The ownership map became card placement: each defect has exactly one card,
+  in the dimension that owns the artifact. Items owned by sibling auditors
+  (HTML sinks, bundle weight, lifecycle bugs, visual hierarchy, UX copy) are
+  "Not here" lines, not cards.
+- Scores are computed by `scripts/score.sh` from the findings, so re-runs are
+  comparable. Suspected findings count half and never cap a score.
+- Findings drop the `Owner` field (the ID prefix is the owning dimension) and
+  must quote the cited code in Evidence; `check-report.sh` verifies it.
+- The acting-agent protocol is the suite's shared eight steps, with the UI rule
+  (fix at the markup and the control, prefer the native element over an ARIA
+  patch) as step 5.
+
+### Added
+
+- Modes: `quick` (Critical-class cards only, no score), `only=DIM,DIM`, and a
+  path scope.
+- Read-only scripts: `inventory.sh`, `scan.sh`, `new-report.sh`, `score.sh`,
+  `check-report.sh`, driven by 80 search patterns and by surface probes for
+  the I18N and NATIVE dimensions.
+- `references/example-report.md` (validated against `tests/fixtures/uiauditor/`),
+  `references/facts.md` (WCAG 2.2 criteria, INP replacing FID, Baseline dates
+  for dialog, popover, inert, `:focus-visible`, viewport units, container
+  queries, and `fetchpriority`, the Tailwind v4 outline change, and
+  accessibility law dates), and an eval case under `evals/uiauditor/`.
+- Checks that were implicit before: paste blocked on login fields (WCAG 3.3.8),
+  focus hidden under sticky bars (2.4.11), live regions mounted together with
+  their message, React Native text rendered outside `<Text>`, blocked back
+  navigation, Astro islands and Stimulus controllers that never hydrate,
+  unlayered styles that override an `@layer` order, and token sources that
+  disagree.
+
+### Fixed
+
+- Conflicts in the old ownership map now have one owner each: a pointer-only
+  `div` control is A11Y-R1, so its Critical reaches the accessibility floor,
+  while SEM-R1 keeps wrong-element hygiene; a focus indicator lost in the
+  cascade is A11Y-R6, not STYLE; captions for load-bearing media moved from
+  ASSET to A11Y-R7; a missing viewport meta is RESP-R2 and zoom blocking is
+  A11Y-R4; favicon and manifest are ASSET-R4, not SEM; native accessibility
+  props are A11Y cards, not NATIVE; a hover menu keyboard users cannot open is
+  A11Y-R1, while touch-only failures are RESP-R5; client-directive cost is
+  PERF-R4 and islands that never hydrate are COMP-R7; component types created
+  during render, styled components included, are COMP-R4; `@font-face`
+  settings are ASSET-R3 and font-swap layout shift is PERF-R6.
+- Corrected or sharpened claims: CSS custom properties do inherit through the
+  shadow boundary (document class rules and `:root` rules inside a shadow
+  stylesheet do not); a placeholder is announced as a fallback accessible
+  name, so a placeholder-only label is High, not an unnamed-control Critical;
+  several `h1` elements are not a failure by themselves; WCAG 2.2 removed
+  4.1.1 Parsing; Safari on iOS ignores `user-scalable=no`, but Android
+  browsers and in-app web views still honor it.
+
 ## [auditor-suite 1.0.0] - 2026-07-14
 
 Moved into the [auditor-suite](https://github.com/hannsxpeter/auditor-suite)

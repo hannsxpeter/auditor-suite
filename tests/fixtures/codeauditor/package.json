@@ -1,0 +1,18 @@
+{
+  "name": "tinyledger",
+  "version": "0.4.0",
+  "private": true,
+  "description": "A small household ledger API that runs on localhost.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.21.2"
+  }
+}

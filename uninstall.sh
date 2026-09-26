@@ -143,8 +143,9 @@ for name in $PLATFORM_NAMES; do
       vstep "$skill: nothing to remove"
       continue
     fi
-    remove_link "$sdir/SKILL.md" || true
-    remove_link "$sdir/references" || true
+    for item in SKILL.md references scripts assets; do
+      remove_link "$sdir/$item" || true
+    done
     # If the skill dir is now empty, remove it. Otherwise leave it.
     if [ -d "$sdir" ]; then
       if [ -z "$(ls -A "$sdir" 2>/dev/null)" ]; then

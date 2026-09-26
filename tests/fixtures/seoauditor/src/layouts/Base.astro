@@ -1,0 +1,48 @@
+---
+interface Props {
+  title: string
+  description: string
+}
+
+const { title, description } = Astro.props
+const pageUrl = new URL(Astro.url.pathname, Astro.site)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} | Tidewater Bike Repair</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={Astro.url.pathname} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content="/images/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/services">Services and prices</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <p>Tidewater Bike Repair, 14 Harbor Street, Norfolk, VA 23510. Call 757-555-0142.</p>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  body { margin: 0 auto; max-width: 42rem; font-family: system-ui, sans-serif; line-height: 1.5; }
+  nav { display: flex; gap: 1rem; padding: 1rem 0; }
+  footer { border-top: 1px solid #ccc; margin-top: 2rem; padding-top: 1rem; }
+</style>

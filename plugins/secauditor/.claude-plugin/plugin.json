@@ -1,7 +1,7 @@
 {
   "name": "secauditor",
-  "description": "Audit the codebase for security vulnerabilities end to end, write secaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never edits source, never runs exploits.",
-  "version": "1.0.0",
+  "description": "Audits a codebase for security vulnerabilities (access control, injection, authentication, cryptography, secrets, misconfiguration, supply chain, APIs, logging and privacy, cloud and IaC, LLM features) and writes secaudit.md, a scored, prioritized, self-contained report, then prints the verdict in chat. Use when the user asks for a security audit, a vulnerability or OWASP review, or a pre-launch security check. Read-only: never edits source, never runs exploits or the app. Modes: full (default), quick (Critical-class triage), only=DIM,DIM, or a path. Invoke with /secauditor in Claude Code or $secauditor in Codex.",
+  "version": "1.1.0",
   "author": {
     "name": "aihxp",
     "url": "https://github.com/hannsxpeter"

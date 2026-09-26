@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>My membership</h1>
+{% if membership.cancelled %}
+<p role="status">Your membership is cancelled. You keep access until {{ membership.renews }} and will not be charged again.</p>
+<form method="post" action="{{ url_for('resume_membership') }}">
+  <button type="submit">Resume my membership</button>
+</form>
+{% else %}
+<p>{{ membership.plan }}: {{ membership.price }} a month, renews on {{ membership.renews }}.</p>
+<form method="post" action="{{ url_for('cancel_membership') }}">
+  <p>Cancelling stops the next renewal. You keep access until {{ membership.renews }}.</p>
+  <button type="submit">Cancel my membership</button>
+</form>
+{% endif %}
+{% endblock %}

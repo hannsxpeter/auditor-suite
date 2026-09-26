@@ -1,0 +1,7 @@
+# dim	label	flags	globs	regex
+# uxauditor has no conditional dimensions. _SURFACE rows decide whether there is an experience to audit at all.
+_SURFACE	UI files (web pages, components, templates, styles)	-	@web,@style	.
+_SURFACE	native mobile or desktop UI code	-	@code	(SwiftUI|UIViewController|@Composable|setContentView|StatelessWidget|StatefulWidget|react-native|electron|tauri|WinForms|NSViewController)
+_SURFACE	CLI command definitions	i	@code	(commander|yargs|argparse|click\.command|@click\.|typer|cobra\.command|clap::|oclif|process\.argv|sys\.argv|flag\.parse)
+_SURFACE	API route definitions	-	@code	((app|router|server|api|r)\.(get|post|put|patch|delete|route)\(|@(Get|Post|Put|Patch|Delete|Request)Mapping|@app\.(route|get|post)|@router\.(get|post|put|delete)|urlpatterns|Route::|HandleFunc\(|export (async )?function (GET|POST|PUT|PATCH|DELETE))
+_SURFACE	workflow or state-machine config	i	@code,@config	(createMachine|xstate|state_machine|statemachine|aasm|bpmn|workflow|approval|transitions[[:space:]]*[:=])

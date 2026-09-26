@@ -1,0 +1,13 @@
+# id	weight	applies	floor	name
+CRAWL	14	always	yes	Crawlability and Indexation Control
+RENDER	13	always	yes	Rendering and Content-in-HTML
+CONTENT	12	always	no	On-Page Content, Headings and Semantic HTML
+CANON	11	always	yes	Canonicalization and Duplicate Content
+SCHEMA	10	always	no	Structured Data and Rich Results
+AIVIS	9	always	yes	AI and Generative-Engine Visibility
+URLARCH	8	always	yes	URL Architecture and Technical Configuration
+PERF	6	always	no	Performance and Core Web Vitals
+SOCIAL	5	always	no	Social and Sharing Metadata
+OBSV	3	always	yes	Analytics, Verification and SEO Observability
+I18N	5	conditional	yes	Internationalization and hreflang
+FEEDS	4	conditional	no	Feeds, Syndication, Installability and Fast-Indexing

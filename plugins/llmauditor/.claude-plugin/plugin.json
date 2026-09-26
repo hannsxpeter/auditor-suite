@@ -1,7 +1,7 @@
 {
   "name": "llmauditor",
-  "description": "Audit how the codebase integrates Large Language Models end to end (prompt construction and context, model selection and routing, provider API and SDK usage, reliability, security and trust boundaries, agents and tools, RAG and vector search, structured output, cost, speed, evaluation, and observability), write llmaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never calls a model, never runs the app, never mutates data or indexes. Invoke with /llmauditor in Claude Code or $llmauditor in Codex.",
-  "version": "1.0.0",
+  "description": "Audits how a codebase integrates large language models (security and trust boundaries, prompt construction, model selection and routing, provider API usage, reliability, structured output, cost, latency, evaluation, observability, RAG and vector search, agents and tools) and writes llmaudit.md, a scored, prioritized, self-contained report, then prints the verdict in chat. Use when the user asks for an LLM, AI, prompt, RAG, or agent audit, a prompt-injection or OWASP LLM review, or a readiness check of an AI feature. Read-only: never calls a model or embeddings endpoint, never runs the app or its agents. Modes: full (default), quick (Critical-class triage), only=DIM,DIM, or a path. Invoke with /llmauditor in Claude Code or $llmauditor in Codex.",
+  "version": "1.1.0",
   "author": {
     "name": "aihxp",
     "url": "https://github.com/hannsxpeter"

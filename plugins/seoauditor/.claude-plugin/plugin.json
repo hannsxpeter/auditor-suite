@@ -1,7 +1,7 @@
 {
   "name": "seoauditor",
-  "description": "Audit how the codebase makes a website visible to search engines and AI answer engines end to end (crawlability and indexation, rendering and content-in-HTML, on-page content and semantics, canonicalization, structured data, AI/generative-engine visibility, URL architecture and technical config, Core Web Vitals code signals, social metadata, internationalization, feeds and syndication, and SEO observability), write seoaudit.md (a scored, prioritized, self-contained report), then display the results in chat. Read-only: never crawls the live site, never runs Lighthouse, never calls Search Console or a model. Invoke with /seoauditor in Claude Code or $seoauditor in Codex.",
-  "version": "1.0.0",
+  "description": "Audits how a codebase makes its website visible to search engines and AI answer engines (crawl and index controls, server rendering, on-page content, canonicals, structured data, AI-crawler rules and llms.txt, URLs and redirects, Core Web Vitals code signals, share previews, hreflang, feeds, and SEO monitoring) and writes seoaudit.md, a scored, prioritized, self-contained report, then prints the verdict in chat. Use when the user asks for an SEO audit, a technical SEO or AI visibility (GEO, AEO) review, why pages are not indexed or cited, or a pre-launch search readiness check. Read-only: never edits source, never crawls the live site, never runs Lighthouse, and never calls Search Console, a validator, or a model. Modes: full (default), quick (Critical-class triage), only=DIM,DIM, or a path. Invoke with /seoauditor in Claude Code or $seoauditor in Codex.",
+  "version": "1.1.0",
   "author": {
     "name": "aihxp",
     "url": "https://github.com/hannsxpeter"

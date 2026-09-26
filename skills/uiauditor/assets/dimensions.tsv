@@ -1,0 +1,11 @@
+# id	weight	applies	floor	name
+A11Y	22	always	yes	Accessibility and Inclusive Markup
+SEM	14	always	no	Semantic HTML and Document Structure
+STYLE	13	always	no	Styling Architecture and CSS Correctness
+COMP	13	always	no	Component Implementation and UI State
+RESP	12	always	no	Responsive and Adaptive Layout
+PERF	11	always	no	Frontend Performance and Loading
+DS	9	always	no	Design System Consistency and Theming
+ASSET	6	always	no	Assets, Media, Icons and Fonts
+I18N	8	conditional	no	Internationalization and Localization Readiness
+NATIVE	9	conditional	no	Native and Cross-Platform UI Implementation

@@ -1,0 +1,12 @@
+/* Design tokens: the single source for color and radius. Tailwind reads them
+   through tailwind.config.js. */
+:root {
+  --color-brand-50: #eef2ff;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-sale: #dc2626;
+  --color-ink: #111827;
+  --color-muted: #4b5563;
+  --color-surface: #ffffff;
+  --radius-card: 0.75rem;
+}
