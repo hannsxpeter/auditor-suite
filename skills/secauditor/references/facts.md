@@ -22,7 +22,7 @@ Cite both IDs in References when a team may still use the 2021 list. Source: owa
 ## Other standards the cards cite
 
 - OWASP API Security Top 10: 2023 edition (API1 BOLA through API10 unsafe consumption of APIs). Source: owasp.org/API-Security.
-- OWASP Top 10 for LLM Applications: 2025 edition (LLM01 prompt injection through LLM10 unbounded consumption). Source: genai.owasp.org.
+- OWASP Top 10 for LLM Applications: the LLMSEC cards cite the 2025 edition (LLM01 prompt injection through LLM10 unbounded consumption). A 2026 edition was published on 2026-08-03 with the same entries reordered: Excessive Agency moved from LLM06 to LLM03, Unbounded Consumption from LLM10 to LLM06, and System Prompt Leakage (LLM07:2025) was broadened and renamed Hidden Context Exposure (LLM08:2026). llmauditor's facts.md carries the full mapping. In a report, cite the 2025 ID and add the 2026 ID in parentheses when the reader uses the 2026 list. Source: genai.owasp.org.
 - RFC 9700, Best Current Practice for OAuth 2.0 Security (published January 2025): authorization code with PKCE, no implicit or password grant, exact redirect URI matching.
 - RFC 8725, JSON Web Token Best Current Practices (2020): pin algorithms, reject `none`, validate `iss`, `aud`, and `exp`.
 - NIST SP 800-63B-4 (the revision 4 digital identity guidelines): breached-password screening over composition rules, no periodic forced rotation. Verify the publication status at csrc.nist.gov.
