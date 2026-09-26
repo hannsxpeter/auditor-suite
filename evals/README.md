@@ -21,7 +21,7 @@ The fixture for each skill is a small realistic project with six to ten planted 
 | Grader | Type | Checks | Arm |
 |---|---|---|---|
 | `finds-<slug>` | regex over the report | the report cites the planted defect's file and a line within about three lines of it | both |
-| `ignores-<slug>` | regex over the report, `not_contains` | no finding's `- Location:` line cites the decoy | with-only |
+| `ignores-<slug>` | regex over the report, `not_contains` | no finding's first cited location is the decoy | with-only |
 | `report-written` | regex over the report | the report exists and starts with a heading | both |
 | `finding-format` | regex over the report | at least one finding block in the exact format | both |
 | `read-only` | tool_used | the run never edited a file other than its report | both |
@@ -55,9 +55,9 @@ Runs call the model with your credentials and count against your plan or API bil
 
 ## Results so far
 
-Recorded in the hub [CHANGELOG](../CHANGELOG.md) for each release. For 1.1.0, secauditor on Haiku 4.5 with 3 runs per arm scored 1.00 on every run (all 11 planted vulnerabilities, no decoy flagged) against a no-skill mean of 0.60 (0.87, 0.73, 0.20).
+Recorded in the hub [CHANGELOG](../CHANGELOG.md) for each release. At 1.1.0, on Haiku 4.5, the seven skills scored 0.86 to 1.00 against 0.21 to 0.64 with no skill (mean delta +0.53). secauditor, run three times per arm, scored 1.00 on every run against a no-skill mean of 0.60. On Sonnet 5 it scored 1.00 against 0.87 without the skill: the frontier model finds most defects natively, so the skill adds less there.
 
-The first finding that shaped the 1.1.0 design: with the 1.0.0 secauditor, Haiku 4.5 loaded the 12,000-token skill, replied that "the audit is running", and ended its turn after three turns without writing a report (score 0.16). Every 1.1.0 spine now opens by telling the model to do the audit itself, now.
+The first finding that shaped the 1.1.0 design: three 1.0.0 skills (codeauditor, secauditor, dbauditor) made Haiku 4.5 load a long third-person skill, reply that "the audit is running", and end its turn without writing a report. Every 1.1.0 spine now opens by telling the model to do the audit itself, now.
 
 ## Other models and harnesses
 
