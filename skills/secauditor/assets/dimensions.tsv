@@ -1,0 +1,12 @@
+# id	weight	applies	floor	name
+AUTHZ	18	always	no	Authorization and Access Control
+INJ	16	always	no	Injection and Unsafe Input Handling
+AUTHN	15	conditional	no	Authentication and Session Management
+CRYPTO	11	always	no	Cryptography and Data Protection
+MISCFG	9	always	no	Security Misconfiguration and Hardening
+SUPPLY	9	always	no	Dependencies and Software Supply Chain
+SECRET	8	always	no	Secrets Management
+APISEC	6	conditional	no	API and Web Service Security
+LOGPRIV	4	always	no	Logging, Monitoring and Data Privacy
+IAC	2	conditional	no	Cloud, Container and Infrastructure-as-Code Security
+LLMSEC	2	conditional	no	AI and LLM Application Security

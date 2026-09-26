@@ -1,0 +1,6 @@
+# dim	label	flags	globs	regex
+AUTHN	login, session, token, or password code	i	@code	(login|logout|signin|sign_in|session|jwt|jsonwebtoken|passport|bcrypt|argon2|password|oauth|authenticate|next-auth|devise|flask_login)
+APISEC	HTTP routes or API handlers	-	@code	((app|router|server|api|r|e)\.(get|post|put|patch|delete|route|all)\(|@(Get|Post|Put|Patch|Delete|Request)Mapping|@app\.(route|get|post)|@router\.(get|post|put|delete)|urlpatterns|Route::|http\.HandleFunc|HandleFunc\(|ResponseWriter|GraphQL|graphql|export (async )?function (GET|POST|PUT|PATCH|DELETE))
+IAC	container or infrastructure files	-	@infra	.
+IAC	Kubernetes manifests	-	*.yaml,*.yml	^kind:[[:space:]]*(Deployment|StatefulSet|DaemonSet|Pod|Job|CronJob|Ingress|Role|ClusterRole|RoleBinding|ClusterRoleBinding|NetworkPolicy)
+LLMSEC	model provider SDKs or LLM frameworks	i	@code,@config	(openai|anthropic|google-genai|generativeai|@google/genai|langchain|llama_index|llamaindex|mistralai|cohere|ollama|bedrock-runtime|litellm|chat\.completions|messages\.create)
