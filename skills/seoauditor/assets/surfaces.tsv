@@ -1,0 +1,12 @@
+# dim	label	flags	globs	regex
+_SURFACE	HTML documents or page templates	i	@web	<(html|head|body|title|main|article)([[:space:]>]|$)
+_SURFACE	a head or metadata API	-	@code,@web	(generateMetadata|export const metadata|useSeoMeta|useHead\(|svelte:head|<Helmet|next/head|next-seo|MetaFunction|export const meta|jekyll-seo-tag|wp_head|ghost_head|set_meta_tags|SEOMeta::)
+_SURFACE	a robots.txt, sitemap, or llms.txt file or generator	-	robots.txt,robots.*,sitemap*.xml,sitemap.*,next-sitemap.config.*,llms.txt	.
+I18N	a locales list with more than one entry	i	@code,@config	locales['"]?[[:space:]]*[:=][[:space:]]*\[[^]]*,
+I18N	hreflang or language alternates	i	@code,@web,@config	(hreflang|languages:[[:space:]]*\{|xhtml:link)
+I18N	an i18n library or a locale route parameter	-	@code,@config	(next-intl|next-i18next|react-i18next|vue-i18n|@nuxtjs/i18n|svelte-i18n|paraglide|i18n_patterns|LocaleMiddleware|available_locales|\[locale\]|\[lang\]|params\.locale|params\.lang)
+FEEDS	an RSS, Atom, or JSON feed	i	@code,@web,@config,*.xml	(application/(rss|atom)\+xml|application/feed\+json|@astrojs/rss|jekyll-feed|eleventy-plugin-rss|contrib\.syndication|<rss[[:space:]]|<feed[[:space:]]|jsonfeed\.org)
+FEEDS	a blog, news, or changelog content stream	-	@code,@config	(getAllPosts|getPosts\(|allPosts|getCollection\([[:space:]]*['"](blog|posts|news|articles|changelog)|BlogPosting|NewsArticle)
+FEEDS	a news, image, or video sitemap	i	@code,@web,@config,*.xml	(xmlns:(news|image|video)=|<news:news|<image:image|<video:video)
+FEEDS	an IndexNow integration	i	*	indexnow
+FEEDS	a web app manifest	i	manifest.json,*.webmanifest,manifest.ts,manifest.js,@web	(rel=['"]?manifest|"start_url"|start_url:|manifest['"]?[[:space:]]*:[[:space:]]*['"]/)

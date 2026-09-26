@@ -4,6 +4,67 @@ All notable changes to seoauditor are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [auditor-suite 1.1.0] - 2026-09-26
+
+Rebuilt for small and local models as well as frontier models: a short spine,
+rule cards read on demand, and shared scripts that do the mechanical work. The
+domain knowledge of 1.0.0 is kept; it now lives in cards, stacks.md, and
+facts.md.
+
+### Changed
+- `SKILL.md` is now a spine of about 11 KB (was about 72 KB): contract, modes,
+  an eight-step workflow, the dimension table, and judgment notes. The
+  checklists moved into twelve card files, `references/<DIM>.md`, with 74
+  rule cards.
+- The ownership map became card placement: each defect has one card in its
+  owning dimension, and each file's "Not here" line points to the owner of
+  nearby defects (for example the environment noindex guard is CRAWL-R1 in
+  page metadata and URLARCH-R4 in header config; soft 404s are URLARCH-R1 on
+  the server and RENDER-R5 in a client-rendered app).
+- Findings use the suite's shared format and protocol; the separate "Owner"
+  field is gone because the dimension is the owner.
+- Scoring is computed by `score.sh`. The visibility floor is now the floor
+  dimensions CRAWL, RENDER, CANON, AIVIS, URLARCH, OBSV, and I18N: one
+  Critical finding in any of them holds the overall score at 69.
+- The Critical-class list is now the set of `(quick)` cards, each with
+  explicit severity conditions.
+
+### Added
+- Modes: `quick` (Critical-class triage without a score), `only=DIM,DIM`
+  (partial score), and path scoping.
+- Shared read-only scripts: `inventory.sh`, `scan.sh`, `new-report.sh`,
+  `score.sh`, and `check-report.sh`, plus `assets/skill.conf`,
+  `dimensions.tsv`, `patterns.tsv` (79 lead patterns for 72 of the 74 cards,
+  valid in both grep and ripgrep), and `surfaces.tsv` (probes for the site
+  surface, I18N, and FEEDS).
+- `references/stacks.md`: where Next.js (App and Pages Router), Nuxt, Astro,
+  SvelteKit, Remix and React Router 7, Gatsby, Angular, plain SPAs,
+  WordPress, Hugo, Jekyll, Eleventy, Docusaurus, Django, Rails, Laravel,
+  hosted platforms, and common hosts put each visibility signal.
+- `references/facts.md`: dated facts with sources and a last-reviewed date
+  (robots and sitemap rules, FAQ and HowTo changes in 2023, the sitelinks
+  search box retirement in November 2024, the June 2025 structured-data
+  retirements, AI crawler user agents, llms.txt status, Google-Extended,
+  IndexNow, analytics sunsets).
+- `references/example-report.md`, a finished report of the Astro fixture in
+  `tests/fixtures/seoauditor/`, and an eval case in
+  `evals/seoauditor/full-audit/` (a Next.js App Router site with nine planted
+  defects and two decoys).
+
+### Fixed
+- RENDER no longer treats `'use client'` as proof of client-only content;
+  client components still render on the server, and the card asks what the
+  server HTML contains.
+- Soft 404 ownership was split two ways in 1.0.0 (the SPA fallback appeared
+  under both RENDER and URLARCH); each case now has one card.
+- Viewport, apple-touch-icon, licensing, and date checks each had two owners;
+  each now has one (SOCIAL-R6, SOCIAL-R4, AIVIS-R4, and AIVIS-R5 with SCHEMA-R2).
+- The X card check no longer claims that `property=` makes twitter tags inert;
+  it asks for the documented `name=` attribute.
+- Claims that could not be confirmed at review time, such as the widely cited
+  share of llms.txt files with no AI fetches, are marked "verify" in
+  facts.md instead of being stated as fact.
+
 ## [auditor-suite 1.0.0] - 2026-07-14
 
 Moved into the [auditor-suite](https://github.com/hannsxpeter/auditor-suite)
