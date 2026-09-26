@@ -71,7 +71,7 @@ Read first: the login, logout, signup, reset, and MFA handlers, the session or t
 - Verify the fix: a used or expired reset token is rejected, and the bypass flag no longer exists.
 - Refs: CWE-640, CWE-798, CWE-204, OWASP A07:2025
 
-### AUTHN-R8 Identity taken from a client-supplied header or claim without verification
+### AUTHN-R8 Identity taken from a client-supplied header or claim without verification (quick)
 - Leads: `scan.sh AUTHN-R8` lists reads of `X-User-Id`, `X-Forwarded-User`, `X-Remote-User`, and similar headers.
 - Confirm: the app trusts an identity header or an unverified token claim set by the client, relying on a proxy that is not guaranteed to strip it.
 - Not a finding if: the header is set by an authenticating proxy that strips client copies and the app is unreachable except through it (cite the config).
