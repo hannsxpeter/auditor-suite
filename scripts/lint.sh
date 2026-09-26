@@ -78,10 +78,11 @@ title(){ printf "%s\n" "$*"; }
 fail_lines() {
   [ -n "$1" ] || return 0
   while IFS= read -r msg; do
-    [ -n "$msg" ] && fail "$msg"
+    if [ -n "$msg" ]; then fail "$msg"; fi
   done <<EOF
 $1
 EOF
+  return 0
 }
 
 frontmatter_of() {
@@ -217,12 +218,17 @@ check_skill_structure() {
       if [ -z "$regex" ]; then printf '%s: patterns.tsv row for %s needs 4 tab-separated fields\n' "$s" "$card"; continue; fi
       line="$(printf '%s\n' "$cards" | awk -v c="$card" '$1 == c')"
       if [ -z "$line" ]; then printf '%s: patterns.tsv names %s, which is not a card\n' "$s" "$card"; continue; fi
-      case "$flags" in -|*[!iq]*) [ "$flags" = "-" ] || printf '%s: patterns.tsv %s flags "%s"; use -, i, q, or iq\n' "$s" "$card" "$flags" ;; esac
+      # Parenthesized case patterns: bash 3.2 cannot parse a bare ")" pattern
+      # inside $(...). Every branch ends in "true" so set -e never fires here.
+      case "$flags" in (-|*[!iq]*) [ "$flags" = "-" ] || printf '%s: patterns.tsv %s flags "%s"; use -, i, q, or iq\n' "$s" "$card" "$flags" ;; esac
+      is_quick=0
+      printf '%s\n' "$line" | grep -q '(quick)[[:space:]]*$' && is_quick=1
       case "$flags" in
-        *q*) printf '%s\n' "$line" | grep -q '(quick)[[:space:]]*$' || printf '%s: patterns.tsv %s has flag q but the card is not tagged (quick)\n' "$s" "$card" ;;
-        *) printf '%s\n' "$line" | grep -q '(quick)[[:space:]]*$' && printf '%s: patterns.tsv %s belongs to a (quick) card; add flag q\n' "$s" "$card" ;;
+        (*q*) [ "$is_quick" = "1" ] || printf '%s: patterns.tsv %s has flag q but the card is not tagged (quick)\n' "$s" "$card" ;;
+        (*) [ "$is_quick" = "0" ] || printf '%s: patterns.tsv %s belongs to a (quick) card; add flag q\n' "$s" "$card" ;;
       esac
-    done)"
+      true
+    done; true)"
     if [ -n "$rest" ]; then
       fail_lines "$rest"
     else
