@@ -1,0 +1,12 @@
+# id	weight	applies	floor	name
+USE	13	always	no	Usability and Heuristics
+ACC	13	always	no	Accessibility and Inclusive Design
+JRN	11	always	no	User Journeys and Flows
+PROC	11	always	no	Process and Workflow Efficiency
+IXD	9	always	no	Interaction and Visual Design
+IA	8	always	no	Information Architecture and Navigation
+CNT	8	always	no	Content and UX Writing
+CNV	8	always	no	Onboarding, Conversion and Engagement
+FRM	7	always	no	Forms and Input
+PRF	6	always	no	Performance and Responsiveness
+TRU	6	always	no	Trust, Ethics and Transparency
