@@ -1,125 +1,61 @@
 # codeauditor
 
-[![checks](https://github.com/hannsxpeter/codeauditor/actions/workflows/checks.yml/badge.svg)](https://github.com/hannsxpeter/codeauditor/actions/workflows/checks.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Release](https://img.shields.io/github/v/release/aihxp/codeauditor?sort=semver)](https://github.com/hannsxpeter/codeauditor/releases) [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+A read-only **code audit** skill for AI coding agents, part of the [auditor-suite](../../README.md). It audits the whole codebase in the current directory, writes a scored, prioritized, self-contained `codeaudit.md` at the project root, and prints the verdict in chat. It never edits source and never runs the project, its tests, or its builds.
 
-**codeauditor is an installable skill for AI coding agents.** You install it once, then run it from whichever AI coding tool you use. It audits a codebase end to end, writes a single scored report (`codeaudit.md`), and prints the verdict right in your chat.
+- Claude Code: `/codeauditor` (or ask "audit this codebase")
+- Codex: `$codeauditor`
+- Other Agent Skills harnesses: the harness's native skill invocation
 
-It installs as a skill or a `/codeauditor` slash command across Claude Code, OpenAI Codex CLI, Gemini CLI, Cursor, opencode, Windsurf, Antigravity, and pi (pi.dev), all rendered from one source of truth.
+## What it audits
 
-The report is written for a reader with no memory of the audit, typically an AI agent that opens `codeaudit.md` and decides on its own what to fix. Every finding cites exact locations and carries the context needed to act on it cold.
+Nine dimensions, all always active, so every codebase is scored on all nine. Security is a survey of the highest-signal checks; run [secauditor](../secauditor) for depth, and dbauditor, llmauditor, uiauditor, or uxauditor for their layers.
 
-## What it does
+| ID | Dimension | Weight | Cards |
+|---|---|---|---|
+| SEC | Security | 20 | 8 |
+| ARC | Architecture and Design | 15 | 8 |
+| QUAL | Code Quality and Maintainability | 15 | 6 |
+| TEST | Testing and Verification | 15 | 5 |
+| ERR | Error Handling and Resilience | 10 | 6 |
+| PERF | Performance and Efficiency | 8 | 5 |
+| DEP | Dependencies and Supply Chain | 7 | 6 |
+| DOC | Documentation and Drift | 5 | 4 |
+| OBS | Observability and Operability | 5 | 7 |
 
-A full, read-only analysis across nine lenses (Security, Architecture, Code Quality, Testing, Error Handling, Performance, Dependencies, Documentation, Observability). It scores each against an explicit rubric, clusters repeated issues into root-cause patterns, ends with a weighted overall score, and prints a summary to the chat so you see the verdict without opening the file. Source code is never modified; the only file it writes is `codeaudit.md`.
+The weights are fixed; `score.sh` applies them as written.
+
+## Modes
+
+- `/codeauditor` or `/codeauditor full`: every dimension and every card.
+- `/codeauditor quick`: only the Critical-class cards (13 of 55); no numeric score. A good first pass for small models or large repos.
+- `/codeauditor only=SEC,ERR`: a subset of dimensions with a partial score.
+- `/codeauditor src/api` (or `quick src/api`): limit the audit to a path.
+
+## How it works
+
+The skill is a short procedural spine (`SKILL.md`) plus files it reads only when needed:
+
+- `references/protocol.md`: the shared rules for evidence, the finding format, severity, confidence, scoring, and finishing.
+- `references/<DIM>.md`: one file of rule cards per dimension (`SEC.md`, `ARC.md`, `QUAL.md`, `TEST.md`, `ERR.md`, `PERF.md`, `DEP.md`, `DOC.md`, `OBS.md`). Each card says where to look (a `scan.sh` lead or the files to read), how to confirm the defect, when it is not a finding, the severity, the fix, and how to verify the fix. Every dimension also lists its paper controls: code that looks protective and does nothing, such as a catch that swallows the error or a health check that checks nothing.
+- `references/example-report.md`: a complete report of the small project in `tests/fixtures/codeauditor/`, validated on every lint run, as a format anchor.
+- `references/facts.md`: dated facts (HTTP client timeout defaults, async error behavior, runtime end-of-life dates, deprecated packages and APIs) with a review date.
+- `scripts/`: read-only helpers shared by the suite. `inventory.sh` maps the project and its size; `scan.sh` turns cards into `path:line` leads using `assets/patterns.tsv`; `new-report.sh` writes the report skeleton; `score.sh` computes every score from the findings; `check-report.sh` validates the report, including that every cited `path:line` exists and contains the quoted code.
+- `assets/`: the report template and the tables the scripts read (`skill.conf`, `dimensions.tsv`, `patterns.tsv`, `surfaces.tsv`).
+
+The model does the judgment (reading code, confirming or refuting each lead, choosing severity); the scripts do the bookkeeping. Scores are deterministic: the same findings always produce the same score, so re-running the audit after fixes measures progress.
 
 ## Install
 
-codeauditor is a skill, so installing it means rendering it into your AI tools' skill and command directories. The installer detects which tools you have under your home directory and writes the correct file for each. Only tools you actually have are touched.
+Use the hub installer or the plugin marketplace; see the [suite README](../../README.md#install). A manual install must copy or link the whole skill directory (`SKILL.md`, `references/`, `scripts/`, `assets/`), not just `SKILL.md`.
 
-### Option A: from source
+## Output
 
-```sh
-git clone https://github.com/hannsxpeter/codeauditor
-cd codeauditor
-./install.sh
-```
+`codeaudit.md` is written for a reader with no memory of the audit, typically another agent that will fix the findings: snapshot, architecture map (modules, layers, state, integrations, and two or three flows traced with `path:line`), score and scorecard, what to fix first, strengths to preserve, systemic root causes, findings with quoted `path:line` evidence and a way to verify each fix, dimension notes, a remediation plan, scope and limitations, and a protocol for the acting agent.
 
-### Option B: from a release download
+## Evaluation
 
-Download `codeauditor-1.0.0.zip` (or `.tar.gz`) from the [latest release](https://github.com/hannsxpeter/codeauditor/releases/latest), then:
-
-```sh
-unzip codeauditor-1.0.0.zip
-cd codeauditor-1.0.0
-./install.sh
-```
-
-Re-run `./install.sh` any time after editing the engine to re-sync every tool. Run `./install.sh uninstall` to remove it from every tool. Either way, it installs into each tool's user-level config (for example `~/.claude/skills/`, `~/.codex/skills/`), so the skill is available globally in every project, not just one.
-
-### Optional: a global installer command
-
-To run the installer from any directory, put it on your PATH (from the repo root):
-
-```sh
-ln -sf "$PWD/install.sh" ~/.local/bin/codeauditor-install
-```
-
-Then `codeauditor-install` re-syncs every tool from anywhere, and `codeauditor-install uninstall` removes it. The installer resolves its own path through the symlink, so it still finds the engine.
-
-## How to run it
-
-After installing, open your AI coding tool in the project you want to audit, then run the command:
-
-- **Codex:** type `$codeauditor` (Codex skills use a `$` prefix)
-- **Gemini, Cursor, Windsurf, opencode, pi:** type `/codeauditor`
-- **Claude Code, Antigravity:** type `/codeauditor`, or say "audit my codebase" (the skill triggers on its own)
-
-The agent analyzes the project, writes `codeaudit.md` at the project root, and prints a summary in the chat: the overall score and grade, the per-dimension scorecard, the top fixes, and finding counts by severity. From there you can ask that same agent to start fixing, or hand `codeaudit.md` to another agent that will act on it.
-
-It is read-only. It never changes your source. The only file it creates is `codeaudit.md`.
-
-## Cross-tool support
-
-The behavior lives in one file, [`engine/codeauditor.md`](engine/codeauditor.md). The installer renders that one file into each tool's native format, so the skill behaves identically everywhere.
-
-| Tool | Installed as | How you run it |
-|---|---|---|
-| Claude Code | skill (`~/.claude/skills/codeauditor/`) | `/codeauditor` (or ask "audit my codebase") |
-| OpenAI Codex CLI | skill + command (`~/.codex/`) | `$codeauditor` |
-| Gemini CLI | skill + command (`~/.gemini/`) | `/codeauditor` |
-| Cursor | skill + command (`~/.cursor/`) | `/codeauditor` |
-| Windsurf | command (`~/.windsurf/commands/`) | `/codeauditor` |
-| opencode | command (`~/.config/opencode/command/`) | `/codeauditor` |
-| Antigravity | skill (`~/.antigravity/skills/`) | ask "audit my codebase" |
-| pi (pi.dev) | skill, flat file (`~/.pi/skills/codeauditor.md`) | `/codeauditor` |
-| Any other tool that reads `AGENTS.md` | portable directive | ask "audit codebase" (see [AGENTS.md](AGENTS.md)) |
-
-Tools without a skill or command system (for example ones that only read an `AGENTS.md`) are covered by the portable directive in [AGENTS.md](AGENTS.md): drop it into a project's `AGENTS.md` or a global one and the same audit behavior applies. To add a tool the installer does not know about, copy the engine into that tool's command or prompt directory (wrapping it in whatever frontmatter the tool expects).
-
-## The philosophy
-
-A few principles separate a useful audit from a decorative one:
-
-- **Evidence over assertion.** No claim survives without a `file:line`. Every sentence must fail the substitution test: if it would read true for some other codebase, it is filler.
-- **Verify against reality.** Read the code, not the comments, names, or docs. Where a doc claims one thing and the code does another, the gap is itself a finding.
-- **Refuse theater.** Hunt for constructs that look robust but carry no weight: swallowed errors, validators never called, middleware registered but not applied, tests that assert nothing, health checks that check nothing.
-- **Find the root, not the leaves.** Twelve instances of one mistake are one systemic finding, not twelve.
-- **Verify adversarially.** Try to refute each finding before keeping it; tag confidence so the reader acts on confirmed issues directly and re-checks suspected ones first.
-- **Calibrate and be honest about scope.** Grade against the project's evident maturity, and state what was and was not examined.
-- **Specific, actionable recommendations**, each with a way to verify the fix, so an agent can act autonomously.
-
-## Layout
-
-```
-codeauditor/
-  engine/
-    codeauditor.md      the complete, tool-neutral skill (the one source of truth)
-  install.sh            detects installed tools and renders the engine into each
-  AGENTS.md             portable directive for any AGENTS.md-aware tool, plus repo notes
-  README.md             this file
-  CONTRIBUTING.md       how to contribute (edit the engine, re-run the installer)
-  CHANGELOG.md          release history
-  SECURITY.md           what the skill does and does not do, and how to report issues
-  CODE_OF_CONDUCT.md    community expectations
-  LICENSE               MIT
-```
-
-## Editing
-
-Change behavior in `engine/codeauditor.md` only, then re-run `./install.sh`. Do not edit the per-tool copies by hand; they are generated and will be overwritten on the next install.
-
-## Documentation
-
-- [CONTRIBUTING.md](CONTRIBUTING.md) - how to make and test changes, and how to add a new tool adapter.
-- [CHANGELOG.md](CHANGELOG.md) - release history.
-- [SECURITY.md](SECURITY.md) - the skill is read-only; how to report a vulnerability and handle reports.
-- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) - community expectations.
-- [AGENTS.md](AGENTS.md) - portable directive for any tool that reads `AGENTS.md`.
-
-## Contributing
-
-Contributions are welcome. The one rule: all behavior lives in `engine/codeauditor.md`, and everything else is generated by `install.sh`. See [CONTRIBUTING.md](CONTRIBUTING.md).
+`evals/codeauditor/full-audit/` holds a small Flask service with ten planted defects (one per file) and two decoys, an answer key, and graders for recall, precision, format, and read-only behavior. Run it with `bash scripts/eval.sh codeauditor` from the hub root.
 
 ## License
 
-[MIT](LICENSE), copyright 2026 aihxp.
+MIT. See [LICENSE](LICENSE).
