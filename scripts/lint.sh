@@ -333,6 +333,12 @@ check_evals_structure() {
     [ "$(ls "$c/graders" 2>/dev/null | grep -c '^finds-')" -ge 5 ] || fail "$s: eval case needs at least 5 graders/finds-*.md (one per planted defect)"
     [ "$(ls "$c/graders" 2>/dev/null | grep -c '^ignores-')" -ge 1 ] || fail "$s: eval case needs at least 1 graders/ignores-*.md (a decoy)"
     grep -q "${s%auditor}audit\\.md" "$c/prompt.md" 2>/dev/null || fail "$s: eval prompt does not name the report file ${s%auditor}audit.md"
+    for g in "$c/prompt.md" "$c"/graders/*.md; do
+      [ -f "$g" ] || continue
+      for r in $(grep -o '[a-z]*audit[\\]*\.md' "$g" | tr -d '\\' | sort -u); do
+        [ "$r" = "${s%auditor}audit.md" ] || fail "$s: ${g#$ROOT/} names $r; it must name this skill's report, ${s%auditor}audit.md"
+      done
+    done
     ok "$s: eval case present"
   done
 }
