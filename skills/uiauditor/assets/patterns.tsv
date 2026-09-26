@@ -1,0 +1,71 @@
+# card	flags	globs	regex
+A11Y-R1	iq	@web	<(div|span|li|td|tr|p|img|i|svg|section|article|label|header|footer|figure)[[:space:]][^>]*(onclick|@click|v-on:click|on:click|\(click\))=
+A11Y-R1	q	@code	<(View|Text|Image)[[:space:]][^>]*(onPress|onTouchEnd|onTouchStart|onResponderRelease)=
+A11Y-R2	q	@web	<(button|a)([[:space:]][^>]*)?>[[:space:]]*<(svg|i|img|[A-Z][A-Za-z0-9]*Icon)[[:space:]/>]
+A11Y-R2	q	@web	^[[:space:]]*<([A-Z][A-Za-z0-9]*Icon|Icon|svg)([[:space:]/>]|$)
+A11Y-R2	iq	@web	aria-label=(""|''|\{""\}|\{''\})|<iframe([[:space:]>]|$)
+A11Y-R2	q	@code	<(Pressable|TouchableOpacity|TouchableHighlight|TouchableWithoutFeedback)([[:space:]>]|$)
+A11Y-R3	iq	@web	<(input|select|textarea|textinput)([[:space:]/>]|$)|placeholder=
+A11Y-R4	iq	@web,@code,@config	user-scalable[[:space:]]*=[[:space:]]*(no|0)|maximum-scale[[:space:]]*=[[:space:]]*1(\.0)?([^.0-9]|$)|userscalable:[[:space:]]*false|maximumscale:[[:space:]]*1(\.0)?([^.0-9]|$)
+A11Y-R5	q	@code	(function|const|class)[[:space:]]+[A-Za-z0-9_]*(Modal|Dialog|Drawer|Lightbox|Popover|Sheet|Overlay)[^A-Za-z0-9_]
+A11Y-R5	iq	@web	role=["'](dialog|alertdialog)["']|aria-modal|fixed[^"'>]*inset-0|inset-0[^"'>]*fixed|class(name)?=["'][^"']*(modal|dialog|drawer|overlay|lightbox)
+A11Y-R6	q	@style,@web,@code	outline(-style)?:[[:space:]]*["']?(none|0)([^.0-9a-z]|$)|outline-(none|0)([^-a-z0-9]|$)
+A11Y-R7	q	@web,@code	<(video|audio|track)([[:space:]>]|$)|<(Video|VideoPlayer|ReactPlayer|YouTube|Vimeo)([[:space:]/>]|$)|youtube(-nocookie)?\.com/embed|player\.vimeo\.com
+A11Y-R8	q	@web	aria-hidden=["'{]*true|role=["'{]|aria-(labelledby|describedby|controls|owns|activedescendant)=|href=["']#[A-Za-z]
+A11Y-R8	q	@code	accessibilityRole=|accessibilityState=|accessible=\{false\}|importantForAccessibility=
+A11Y-R9	iq	@web,@code	aria-live|role=["'](status|alert|log)["']|aria-invalid|aria-errormessage|toast|announceForAccessibility|accessibilityLiveRegion
+A11Y-R10	i	@web,@code	<(img|image)([[:space:]/>]|$)|alt=["'](image|img|photo|picture|icon|logo|graphic|banner|[^"']*\.(png|jpe?g|gif|svg|webp|avif))["']
+A11Y-R11	i	@style,@web,@code	text-(gray|slate|zinc|neutral|stone)-(200|300|400)([^0-9]|$)|(^|[^-a-z])color:[[:space:]]*["']?#([9a-d][0-9a-f]{2}|[9a-d][0-9a-f]{5})([^0-9a-f]|$)
+SEM-R1	i	@web	href=["']#["']|href=["']javascript:|<a[[:space:]][^>]*onclick=|role=["']button["']|<button[^>]*onclick=\{[^}]*(navigate|router\.push|history\.push|location\.href|window\.location)
+SEM-R2	-	@web	<h1([[:space:]>]|$)|<main([[:space:]>]|$)|role=["'](main|navigation|banner|contentinfo)["']|<nav([[:space:]>]|$)
+SEM-R3	-	@web	<(a|button)[[:space:]][^>]*>[[:space:]]*<(a|button|input|select|textarea)[[:space:]]|<(p|span|label|button|h[1-6])([[:space:]][^>]*)?>[[:space:]]*<(div|p|ul|ol|table|section|article|h[1-6])([[:space:]>]|$)
+SEM-R4	i	@web,@code	<html([[:space:]>]|$)|<title([[:space:]>]|$)|<meta[[:space:]]+charset|document\.title|<svelte:head|usehead\(|export const metadata|generatemetadata|useseometa
+SEM-R5	-	@web,@code	<dialog([[:space:]>]|$)|\.show\(\)|\.showModal\(\)|popover(target)?=|<details([[:space:]>]|$)|aria-expanded
+SEM-R6	-	@web,@style	<table([[:space:]>]|$)|role=["'](table|grid|row|cell|gridcell|presentation|none|list|listitem)["']|list-style(-type)?:[[:space:]]*none|(^|[[:space:]"'])list-none([[:space:]"']|$)
+STYLE-R1	-	@style	!important|^[[:space:]]*#[A-Za-z_][-A-Za-z0-9_]*([[:space:]]|[.:,{>~+]|\[)
+STYLE-R1	-	@web	style=["'{]|!important
+STYLE-R2	-	@style	@media[^{]*(min|max)-width[^{]*and[^{]*(min|max)-width
+STYLE-R3	-	@style,@web,@code	100vh|h-screen|float:[[:space:]]*(left|right)|z-index:[[:space:]]*["']?[0-9]{4,}|z-\[[0-9]{3,}\]|zIndex:[[:space:]]*[0-9]{4,}
+STYLE-R4	-	@style	(margin|padding|border)-(left|right)[-:[:space:]]|(^|[^-a-z])(left|right):[[:space:]]*-?[0-9]|text-align:[[:space:]]*(left|right)|float:[[:space:]]*(left|right)
+STYLE-R5	-	@style,@web	transition(-property)?:[^;]*(all|width|height|top|left|margin|padding)|transition-all|will-change|animation:[^;]*(width|height|top|left)
+COMP-R1	iq	@web	<form([[:space:]>]|$)|onsubmit=|@submit|on:submit|\(ngsubmit\)
+COMP-R1	q	@web	<(input|textarea|select|Input|TextField)[^>]*[[:space:]]value=\{|^[[:space:]]*value=\{[^}]*\}[[:space:]]*$
+COMP-R2	-	@code	\{[^}]*(isLoading|isPending|isError|isFetching|error|loading|status)[^}]*\}[[:space:]]*=[[:space:]]*use[A-Za-z]*\(|catch[[:space:]]*(\([^)]*\))?[[:space:]]*\{[[:space:]]*\}|\.catch\(\([^)]*\)[[:space:]]*=>[[:space:]]*(\{[[:space:]]*\}|null|undefined)\)
+COMP-R3	-	@web,@code	key=\{[[:space:]]*(i|idx|index|n)[[:space:]]*\}|key=\{[^}]*(\$\{(i|idx|index)\}|Math\.random|Date\.now|uuid|nanoid)|:key=["'](i|idx|index)["']|\{#each[^}]*\((i|idx|index)\)[[:space:]]*\}|keyExtractor=\{[^}]*=>[[:space:]]*(String\()?(i|idx|index)[^A-Za-z0-9_]
+COMP-R4	-	@web,@code	suppressHydrationWarning|typeof window|typeof document|(local|session)Storage\.getItem|Math\.random\(\)|Date\.now\(\)
+COMP-R5	-	@web,@code	createPortal|<Teleport([[:space:]>]|$)|<Portal([[:space:]>]|$)|popover=|\.showModal\(\)
+COMP-R6	-	@web,@code	componentDidCatch|getDerivedStateFromError|ErrorBoundary|onErrorCaptured|errorCaptured|<svelte:boundary|useRouteError|isRouteErrorResponse
+COMP-R7	q	*.astro	<[A-Z][A-Za-z0-9]*([[:space:]/>]|$)
+COMP-R7	q	@web,@code	data-controller=|["']use client["']
+RESP-R1	q	@style,@web,@code	(^|[[:space:];{"'])(min-)?width:[[:space:]]*["']?([4-9][0-9]{2}|[1-9][0-9]{3})px|(^|[[:space:]"'])(min-)?w-\[([4-9][0-9]{2}|[1-9][0-9]{3})px\]|repeat\([0-9]+,[[:space:]]*([3-9][0-9]{2}|[1-9][0-9]{3})px\)|minmax\(([3-9][0-9]{2}|[1-9][0-9]{3})px
+RESP-R2	i	@web,@code	name=["']viewport["']|export const viewport|generateviewport
+RESP-R3	-	@style,@web,@config	@media[^{]*(min|max)-width|@media[^{]*width[[:space:]]*[<>]|@container|screens:[[:space:]]*\{
+RESP-R4	i	@web,@code	<(img|iframe|video|embed|object|image)([[:space:]/>]|$)
+RESP-R5	-	@style,@web,@code	:hover[[:space:]]*[>+~]|:hover[[:space:]]+[.#a-zA-Z]|group-hover:(block|flex|grid|inline|visible|opacity-100)|onMouse(Enter|Over)=|@mouse(enter|over)|on:mouse(enter|over)|draggable=|onDragStart|useDrag\(|useSortable\(|DndContext|DragDropContext
+RESP-R6	-	@style,@web	(^|[[:space:];{])height:[[:space:]]*[0-9]+px|(^|[[:space:]"'])h-\[[0-9]+px\]|line-clamp|html[^{]*\{[^}]*font-size:[[:space:]]*[0-9]+px
+PERF-R1	i	@web,@code,@style	loading=["'{]*lazy|fetchpriority|priority([[:space:]/>=]|$)|rel=["']preload["'][^>]*as=["']image|background-image:[[:space:]]*url
+PERF-R2	i	@web,@style	<script[[:space:]][^>]*src=|@import[[:space:]]+(url\()?["']|rel=["']stylesheet["']|strategy=["']beforeinteractive
+PERF-R3	-	@web,@code	addEventListener\(["'](scroll|resize|mousemove|touchmove|touchstart|wheel)|on(Scroll|Resize)=|@scroll|getBoundingClientRect\(\)|offset(Height|Width|Top|Left)|scroll(Height|Top)
+PERF-R4	-	@web,@code	^import[^;]*["'](chart\.js|recharts|echarts|highcharts|apexcharts|d3|three|mapbox-gl|maplibre-gl|leaflet|monaco-editor|@monaco-editor/react|codemirror|@codemirror/[a-z-]+|quill|draft-js|@tiptap/[a-z-]+|pdfjs-dist|react-pdf|xlsx|plotly\.js)(/[^"']*)?["']|React\.lazy\(|[^A-Za-z]lazy\(\(\)|defineAsyncComponent|["']use client["']|client:load
+PERF-R5	-	@web,@code	(^|[^A-Za-z_.])fetch\(|axios\.(get|post)|useQuery\(|useSWR\(|useFetch\(|\$fetch\(
+PERF-R6	i	@web,@style	size-adjust|ascent-override|descent-override|cookie|consent|banner|adsbygoogle|googletag
+DS-R1	-	@style,@web,@code	#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?([0-9a-fA-F]{2})?([^0-9a-zA-Z_-]|$)|rgba?\([[:space:]]*[0-9]|hsla?\([[:space:]]*[0-9]|-\[(#|[0-9]+px)
+DS-R2	-	@code	(function|const|class)[[:space:]]+[A-Za-z0-9_]*(Button|Card|Input|Select|Modal|Badge|Dialog|Link)[A-Za-z0-9_]*[[:space:]]*(=|\(|extends|<)
+DS-R3	-	@style,@web,@code	(^|[[:space:]"'])dark:|prefers-color-scheme|color-scheme|data-theme|\.dark[[:space:]{,.]|ThemeProvider|createTheme\(|useColorScheme|setTheme\(
+DS-R4	-	@code,@style,@web	attachShadow\(|customElements\.define\(|LitElement|shadowRoot|:host|::part\(|::slotted\(|adoptedStyleSheets
+DS-R5	i	@style,@code,@config	^[[:space:]]*--(color|colour|space|spacing|font|radius|shadow|size)[-a-z0-9]*:|colors:[[:space:]]*\{|palette:[[:space:]]*\{|createtheme\(|extendtheme\(|\$[a-z-]*(color|primary|brand)[a-z-]*:
+ASSET-R1	i	@web,@code,@style	\.(png|jpe?g|gif|bmp|tiff?)(["'`?#)]|$)|srcset=|sizes=["']|<picture([[:space:]>]|$)
+ASSET-R2	i	@code	import[[:space:]]+\*[[:space:]]+as[[:space:]]+[a-z_][a-z0-9_]*[[:space:]]+from[[:space:]]+["'][^"']*(icon|lucide|feather|fontawesome|heroicons|phosphor|tabler)|library\.add\(|\{[[:space:]]*(fas|far|fab)[[:space:]]*\}
+ASSET-R2	i	*.svg	data:image/(png|jpe?g|webp|gif);base64|<sodipodi|inkscape:|<metadata
+ASSET-R3	i	@style,@web,@code,@config	@font-face|font-display|fonts\.googleapis\.com|fonts\.gstatic\.com|as=["']font["']|\.(woff2?|ttf|otf)(["'`?#)]|$)|next/font|@fontsource
+ASSET-R4	i	@web,@config	rel=["'](icon|shortcut icon|apple-touch-icon|manifest|mask-icon)["']|"icons"[[:space:]]*:
+I18N-R1	-	@web	>[[:space:]]*[A-Z][a-z]+([[:space:]]+[a-zA-Z,.!?']+)+[[:space:]]*<|(placeholder|title|alt|aria-label)=["'][A-Z][a-z]
+I18N-R2	-	@code,@web	["'][[:space:]]*\+[[:space:]]*[A-Za-z_][A-Za-z0-9_.]*[[:space:]]*\+[[:space:]]*["']|(count|length|total|num|n)[[:space:]]*===?[[:space:]]*1[[:space:]]*\?
+I18N-R3	-	@code,@web	\.toFixed\(|toLocale(Date|Time)?String\(["']|new Intl\.[A-Za-z]+\(["']|["'](MM|DD|dd|YYYY|yyyy)[-/.](MM|DD|dd)|["'][$]["'][[:space:]]*\+|[$]\{[^}]*\.toFixed
+I18N-R4	-	@web,@code	[[:space:]]dir=|<html[^>]*lang=|document\.documentElement\.(lang|dir)|documentElement\.setAttribute\(["'](lang|dir)
+I18N-R5	-	@style,@web	(^|[[:space:];{])width:[[:space:]]*[0-9]+px|(^|[[:space:]"'])w-\[[0-9]+px\]|text-overflow:[[:space:]]*ellipsis|(^|[[:space:]"'])truncate([[:space:]"']|$)|white-space:[[:space:]]*nowrap|whitespace-nowrap
+NATIVE-R1	q	@code	\{[[:space:]]*[A-Za-z_][A-Za-z0-9_.?]*(\.length|[Cc]ount|[Tt]otal|[Nn]um[A-Za-z]*)[[:space:]]*&&
+NATIVE-R2	-	@code	["'][0-9]+px["']|display:[[:space:]]*["']grid|position:[[:space:]]*["']fixed|cursor:[[:space:]]*["']|:hover
+NATIVE-R3	-	@code	<ScrollView([[:space:]>]|$)|keyExtractor=
+NATIVE-R4	-	@code	SafeAreaView|useSafeAreaInsets|paddingTop:[[:space:]]*[2-5][0-9]([^0-9]|$)|StatusBar\.currentHeight|KeyboardAvoidingView|keyboardVerticalOffset|Platform\.(OS|select)
+NATIVE-R5	q	@code	BackHandler|beforeRemove|gestureEnabled:[[:space:]]*false|PanResponder|onStartShouldSetResponder|Gesture\.(Pan|Fling)\(|hitSlop
