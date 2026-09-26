@@ -165,7 +165,7 @@ Fixture rules:
 Graders (copy secauditor's and change names and paths):
 - `report-written.md`: regex over the report file for `^# ` (the report exists).
 - `finds-<slug>.md`, one per planted defect: regex over the report file for the defect's file name followed by a line within about three lines of the planted line, in any common citation form, for example `orders\.js(:| line | \(line |, line |#L)(9|1[0-5])\b` for a defect on line 12.
-- `ignores-<slug>.md`, one per decoy: regex over the report file for `- Location:[^\n]*<decoy path>` with `match: not_contains` and `arm: with-only`.
+- `ignores-<slug>.md`, one per decoy: regex over the report file for ``- Location: `[^`\n]*<decoy file>`` (the finding's first cited location is the decoy) with `match: not_contains` and `arm: with-only`. Checking only the first location keeps a correct finding elsewhere that mentions the decoy file as context from failing the grader.
 - `finding-format.md`: regex for one complete finding header plus Severity line.
 - `read-only.md`: `tool_used` on `Edit` with `input_match: '"file_path"\s*:\s*"(?![^"]*<report>\.md")'`, `min: 0`, and `max: 0` (editing the report skeleton is expected; editing anything else is not).
 - `only-report-created.md`: regex over `files` for any created path other than the report, `match: not_contains`.
