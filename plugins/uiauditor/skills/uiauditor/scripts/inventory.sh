@@ -24,8 +24,8 @@ ROOT_ABS="$(pwd)"
 printf 'auditor-suite %s inventory for %s\n' "$SKILL_NAME" "$ROOT_ABS"
 [ $# -gt 0 ] && printf 'scope: %s\n' "$*"
 
-# Version control state.
-if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+# Version control state (only when as_files used git's view of the tree).
+if as_use_git; then
   branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || printf 'unknown')"
   commit="$(git rev-parse --short HEAD 2>/dev/null || printf 'no commits')"
   changed="$(git status --porcelain 2>/dev/null | awk -v r="$REPORT_FILE" '$NF != r' | wc -l | tr -d ' ')"
@@ -34,10 +34,10 @@ else
   printf 'git: not a git repository\n'
 fi
 
-CODE_EXT_RE='\.(js|jsx|mjs|cjs|ts|tsx|mts|cts|py|rb|go|rs|java|kt|kts|scala|cs|fs|php|swift|m|mm|c|cc|cpp|cxx|h|hpp|sql|vue|svelte|astro|html|htm|css|scss|sass|less|dart|ex|exs|erl|clj|lua|pl|sh|bash|zsh|ps1|tf|hcl|prisma|graphql|gql|jinja|j2|njk|hbs|ejs|erb|liquid|twig|mdx)$'
+CODE_EXT_RE='[.](js|jsx|mjs|cjs|ts|tsx|mts|cts|py|rb|go|rs|java|kt|kts|scala|cs|fs|php|swift|m|mm|c|cc|cpp|cxx|h|hpp|sql|vue|svelte|astro|html|htm|css|scss|sass|less|dart|ex|exs|erl|clj|lua|pl|sh|bash|zsh|ps1|tf|hcl|prisma|graphql|gql|jinja|j2|njk|hbs|ejs|erb|liquid|twig|mdx)$'
 
 total="$(printf '%s\n' "$AS_FILE_LIST" | awk 'NF' | wc -l | tr -d ' ')"
-code_list="$(printf '%s\n' "$AS_FILE_LIST" | awk -v re="$CODE_EXT_RE" 'tolower($0) ~ re')"
+code_list="$(printf '%s\n' "$AS_FILE_LIST" | as_match_lines l "$CODE_EXT_RE")"
 code_count="$(printf '%s\n' "$code_list" | awk 'NF' | wc -l | tr -d ' ')"
 lines=0
 if [ "$code_count" -gt 0 ]; then
@@ -60,17 +60,17 @@ printf 'languages (source files by extension): %s\n' "$(printf '%s\n' "$code_lis
 list_matching() {
   # list_matching LABEL ERE: comma-joined files whose path matches, max 12.
   local found
-  found="$(printf '%s\n' "$AS_FILE_LIST" | awk -v re="$2" '$0 ~ re' | head -12 | awk '{ printf "%s%s", (NR > 1 ? ", " : ""), $0 }')"
+  found="$(printf '%s\n' "$AS_FILE_LIST" | as_match_lines - "$2" | head -12 | awk '{ printf "%s%s", (NR > 1 ? ", " : ""), $0 }')"
   [ -n "$found" ] || found="none"
   printf '%s: %s\n' "$1" "$found"
 }
 
-list_matching 'manifests' '(^|/)(package\.json|pyproject\.toml|requirements[^/]*\.txt|Pipfile|setup\.py|go\.mod|Cargo\.toml|Gemfile|composer\.json|pom\.xml|build\.gradle(\.kts)?|[^/]*\.csproj|mix\.exs|pubspec\.yaml|Package\.swift|deno\.jsonc?)$'
-list_matching 'lockfiles' '(^|/)(package-lock\.json|yarn\.lock|pnpm-lock\.yaml|bun\.lockb?|poetry\.lock|Pipfile\.lock|uv\.lock|go\.sum|Cargo\.lock|Gemfile\.lock|composer\.lock|packages\.lock\.json|mix\.lock|pubspec\.lock|Package\.resolved|deno\.lock)$'
-list_matching 'ci' '(^|/)(\.github/workflows/[^/]+\.ya?ml|\.gitlab-ci\.yml|Jenkinsfile|\.circleci/config\.yml|azure-pipelines\.yml|bitbucket-pipelines\.yml|\.buildkite/[^/]+)$'
-list_matching 'containers and infrastructure' '(^|/)(Dockerfile[^/]*|[^/]*\.dockerfile|docker-compose[^/]*\.ya?ml|compose[^/]*\.ya?ml|[^/]*\.tf|[^/]*\.tfvars|Chart\.yaml|kustomization\.ya?ml|serverless\.ya?ml|cdk\.json|Pulumi\.ya?ml|[^/]*\.bicep|template\.ya?ml)$'
-list_matching 'docs' '^(README[^/]*|CHANGELOG[^/]*|SECURITY\.md|CONTRIBUTING\.md|ARCHITECTURE\.md|docs/README[^/]*)$'
-list_matching 'entry points (candidates)' '(^|/)(main|index|app|server|cli|manage|wsgi|asgi|program|application|bootstrap)\.[a-z]+$|^bin/[^/]+$|^cmd/[^/]+/main\.go$|(^|/)src/main\.rs$|(^|/)app/(layout|page)\.[jt]sx?$|(^|/)pages/_app\.[jt]sx?$'
+list_matching 'manifests' '(^|/)(package[.]json|pyproject[.]toml|requirements[^/]*[.]txt|Pipfile|setup[.]py|go[.]mod|Cargo[.]toml|Gemfile|composer[.]json|pom[.]xml|build[.]gradle([.]kts)?|[^/]*[.]csproj|mix[.]exs|pubspec[.]yaml|Package[.]swift|deno[.]jsonc?)$'
+list_matching 'lockfiles' '(^|/)(package-lock[.]json|yarn[.]lock|pnpm-lock[.]yaml|bun[.]lockb?|poetry[.]lock|Pipfile[.]lock|uv[.]lock|go[.]sum|Cargo[.]lock|Gemfile[.]lock|composer[.]lock|packages[.]lock[.]json|mix[.]lock|pubspec[.]lock|Package[.]resolved|deno[.]lock)$'
+list_matching 'ci' '(^|/)([.]github/workflows/[^/]+[.]ya?ml|[.]gitlab-ci[.]yml|Jenkinsfile|[.]circleci/config[.]yml|azure-pipelines[.]yml|bitbucket-pipelines[.]yml|[.]buildkite/[^/]+)$'
+list_matching 'containers and infrastructure' '(^|/)(Dockerfile[^/]*|[^/]*[.]dockerfile|docker-compose[^/]*[.]ya?ml|compose[^/]*[.]ya?ml|[^/]*[.]tf|[^/]*[.]tfvars|Chart[.]yaml|kustomization[.]ya?ml|serverless[.]ya?ml|cdk[.]json|Pulumi[.]ya?ml|[^/]*[.]bicep|template[.]ya?ml)$'
+list_matching 'docs' '^(README[^/]*|CHANGELOG[^/]*|SECURITY[.]md|CONTRIBUTING[.]md|ARCHITECTURE[.]md|docs/README[^/]*)$'
+list_matching 'entry points (candidates)' '(^|/)(main|index|app|server|cli|manage|wsgi|asgi|program|application|bootstrap)[.][a-z]+$|^bin/[^/]+$|^cmd/[^/]+/main[.]go$|(^|/)src/main[.]rs$|(^|/)app/(layout|page)[.][jt]sx?$|(^|/)pages/_app[.][jt]sx?$'
 tests="$(printf '%s\n' "$AS_FILE_LIST" | awk '/(^|\/)(tests?|__tests__|spec)\/|_test\.(go|py|rb)$|\.(test|spec)\.[a-z]+$|(^|\/)test_[^\/]+\.py$/' | wc -l | tr -d ' ')"
 printf 'tests: %s test file(s)\n' "$tests"
 
@@ -104,8 +104,15 @@ if [ -n "$manifests" ]; then
   printf 'frameworks and libraries (from manifests): %s\n' "$libs"
 fi
 
-skipped="$(git ls-files --cached --others --exclude-standard 2>/dev/null | awk -v excl="$AS_EXCLUDE_RE" '$0 ~ excl' | awk -F/ '{ print $1 }' | sort -u | head -8 | awk '{ printf "%s%s", (NR > 1 ? ", " : ""), $0 }')"
+skipped=""
+if as_use_git; then
+  skipped="$(git ls-files --cached --others --exclude-standard 2>/dev/null | as_match_lines - "$AS_EXCLUDE_RE" | awk -F/ '{ print $1 }' | sort -u | head -8 | awk '{ printf "%s%s", (NR > 1 ? ", " : ""), $0 }')"
+fi
 [ -n "$skipped" ] && printf 'skipped folders present: %s (read them only if a lead points there)\n' "$skipped"
+if [ -n "${SCAN_SKIP_RE:-}" ]; then
+  n_skip="$( (SCAN_SKIP_RE=""; as_files "$@") | as_match_lines - "$SCAN_SKIP_RE" | awk 'NF' | wc -l | tr -d ' ')"
+  printf 'skipped by this auditor: %s file(s) that SCAN_SKIP_RE in assets/skill.conf names (tests, fixtures, lockfiles, and similar); open one directly when a card names it, and say in Scope and limitations that they were not scanned\n' "$n_skip"
+fi
 
 # Surfaces and dimension status.
 probes="$(as_probe_surfaces)"

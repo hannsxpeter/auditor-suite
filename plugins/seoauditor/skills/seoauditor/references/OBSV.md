@@ -1,8 +1,8 @@
 # OBSV: Analytics, Verification and SEO Observability
 
 Weight 3. Always active. Floor dimension.
-Owns: code that serves crawlers different content (cloaking), A/B test hygiene, analytics correctness and consent wiring, search engine verification tokens, and the safety net against SEO regressions (tests and CI checks).
-Not here: prerendering or dynamic rendering for bots as a rendering strategy (RENDER-R6); how analytics scripts load (PERF-R2); user-agent blocks aimed at AI bots (AIVIS-R1); rules that block search crawlers (URLARCH-R5).
+Owns: code that serves crawlers different content (cloaking), A/B tests as crawlers see them, analytics tag correctness (loading, duplicates, ids) and consent wiring, search engine verification tokens, and the safety net against SEO regressions (tests and CI checks).
+Not here: prerendering or dynamic rendering for bots as a rendering strategy (RENDER-R6); how analytics scripts load (PERF-R2); user-agent blocks aimed at AI bots (AIVIS-R1); rules that block search crawlers (URLARCH-R5); product event correctness, identity, and test traffic (productauditor MET); experiment assignment, exposure, split validity, and lifecycle (productauditor EXP).
 Standards: Google Search spam policies (cloaking), Google Search Central (website testing and Google Search), Google tag and Consent Mode docs, facts.md (Analytics and verification).
 Read first: middleware and server code that reads the user agent, analytics and tag components, the consent banner, verification meta tags and files, the test folders, and the CI workflows.
 

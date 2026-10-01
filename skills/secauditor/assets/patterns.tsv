@@ -3,7 +3,7 @@ AUTHZ-R1	q	@code	(findById|findByPk|findOne|findUnique|findFirst|get_object_or_4
 AUTHZ-R1	iq	@code	(req\.params\.id|req\.params\[.id.\]|request\.view_args|params\[:id\]|params\.id|@PathVariable|c\.Param\(.id.\)|event\.pathParameters|kwargs\[.pk.\])
 AUTHZ-R2	iq	@code	(/admin|/internal|/manage|/staff|isAdmin|is_admin|is_staff|is_superuser|requireAdmin|require_admin|hasRole|has_role|requireRole|@RolesAllowed|@PreAuthorize|@Secured|authorize!|can\?|Gate::|policy\()
 AUTHZ-R3	q	@code	(Object\.assign\([^,]+,[[:space:]]*req\.body|\.\.\.req\.body|\.(create|update|build|insert|save|set)\((req|request)\.(body|json|data)|permit!|\*\*request\.(json|data|POST|get_json)|__all__)
-AUTHZ-R3	iq	@code	(role|is_?admin|owner_?id|tenant_?id|balance|price)['\"]?[[:space:]]*[:=][[:space:]]*(req|request|body|params|input)\.
+AUTHZ-R3	iq	@code	(role|is_?admin|owner_?id|tenant_?id|balance|price|plan(_?id)?)['\"]?[[:space:]]*[:=][[:space:]]*(req|request|body|params|input)\.
 AUTHZ-R4	iq	@code	(x-tenant|x-org|x-account|tenant_?id|org_?id|organization_?id|workspace_?id|account_?id)[^;]*(req\.|request\.|headers|query|params|body)
 AUTHZ-R5	-	@code,@config	(permitAll|AllowAny|skip_before_action|@PermitAll|allow_unauthenticated|AllowAnonymous|isPublic|@Public\(|skipAuth|skip_auth|noAuth|no_auth)
 AUTHZ-R6	i	@code	(res\.json\([a-z_]+\)|res\.send\([a-z_]+\)|jsonify\([a-z_]+\)|to_dict\(\)|fields[[:space:]]*=[[:space:]]*['\"]__all__['\"]|JSON\.stringify\((user|account|customer)|ModelSerializer|SELECT \*)
@@ -53,7 +53,7 @@ SECRET-R1	q	*	(AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|sk_live_[0-9A-Za-z]{10,}|g
 SECRET-R1	q	.env,.env.*,*.pem,*.p12,*.pfx,*.key,id_rsa,id_ed25519,credentials.json,service-account*.json,.npmrc,.pypirc,kubeconfig	.
 SECRET-R2	iq	@code,@config	((process\.env\.[A-Z0-9_]+|os\.environ\.get\([^)]*|os\.getenv\([^)]*|ENV\.fetch\([^)]*|System\.getenv\([^)]*)[[:space:]]*(\|\||\?\?|or|,)[[:space:]]*['\"][^'\"]{3,}['\"]|SECRET_KEY[[:space:]]*=[[:space:]]*['\"]|['\"](admin|root)['\"][[:space:]]*,[[:space:]]*['\"](admin|root|password|changeme)['\"])
 SECRET-R4	q	@code,@config	(NEXT_PUBLIC_|REACT_APP_|VITE_|EXPO_PUBLIC_|NUXT_PUBLIC_|GATSBY_)[A-Z0-9_]*(SECRET|PRIVATE|PASSWORD|TOKEN|SERVICE_ROLE)
-SECRET-R5	i	@code,@infra	(console\.(log|info|debug|error)\([^)]*(req\.headers|authorization|password|token|process\.env)|log(ger)?\.(info|debug|error|warn)\([^)]*(headers|authorization|password|token|DATABASE_URL)|^[[:space:]]*(ARG|ENV)[[:space:]]+[A-Z_]*(SECRET|TOKEN|PASSWORD|KEY)|COPY[[:space:]]+\.env)
+SECRET-R5	iq	@code,@infra	(console\.(log|info|debug|error)\([^)]*(req\.headers|authorization|password|token|process\.env)|log(ger)?\.(info|debug|error|warn)\([^)]*(headers|authorization|password|token|DATABASE_URL)|^[[:space:]]*(ARG|ENV)[[:space:]]+[A-Z_]*(SECRET|TOKEN|PASSWORD|KEY)|COPY[[:space:]]+\.env)
 SECRET-R6	i	@ci	(echo[[:space:]]+['\"]?\$\{?[A-Z_]*(SECRET|TOKEN|KEY|PASSWORD)|set -x|AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY|gitleaks|trufflehog|detect-secrets|continue-on-error)
 APISEC-R1	i	@code	(rateLimit|rate_limit|throttle|limiter|express\.json\(|bodyParser|MAX_CONTENT_LENGTH|client_max_body_size|page_size|pageSize|per_page|perPage|limit[[:space:]]*[:=][^,;]*(req|request)\.)
 APISEC-R2	i	@code	(ApolloServer|graphqlHTTP|GraphQLModule|graphene|strawberry|introspection|playground|graphiql|depthLimit|depth_limit|queryComplexity|costAnalysis)

@@ -1,7 +1,7 @@
 # LLM integration audit: llmauditor
 
 > Read-only LLM-integration audit of the code as written, 2026-09-26. No model or embeddings endpoint was called, and the app and its agents were not run. Mode: full. Scope: whole project.
-> Self-contained: every finding cites the file and line it is about, so an agent holding only this report and the code can act on it. Written with llmauditor (auditor-suite 1.1.0).
+> Self-contained: every finding cites the file and line it is about, so an agent holding only this report and the code can act on it. Written with llmauditor (auditor-suite 1.2.0).
 
 ## Snapshot
 

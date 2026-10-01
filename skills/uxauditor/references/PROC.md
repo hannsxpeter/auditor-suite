@@ -2,7 +2,7 @@
 
 Weight 11. Always active.
 Owns: the work inside tasks and behind the product: step economy, Lean waste (TIMWOODS), value classification, handoffs and approvals, automation candidates, the bottleneck, rework loops, workflow model smells (state machines, wizard config, BPMN), and multi-actor workflow integrity: who may move which step, stalled steps, concurrent edits, status for the people waiting, and recovery of stuck items.
-Not here: links and continuity between screens (JRN); fields on user-facing forms, including redundant entry (FRM-R4); authorization depth beyond the workflow rule (secauditor): file here who may advance which step, and name secauditor in Impact for broader access control.
+Not here: links and continuity between screens (JRN); fields on user-facing forms, including redundant entry (FRM-R4); authorization depth beyond the workflow rule (secauditor): file here who may advance which step, and name secauditor in Impact for broader access control; routine account, plan, and billing operations done by SQL or scripts (productauditor CUST-R5).
 Standards: Lean TIMWOODS waste; Theory of Constraints; task analysis and the Keystroke-Level Model; BPMN 2.0 (ISO/IEC 19510); separation of duties.
 Read first: the status enums and transition code (state machines, XState, BPMN, wizard config), the approval, review, and queue handlers, the scheduled jobs, and the notification senders.
 

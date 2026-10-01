@@ -2,7 +2,7 @@
 
 Weight 20. Always active.
 Owns: a survey of the highest-signal security defects: controls that never run, authorization missing from one handler or record lookup, untrusted input reaching an injection sink, hardcoded secrets, crypto misuse, debug and default exposure, and model output trusted as validated.
-Not here: secrets or personal data in logs (OBS-R1); vulnerable dependency versions (DEP-R1); errors that lose their cause (ERR-R2); non-secret per-environment config (OBS-R5). For depth (authentication design, sessions, supply chain, infrastructure) name secauditor in Scope and limitations; for LLM integration, llmauditor.
+Not here: secrets or personal data in logs (OBS-R1); vulnerable dependency versions (DEP-R1); errors that lose their cause (ERR-R2); non-secret per-environment config (OBS-R5); plan and feature entitlement gates, including a plan gate defined but never mounted (productauditor ENT-R5). For depth (authentication design, sessions, supply chain, infrastructure) name secauditor in Scope and limitations; for LLM integration, llmauditor.
 Standards: OWASP Top 10:2025, CWE Top 25, OWASP Top 10 for LLM Applications 2025.
 Read first: the route or handler registration, the middleware and its mount order, the auth helpers, and the config loader.
 

@@ -12,11 +12,16 @@ train. When the train bumps, these move together, and
 
 - `VERSION`
 - README version badge (`version-x.y.z-blue`) and release badge
-  (`release-vx.y.z-blue`)
+  (`release-vx.y.z-blue`, linking `releases/tag/vx.y.z`)
 - `SUITE.md` "Release train: x.y.z" line
 - `.claude-plugin/marketplace.json` metadata version
 - every `plugins/*/.claude-plugin/plugin.json` version
 - `AS_SUITE_VERSION` in `shared/scripts/_lib.sh` (printed in every report banner)
+
+The example reports (`skills/*/references/example-report.md`) also carry the
+version in their banner line ("Written with <skill> (auditor-suite x.y.z)").
+No check reads it. Update it with the train, so each example matches what
+`new-report.sh` writes.
 
 Semver at suite level: patch for report or doc fixes, minor for new rubric
 dimensions, defect classes (rule cards), modes, or scoring rules, major for
@@ -34,26 +39,33 @@ or field names, or skill names.
 
 1. Decide the new train number `x.y.z`.
 2. Update `VERSION`.
-3. Update the README version and release badges, and the SUITE.md
-   release-train line.
+3. Update the README version and release badges (and the release link), and
+   the SUITE.md release-train line.
 4. Update the marketplace metadata version and every plugin manifest version.
 5. Update `AS_SUITE_VERSION` in `shared/scripts/_lib.sh` and run
    `bash scripts/sync-shared.sh`.
-6. Add the `## [x.y.z] - YYYY-MM-DD` entry to the hub `CHANGELOG.md`; add
+6. Update the banner version in every `skills/*/references/example-report.md`.
+7. If cards, spines, or example reports changed, re-measure the table in
+   `docs/ARCHITECTURE.md` section 9 (bytes divided by four, rounded down).
+8. Add the `## [x.y.z] - YYYY-MM-DD` entry to the hub `CHANGELOG.md`; add
    per-skill entries for skills whose behavior changed.
-7. `bash scripts/refresh-plugins.sh`
-8. `bash scripts/lint.sh --verbose` and `bash tests/run.sh` until green.
-9. For a minor or major train, run the eval cases for the skills that changed
-   on at least one small model (see `evals/README.md`) and record the scores
-   in the hub CHANGELOG entry.
-10. Merge to `main` via PR; CI must be green.
-11. Tag and release:
+9. `bash scripts/refresh-plugins.sh`
+10. `bash scripts/lint.sh --verbose`, `bash tests/run.sh`, and
+    `bash tests/lint-selftest.sh` until green. The lint also runs
+    `tests/install.sh` (check `script-tests`) and, for a train that adds an
+    auditor, `suite-registry` proves it is registered everywhere.
+11. For a minor or major train, run the eval cases for the skills that changed
+    on at least one small model (see `evals/README.md`) and record the scores
+    in the hub CHANGELOG entry.
+12. Merge to `main` via PR; CI must be green on both jobs,
+    `lint (ubuntu-latest)` and `lint (macos-latest)`.
+13. Tag and release:
 
-   ```bash
-   git tag -a vx.y.z -m "auditor-suite x.y.z"
-   git push origin vx.y.z
-   gh release create vx.y.z --title "auditor-suite x.y.z" --notes-file <notes>
-   ```
+    ```bash
+    git tag -a vx.y.z -m "auditor-suite x.y.z"
+    git push origin vx.y.z
+    gh release create vx.y.z --title "auditor-suite x.y.z" --notes-file <notes>
+    ```
 
 See [`RELEASE-CHECKLIST.md`](RELEASE-CHECKLIST.md) for the compact version.
 
@@ -67,6 +79,11 @@ If CI lint fails on `main` (a check regressed or a bad merge landed):
 3. If the lint itself is wrong (a check fails when it should not), fix the
    check in `scripts/lint.sh` and say so in the commit body; a check that
    fails to fail is worse, so never loosen a check to make a bad tree pass.
+   Add a case to `tests/lint-selftest.sh` for every check you add or fix.
+4. Reproduce a platform-only failure on that platform. CI runs the lint on
+   Ubuntu and on macOS (`/bin/bash` 3.2 and BSD awk), and again on Ubuntu
+   with awk set to mawk, then gawk. On a Mac, `/bin/bash scripts/lint.sh`
+   runs bash 3.2.
 
 ## The shared core
 
@@ -86,7 +103,29 @@ canonical runtime payload: `SKILL.md`, `references/`, `scripts/`, and
 `assets/`. The only sanctioned way to update the vendored copies is
 `bash scripts/refresh-plugins.sh`. Manifest edits (descriptions, keywords) are
 manual; each plugin's description and its marketplace entry must equal the
-skill's frontmatter description, and lint enforces it.
+skill's frontmatter description, and lint enforces it. `refresh-plugins.sh`
+never writes a manifest: for a new auditor, copy a sibling's
+`plugins/<skill>/.claude-plugin/plugin.json` and change the name, description,
+homepage, repository, and keywords.
+
+## Ritual: adding an auditor
+
+There is no list of skill names to edit; the roster is the set of directories
+under `skills/` (`scripts/_skills.sh`), and `install.sh` and `uninstall.sh`
+take every `skills/<name>/` that holds a `SKILL.md`. Follow
+[docs/AUTHORING.md](docs/AUTHORING.md) section 8, then run
+`bash scripts/lint.sh suite-registry` until it passes. It fails until the new
+auditor has a vendored plugin, a marketplace entry, a meta plugin dependency,
+an eval case, an example-report fixture, a README.md row and a SUITE.md row,
+and its report name in `AS_EXCLUDE_RE`. Then:
+
+1. Update what no check reads: the auditor count in README.md, SUITE.md, and
+   the marketplace and meta plugin descriptions, and the list in AGENTS.md.
+2. Run the full checks: `bash scripts/lint.sh --verbose`, `bash tests/run.sh`,
+   and `bash tests/lint-selftest.sh`. The self-test copies the whole hub, so
+   its baseline run fails if the new auditor is not fully registered.
+3. Ship it as a minor train: it adds rule cards and a skill name to the
+   marketplace. Follow the release-train ritual above.
 
 ## Ritual: refresh dated facts
 
@@ -111,4 +150,5 @@ full history via subtree merges. To trace a skill across the boundary use
 `git log -- skills/<skill>/`; the subtree merge connects the standalone
 commits as ancestors of main. The pre-consolidation layouts
 (engine files, per-repo installers, plugin manifests) are all reachable in
-history if archaeology is ever needed.
+history if archaeology is ever needed. productauditor, added in 1.2.0, was
+built in this monorepo and has no standalone history.

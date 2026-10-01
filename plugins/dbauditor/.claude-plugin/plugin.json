@@ -1,7 +1,7 @@
 {
   "name": "dbauditor",
   "description": "Audits the database layer of a codebase (referential integrity, indexes, queries, database security, schema design, constraints, transactions, data types, migrations, search, and growth) from its schema files, migrations, ORM models, and queries, and writes dbaudit.md, a scored, prioritized, self-contained report, then prints the verdict in chat. Use when the user asks for a database audit, a schema or data-model review, an index or query performance review, a migration safety check, or a pre-launch database check. Read-only: never connects to a database, never runs or generates migrations, never touches data. Modes: full (default), quick (Critical-class triage), only=DIM,DIM, or a path. Invoke with /dbauditor in Claude Code or $dbauditor in Codex.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "aihxp",
     "url": "https://github.com/hannsxpeter"

@@ -4,6 +4,7 @@ A read-only **UX audit** skill for AI coding agents, part of the [auditor-suite]
 
 - Claude Code: `/uxauditor`, or ask for "a UX audit", "a usability review", "a user journey audit", "a workflow audit", or "a dark-pattern check".
 - Codex: `$uxauditor`.
+- Other Agent Skills harnesses: the harness's native skill invocation.
 
 "Experience" is broad: web, mobile, and desktop screens, command-line tools and APIs (developer experience), and the processes behind a product (onboarding, approvals, admin flows, checkout, support paths).
 
@@ -25,14 +26,14 @@ Eleven dimensions, all always active, grounded in Nielsen's heuristics, WCAG 2.2
 | PRF | Performance and Responsiveness | 6 | `references/PRF.md` |
 | TRU | Trust, Ethics and Transparency | 6 | `references/TRU.md` |
 
-Boundaries: uiauditor owns how the interface is built (the missing accessible name, the `outline: none`); uxauditor owns the lived consequence (can a keyboard or screen-reader user finish the journey), visual hierarchy, and UX copy. Security depth is secauditor's; code quality is codeauditor's.
+Boundaries: uiauditor owns how the interface is built (the missing accessible name, the `outline: none`); uxauditor owns the lived consequence (can a keyboard or screen-reader user finish the journey), visual hierarchy, and UX copy. Security depth is secauditor's; code quality is codeauditor's. uxauditor judges how the journey feels and whether it deceives, and keeps whether the activation and funnel events exist; [productauditor](../productauditor) judges whether the product delivers, charges, entitles, and measures what it promises, including whether those events fire once at the true outcome, what cancellation and downgrade do at the billing provider, and whether the charge equals the total shown. The suite map is in [SUITE.md](../../SUITE.md).
 
 ## Modes
 
 Text after the skill name picks the mode:
 
 - nothing or `full`: every dimension, every card.
-- `quick`: only the Critical-class cards (blocking accessibility failures on core journeys, destructive actions with no guard, broken core journeys, deceptive patterns); no numeric score.
+- `quick`: only the 14 Critical-class cards (blocking accessibility failures on core journeys, destructive actions with no guard, actions with no feedback or a false success, broken core journeys, workflow steps the wrong actor can move, and deceptive patterns); no numeric score.
 - `only=ACC,TRU`: those dimensions only, with a partial score.
 - a path, alone or after a mode (`quick src/checkout`): audit that part of the tree.
 
@@ -42,7 +43,7 @@ Text after the skill name picks the mode:
 2. `scripts/new-report.sh` writes the `uxaudit.md` skeleton. The model fills the Snapshot and the experience map: the primary actor, the top jobs, and two to four core journeys traced through the code with `path:line` at every step.
 3. For each dimension the model reads its rule cards and runs `scripts/scan.sh <DIM>`, which turns card patterns into `path:line` leads. Each card says how to confirm a defect, when it is not a finding, its severity, the fix, and how to verify the fix; each file ends with "Also check" items and the paper controls that look protective and do nothing.
 4. `scripts/score.sh --write` computes every dimension score, the overall score and grade, the caps, "What to fix first", and the remediation buckets from the findings. No model does the arithmetic.
-5. `scripts/check-report.sh` validates the report: sections, finding fields, that every cited `path:line` exists and contains the quoted code, that every card was worked, and that the generated blocks match the findings.
+5. `scripts/check-report.sh` validates the report: sections, finding fields, that every cited `path:line` exists and that code quoted in Evidence appears within 6 lines of the first cited location, that every card was worked, and that the generated blocks match the findings.
 6. `scripts/score.sh --chat` prints the verdict for the chat.
 
 The audit is static. Findings about runtime behavior (real contrast, timing, whether a displayed count is real, where users hesitate) are marked Likely or Suspected and name what would confirm them: running the product, a Lighthouse or contrast check, analytics, or a usability test.
@@ -62,7 +63,7 @@ skills/uxauditor/
   assets/
     report-template.md      the report skeleton (vendored)
     skill.conf              report name, headlines, banner, map instruction, and domain rule
-    dimensions.tsv          dimension IDs, weights, and names
+    dimensions.tsv          dimension IDs, weights, conditional and floor flags, and names
     patterns.tsv            search patterns that turn cards into leads
     surfaces.tsv            probes for a UI, CLI, API, or workflow surface
 ```
@@ -71,7 +72,7 @@ Vendored files come from the hub's `shared/` folder through `scripts/sync-shared
 
 ## Install
 
-From the hub: the Claude Code plugin marketplace (`/plugin install uxauditor@auditor-suite`) or `bash install.sh` from a clone of the auditor-suite repository. See the hub [README](../../README.md).
+Use the hub installer (`bash install.sh` from a clone of the auditor-suite repository) or the plugin marketplace (`/plugin install uxauditor@auditor-suite`); see the hub [README](../../README.md#install). A manual install must copy or link the whole skill directory (`SKILL.md`, `references/`, `scripts/`, `assets/`), not just `SKILL.md`.
 
 ## License
 

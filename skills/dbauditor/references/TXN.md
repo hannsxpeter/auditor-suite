@@ -2,7 +2,7 @@
 
 Weight 9. Active when a write path exists (INSERT, UPDATE, DELETE, or ORM writes).
 Owns: atomicity, locking, isolation, and idempotency of writes: lost updates, multi-write atomicity, retried handlers, external calls inside transactions, write skew, long or unclosed transactions, transactions that silently do not apply, and cache consistency after writes.
-Not here: uniqueness that a constraint can enforce, including an idempotency key column that lacks UNIQUE (CONSTRAINTS-R1) and non-overlap rules (CONSTRAINTS-R6); float money (TYPES-R1); one hot row that serializes writers (SCALE-R4); pooler modes and session state (SCALE-R5); reading your own writes from a replica (SCALE-R6).
+Not here: uniqueness that a constraint can enforce, including an idempotency key column that lacks UNIQUE (CONSTRAINTS-R1) and non-overlap rules (CONSTRAINTS-R6); float money (TYPES-R1); one hot row that serializes writers (SCALE-R4); pooler modes and session state (SCALE-R5); reading your own writes from a replica (SCALE-R6); usage billed for failed or unrequested operations, and seat counts the provider never learns (productauditor BILL-R7); a cancel or upgrade that never calls the billing provider, or a second active subscription from checkout (productauditor BILL-R4).
 Standards: Designing Data-Intensive Applications (Kleppmann), ch. 7; PostgreSQL and MySQL transaction isolation docs; framework transaction docs.
 Read first: every write path in the Map (money, inventory, counters, retried handlers), each transaction boundary, and the database client's transaction API.
 

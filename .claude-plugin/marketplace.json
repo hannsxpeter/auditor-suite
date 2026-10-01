@@ -1,19 +1,18 @@
 {
   "name": "auditor-suite",
-  "description": "Seven read-only audit skills for AI coding agents, plus a meta plugin that bundles them all.",
+  "description": "Eight read-only audit skills for AI coding agents, plus a meta plugin that bundles them all.",
   "owner": {
     "name": "aihxp",
     "url": "https://github.com/hannsxpeter"
   },
   "metadata": {
-    "version": "1.1.0",
-    "homepage": "https://github.com/hannsxpeter/auditor-suite"
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "auditor-suite",
       "source": "./plugins/auditor-suite",
-      "description": "Install all seven auditor-suite skills in one shot. Pulls every auditor via plugin dependencies."
+      "description": "Install all eight auditor-suite skills in one shot. Pulls every auditor via plugin dependencies."
     },
     {
       "name": "codeauditor",
@@ -49,6 +48,11 @@
       "name": "uxauditor",
       "source": "./plugins/uxauditor",
       "description": "Audits a product's user experience from its code, copy, routes, and config (usability heuristics, accessibility of core journeys, journeys and flows, process and workflow efficiency, interaction and visual design, information architecture, UX writing, onboarding and conversion, forms, perceived performance, trust and deceptive design) and writes uxaudit.md, a scored, prioritized, self-contained report, then prints the verdict in chat. Use when the user asks for a UX audit, a usability or heuristic review, a user journey or workflow audit, a dark-pattern check, or a review of onboarding, forms, or checkout. Read-only and static: never edits source, never runs the app, a browser, or a usability test. Modes: full (default), quick (Critical-class triage), only=DIM,DIM, or a path. Invoke with /uxauditor in Claude Code or $uxauditor in Codex."
+    },
+    {
+      "name": "productauditor",
+      "source": "./plugins/productauditor",
+      "description": "Audits a product through a product manager's and head of product's lens from its code, config, copy, and product docs (claims and delivery, plans and entitlements, billing and subscription lifecycle, customer accounts and operations, product metrics, business metric definitions, release and sunset, experiments, and feedback loops) and writes productaudit.md, a scored, prioritized, self-contained report, then prints the verdict in chat. Use when the user asks for a product audit, a PM or product-director review, product due diligence, whether the code delivers and enforces what the pricing page sells, how trials, renewals, and cancellations behave, or whether usage, revenue, and KPIs are measured correctly. Read-only and static: never edits source, never runs the product, and never queries analytics, billing, feature-flag, or CRM services or a model. Modes: full (default), quick (Critical-class triage), only=DIM,DIM, or a path. Invoke with /productauditor in Claude Code or $productauditor in Codex."
     }
   ]
 }

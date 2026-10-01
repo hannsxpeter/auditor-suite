@@ -7,15 +7,78 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    name: lint (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        # ubuntu: bash 5, GNU grep, mawk or gawk. macos: /bin/bash 3.2, BSD
+        # awk, and BSD grep, the platform the bash 3.2 and portable-awk rules
+        # protect.
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout hub
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Install ripgrep (the lint compiles every scan pattern with grep and ripgrep)
+        if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y ripgrep
 
+      - name: Install ripgrep and put /bin/bash 3.2, BSD awk, grep, and sed first on PATH
+        if: runner.os == 'macOS'
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: "1"
+        run: |
+          command -v rg >/dev/null 2>&1 || brew install ripgrep
+          command -v jq >/dev/null 2>&1 || brew install jq
+          # Homebrew bash 5 can come first on the runner's PATH. The lint
+          # starts nested runs with the bash running it ($BASH); `bash` calls
+          # inside the test suites, and every `awk`, resolve here.
+          shim="$RUNNER_TEMP/macos-shim"
+          mkdir -p "$shim"
+          ln -sf /bin/bash "$shim/bash"
+          ln -sf /usr/bin/awk "$shim/awk"
+          ln -sf /usr/bin/grep "$shim/grep"
+          ln -sf /usr/bin/sed "$shim/sed"
+          echo "$shim" >> "$GITHUB_PATH"
+
+      - name: Show the tools under test
+        run: |
+          for t in bash awk grep sed rg jq python3; do
+            printf '%-8s %s\n' "$t" "$(command -v "$t" || echo missing)"
+          done
+          bash --version | sed -n 1p
+          { awk --version 2>/dev/null || awk -W version 2>/dev/null || true; } | sed -n 1p
+          grep --version | sed -n 1p
+          rg --version | sed -n 1p
+          jq --version || true
+
       - name: Run auditor-suite-lint
-        run: bash scripts/lint.sh --verbose
+        run: /bin/bash scripts/lint.sh --verbose
+
+      - name: Run the lint self-test (eight of the thirteen checks fail on an injected violation)
+        run: /bin/bash tests/lint-selftest.sh
+
+      # The whole lint, so its own awk programs (the rule-card checks) run
+      # under each awk as well as the script tests (tests/run.sh and
+      # tests/install.sh, through script-tests). A check that crashes fails.
+      - name: Run the lint and the script tests with awk forced to mawk, then gawk
+        if: runner.os == 'Linux'
+        run: |
+          for impl in mawk gawk; do
+            command -v "$impl" >/dev/null 2>&1 || sudo apt-get install -y "$impl"
+          done
+          for impl in mawk gawk; do
+            shim="$RUNNER_TEMP/awk-$impl"
+            mkdir -p "$shim"
+            ln -sf "$(command -v "$impl")" "$shim/awk"
+            printf '== lint with awk = %s\n' "$(PATH="$shim:$PATH" awk -W version 2>&1 | sed -n 1p)"
+            PATH="$shim:$PATH" bash scripts/lint.sh
+          done

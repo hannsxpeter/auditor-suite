@@ -2,7 +2,7 @@
 
 ## Our commitment
 
-We want codeauditor to be a welcoming and respectful project for everyone who uses or contributes to it, regardless of background or experience level.
+We want auditor-suite to be a welcoming and respectful project for everyone who uses or contributes to it, regardless of background or experience level.
 
 ## Expected behavior
 
@@ -17,7 +17,7 @@ Harassment, discrimination, personal attacks, and other disrespectful or unwelco
 
 ## Reporting and enforcement
 
-If you experience or witness unacceptable behavior, please report it privately to the maintainer by opening a confidential report through the repository's **Security** tab, or by contacting **@aihxp** on GitHub.
+If you experience or witness unacceptable behavior, please report it privately to the maintainer by opening a confidential report through the repository's **Security** tab, or by contacting **@hannsxpeter** on GitHub.
 
 Maintainers are responsible for clarifying these standards and will take fair and appropriate action in response to any behavior they consider inappropriate, up to and including removing contributions or restricting participation.
 

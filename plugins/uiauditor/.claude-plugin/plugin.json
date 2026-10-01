@@ -1,7 +1,7 @@
 {
   "name": "uiauditor",
   "description": "Audits how a codebase implements its user interface (accessibility, semantic HTML, CSS architecture, component and UI-state correctness, responsive layout, frontend performance, design-system consistency, assets and fonts, plus internationalization and native mobile UI when present) and writes uiaudit.md, a scored, prioritized, self-contained report, then prints the verdict in chat. Use when the user asks for a UI or frontend audit, an accessibility, WCAG, or a11y review, a CSS or design-system review, a Core Web Vitals risk check, or a pre-launch UI check. Read-only: never edits source, never runs the app, a browser, a build, or a scanner. Modes: full (default), quick (Critical-class triage), only=DIM,DIM, or a path. Invoke with /uiauditor in Claude Code or $uiauditor in Codex.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": {
     "name": "aihxp",
     "url": "https://github.com/hannsxpeter"

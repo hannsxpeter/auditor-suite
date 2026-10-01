@@ -36,16 +36,23 @@ ONLY=""
 case "$MODE" in
   full|quick) ;;
   only=*)
-    ONLY="$(printf '%s' "${MODE#only=}" | tr ',' ' ')"
+    # Normalize: drop spaces and empty items, keep each ID once, so the
+    # banner reads only=A,B exactly as check-report.sh parses it.
+    ONLY="$(printf '%s\n' "${MODE#only=}" | tr ', \t' '\n\n\n' | awk 'NF && !seen[$0]++' | tr '\n' ' ' | sed 's/ $//')"
+    [ -n "$ONLY" ] || as_die "--mode only= needs at least one dimension, for example only=$(as_dim_ids | head -1)"
     for d in $ONLY; do
       as_is_dim "$d" || as_die "unknown dimension in --mode $MODE: $d (dimensions: $(as_dim_ids | tr '\n' ' '))"
     done
-    [ -n "$ONLY" ] || as_die "--mode only= needs at least one dimension, for example only=$(as_dim_ids | head -1)"
+    MODE="only=$(printf '%s' "$ONLY" | tr ' ' ',')"
     ;;
   *) as_die "unknown mode: $MODE (use full, quick, or only=DIM,DIM)" ;;
 esac
 
 REPORT="$REPORT_FILE"
+# A symlink (even a dangling one) or a folder at the report path is refused
+# before anything else, --force included: writing through it would land
+# outside the report.
+as_report_path_ok "$REPORT"
 if [ -e "$REPORT" ] && [ "$FORCE" -ne 1 ]; then
   printf '%s already exists. Keep editing it, or rerun with --force to start over.\n' "$REPORT" >&2
   exit 1
@@ -80,7 +87,7 @@ fi
 [ -n "$NA" ] || NA="none"
 [ -n "$NOT_ASSESSED" ] || NOT_ASSESSED="none"
 
-if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+if as_use_git; then
   commit="$(git rev-parse --short HEAD 2>/dev/null || printf 'no commits yet')"
   branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || printf 'unknown')"
   changed="$(git status --porcelain 2>/dev/null | awk -v r="$REPORT" '$NF != r' | wc -l | tr -d ' ')"
@@ -109,6 +116,9 @@ for d in $(printf '%s' "$ACTIVE" | tr ',' ' '); do
 
 "
 done
+
+tmp="$(as_report_tmp "$REPORT")" || exit 2
+trap 'rm -f "$tmp"' EXIT
 
 AS_V_REPORT_TITLE="$REPORT_TITLE" \
 AS_V_PROJECT="$(basename "$(pwd)")" \
@@ -143,7 +153,8 @@ awk '
     for (i = 1; i <= n; i++) line = replace_all(line, "@@" keys[i] "@@", ENVIRON["AS_V_" keys[i]])
     print line
   }
-' "$AS_ASSETS/report-template.md" > "$REPORT" || as_die "could not write $REPORT"
+' "$AS_ASSETS/report-template.md" > "$tmp" || as_die "could not write $REPORT"
+as_report_commit "$tmp" "$REPORT" keep
 
 S="$AS_SKILL_DIR"
 printf 'created %s (mode %s)\n' "$REPORT" "$MODE"

@@ -46,7 +46,7 @@ Never copy a live-looking secret value into the report. In Evidence, quote the p
 - Verify the fix: the built client bundle no longer contains the variable.
 - Refs: CWE-200, CWE-798
 
-### SECRET-R5 Secrets written to logs, errors, or image layers
+### SECRET-R5 Secrets written to logs, errors, or image layers (quick)
 - Leads: `scan.sh SECRET-R5` lists logging of headers, config objects, and connection strings, and Dockerfile `ARG`, `ENV`, and `COPY .env` lines.
 - Confirm: code logs `Authorization` headers, full request or config objects, or a database URL with its password; or a Dockerfile passes secrets through `ARG` or `ENV` or copies `.env` into the image (recoverable from `docker history`).
 - Not a finding if: a redaction layer covers that logger (read it and its call path); the Dockerfile uses `--mount=type=secret`.

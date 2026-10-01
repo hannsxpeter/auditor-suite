@@ -1,7 +1,7 @@
 # UI implementation audit: clinic-booking
 
 > Read-only UI-implementation audit of the code as written, 2026-09-26. The app was not run, and no browser, scanner, or build was used. Mode: full. Scope: whole project.
-> Self-contained: every finding cites the file and line it is about, so an agent holding only this report and the code can act on it. Written with uiauditor (auditor-suite 1.1.0).
+> Self-contained: every finding cites the file and line it is about, so an agent holding only this report and the code can act on it. Written with uiauditor (auditor-suite 1.2.0).
 
 ## Snapshot
 

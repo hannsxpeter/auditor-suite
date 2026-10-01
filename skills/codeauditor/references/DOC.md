@@ -2,7 +2,7 @@
 
 Weight 5. Always active.
 Owns: whether the docs tell the truth about the code: setup, build, and run instructions; documented endpoints, flags, and settings; features documented but missing, or present but undocumented; comments and docstrings that contradict the code; and whether a newcomer could get the project running from the docs alone.
-Not here: structure that breaks a declared architecture (ARC-R1); coverage and "fully tested" claims (TEST, Also check); code too complex to read without comments (QUAL-R1).
+Not here: structure that breaks a declared architecture (ARC-R1); coverage and "fully tested" claims (TEST, Also check); code too complex to read without comments (QUAL-R1); customer-facing claims in pricing, marketing, help, release notes, and in-app copy, and product requirement docs, specs, roadmaps, and decision records marked done (productauditor CLM, CLM-R8); a kill switch that is read but cannot switch (productauditor SHIP-R3); a public contract change shipped with no changelog entry or version bump (productauditor SHIP-R6).
 Standards: CWE-1059, CWE-1068, CWE-1116.
 Read first: README, CONTRIBUTING, docs/, `.env.example`, the manifest's scripts (package.json `scripts`, Makefile, pyproject), and any API spec (OpenAPI, GraphQL schema).
 

@@ -1,0 +1,10 @@
+# id	weight	applies	floor	name
+CLM	15	always	no	Claims and Delivery
+ENT	16	conditional	yes	Plans, Pricing and Entitlements
+BILL	16	conditional	yes	Billing and Subscription Lifecycle
+CUST	9	conditional	no	Customer Accounts and Operations
+MET	12	always	no	Product Metrics and Instrumentation
+KPI	8	conditional	no	Business Metric Definitions
+SHIP	10	always	no	Release, Rollout and Sunset
+EXP	7	conditional	no	Experimentation
+VOC	7	conditional	no	Customer Feedback and Demand Signals

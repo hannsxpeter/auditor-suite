@@ -8,14 +8,49 @@
 #   quick         the cards tagged (quick): the Critical-class checks
 #   all           every card of every dimension
 #   --show-cards  print each card's text above its leads
+#   --max N       leads shown per card (default 12)
 # Run from the project root. Optional paths limit the search. Read-only.
+#
+# Leads print in path and line order. When a card has more than N, the N
+# shown are spread across files, round-robin in path order: the first lead
+# of each file, then the second of each, and so on until N, so a file late
+# in path order still shows a lead. A closing line counts the leads left out.
 
 set -u
 . "$(cd "$(dirname "$0")" && pwd)/_lib.sh"
 as_load_conf
 
+# The header comment above, from line 2 to the first blank line.
 usage() {
-  sed -n '2,12p' "$0" | sed 's/^# \{0,1\}//'
+  sed -n '2,/^$/p' "$0" | sed 's/^# \{0,1\}//'
+}
+
+# pick_leads N: stdin is one card's leads (path:line: text), sorted by path
+# then line, more than N of them. Print N, chosen round-robin across files in
+# path order, still sorted by path then line. A lead's rank is its place in
+# its own file (1 for the file's first lead); every lead ranked below the
+# first rank that does not fit whole is shown, plus the first leads of that
+# rank in path order until N. N reaches awk with -v: a number, never a regex.
+pick_leads() {
+  awk -v max="$1" '
+    {
+      lead[NR] = $0
+      p = index($0, ":")
+      f = (p > 0) ? substr($0, 1, p - 1) : $0
+      r = (NR > 1 && f == prev) ? r + 1 : 1
+      prev = f
+      rank[NR] = r
+      per[r]++
+      if (r > top) top = r
+    }
+    END {
+      left = max + 0
+      for (cut = 1; cut <= top && left >= per[cut]; cut++) left -= per[cut]
+      for (i = 1; i <= NR; i++) {
+        if (rank[i] < cut) print lead[i]
+        else if (rank[i] == cut && left > 0) { print lead[i]; left-- }
+      }
+    }'
 }
 
 SEL=""
@@ -105,9 +140,11 @@ printf '%s\n' "$CARDS" | while IFS= read -r card; do
     continue
   fi
   count="$(printf '%s\n' "$hits" | wc -l | tr -d ' ')"
-  printf '%s\n' "$hits" | head -n "$MAX"
   if [ "$count" -gt "$MAX" ]; then
+    printf '%s\n' "$hits" | pick_leads "$MAX"
     printf '(+%s more leads; rerun with --max %s or a path argument to see them)\n' "$((count - MAX))" "$count"
+  else
+    printf '%s\n' "$hits"
   fi
 done
 

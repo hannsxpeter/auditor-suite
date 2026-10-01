@@ -1,7 +1,7 @@
 # SEO and AI visibility audit: tidewater-bikes
 
 > Read-only SEO and AI-visibility audit of the code as written, 2026-09-26. The live site was not crawled, and no Lighthouse, Search Console, validator, or model was called. Mode: full. Scope: whole project.
-> Self-contained: every finding cites the file and line it is about, so an agent holding only this report and the code can act on it. Written with seoauditor (auditor-suite 1.1.0).
+> Self-contained: every finding cites the file and line it is about, so an agent holding only this report and the code can act on it. Written with seoauditor (auditor-suite 1.2.0).
 
 ## Snapshot
 

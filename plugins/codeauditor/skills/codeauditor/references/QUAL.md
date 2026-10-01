@@ -2,7 +2,7 @@
 
 Weight 15. Always active.
 Owns: the cost of reading and changing the code: long or complex functions, duplicated logic, misleading names, dead code, marker comments, type and lint escape hatches, magic values, and inconsistent style.
-Not here: files or classes with many unrelated responsibilities (ARC-R3); competing designs for one concern (ARC-R6); comments that contradict the code (DOC-R4); deprecated library APIs (DEP-R3); a validator that never runs on an input path (SEC-R1).
+Not here: files or classes with many unrelated responsibilities (ARC-R3); competing designs for one concern (ARC-R6); comments that contradict the code (DOC-R4); deprecated library APIs (DEP-R3); a validator that never runs on an input path (SEC-R1); flag behavior: defaults, server-side enforcement, kill switches, and undefined keys (productauditor SHIP); a feature customers were sold that sits behind an always-off flag or an unregistered route (productauditor CLM-R3); plan, price, and limit definitions copied across the code (productauditor ENT-R8).
 Standards: CWE-1121, CWE-1041, CWE-561, CWE-546, CWE-1106 (CISQ maintainability weaknesses).
 Read first: the load-bearing files on your Map, the largest source files (the ARC-R3 command), and the linter and type-checker config (.eslintrc, tsconfig.json, pyproject.toml, setup.cfg, .golangci.yml).
 
@@ -38,7 +38,7 @@ Read first: the load-bearing files on your Map, the largest source files (the AR
 ### QUAL-R4 Dead code: unreachable branches, unused exports, commented-out blocks
 - Leads: `scan.sh QUAL-R4` lists commented-out code and always-false branches. For unused exports, search each exported name for callers.
 - Confirm: code can never run (after a return, under `if False`, behind a flag that is always off), an exported function or module has no callers, or a block of code is commented out.
-- Not a finding if: the export is a library's public API; the flag is set per environment (read the config).
+- Not a finding if: the export is a library's public API; the flag is set per environment (read the config); customer-facing copy or release notes sell the feature behind the flag (productauditor CLM-R3).
 - Severity: Medium when dead code in a load-bearing file looks like the live path and misleads readers; Low otherwise.
 - Fix: delete it; version control keeps the history.
 - Verify the fix: the build, type check, and tests pass without it, and a search for its name finds no callers.

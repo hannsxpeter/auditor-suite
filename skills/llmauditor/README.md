@@ -32,6 +32,8 @@ Two principles set it apart from a linter:
 - **It reads the request the code sends, not what the prompt promises.** "Respond only with JSON" guarantees nothing without a structured-output mechanism and validation; "only show the user's own records" is not authorization.
 - **It hunts paper controls**: a guardrail whose verdict is logged but never blocks, a cache breakpoint after a volatile timestamp, a retry that misses the SDK's rate-limit error, an ACL stored on vectors but never filtered on, `max_tokens` presented as the agent-loop bound, an eval never run in CI.
 
+Boundaries: secauditor's LLMSEC is a survey; llmauditor is the depth. llmauditor owns model spend limits with no plan term behind them, failures turned into default answers, and model telemetry. [productauditor](../productauditor) owns model-call quotas a plan sells and invented output shown as real when no call failed. The suite map is in [SUITE.md](../../SUITE.md).
+
 ## Modes
 
 - `/llmauditor` or `/llmauditor full`: every active dimension and every card.
@@ -41,15 +43,15 @@ Two principles set it apart from a linter:
 
 ## How it works
 
-The skill is a short procedural spine (`SKILL.md`, about 2,400 tokens) plus files it reads only when a step needs them. The model does the judgment (reading code, confirming or refuting each lead, choosing severity); the scripts do the bookkeeping, so the same findings always produce the same score.
+The skill is a short procedural spine (`SKILL.md`, about 2,700 tokens) plus files it reads only when a step needs them. The model does the judgment (reading code, confirming or refuting each lead, choosing severity); the scripts do the bookkeeping, so the same findings always produce the same score.
 
 | Script | What it does |
 |---|---|
 | `scripts/inventory.sh` | Maps languages, manifests, and entry points, probes for the LLM surface, and decides whether RAG and AGENT apply. |
-| `scripts/scan.sh <DIM\|CARD\|quick\|all>` | Turns rule cards into leads: lines worth reading, never findings by themselves. |
+| `scripts/scan.sh <DIM\|CARD\|quick\|all>` | Turns rule cards into leads: lines worth reading, never findings by themselves. It shows up to 12 per card (`--max N` for more), spread across files. |
 | `scripts/new-report.sh --mode <mode>` | Writes the `llmaudit.md` skeleton with the active dimensions filled in. |
 | `scripts/score.sh --write \| --chat` | Computes every score, cap, and remediation bucket from the findings; prints the chat summary. |
-| `scripts/check-report.sh` | Validates the report: sections, finding fields, that every cited `path:line` exists and holds the quoted code, and that every card was worked. |
+| `scripts/check-report.sh` | Validates the report: sections, finding fields, that every cited `path:line` exists and that code quoted in Evidence appears within 6 lines of the first cited location, and that every card was worked. |
 
 Every script only reads, except `new-report.sh` and `score.sh --write`, which write only `llmaudit.md`. The scripts, `references/protocol.md`, and `assets/report-template.md` are vendored from the hub's `shared/` folder; edit them there.
 

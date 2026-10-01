@@ -2,7 +2,7 @@
 
 Weight 15. Always active.
 Owns: how the code is divided and connected: layering and dependency direction, circular dependencies, module cohesion (god files and classes), business rules separated from transport and storage, coupling to other modules' internals, one way to build each concern, over-engineering, per-request data held in shared state, and structure that breaks the architecture the project declares.
-Not here: one function that is too long or complex (QUAL-R1); copy-pasted logic (QUAL-R2); two packages that do one job (DEP-R4); docs that describe features the code lacks (DOC-R2); a bypassed layer whose skipped rule is an authorization check (SEC-R2).
+Not here: one function that is too long or complex (QUAL-R1); copy-pasted logic (QUAL-R2); two packages that do one job (DEP-R4); docs that describe features the code lacks (DOC-R2); a bypassed layer whose skipped rule is an authorization check (SEC-R2); plan catalogs and named business metrics defined in several places (productauditor ENT-R8, KPI-R5).
 Standards: CWE-1047, CWE-1054, CWE-1057, CWE-1068 (CISQ maintainability weaknesses).
 Read first: the Map you wrote (modules, layers, flows), the folder layout, and any architecture doc (ARCHITECTURE.md, docs/, a README "Architecture" section) or import-lint rule.
 

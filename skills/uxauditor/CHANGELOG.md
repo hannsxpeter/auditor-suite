@@ -4,6 +4,94 @@ All notable changes to uxauditor are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [auditor-suite 1.2.0] - 2026-10-01
+
+Released with productauditor, the suite's eighth auditor. The cards now name
+the product topics that moved to it, and the shared scripts pick leads more
+fairly and gain fixes.
+
+### Changed
+
+- `SKILL.md`: the judgment notes hand whether the product delivers, charges,
+  entitles, and measures what it promises (including whether activation and
+  funnel events fire once at the true outcome) to productauditor.
+- `CNV.md`: the Not here line hands whether product events, including the
+  activation event and funnel steps, fire once at the true outcome, carry user
+  and account identity, match the tracking plan, and capture revenue to
+  productauditor MET. Whether those events exist at all stays in CNV-R4,
+  whose Not a finding if now hands an event that exists but fires at the
+  wrong moment, more than once, or without identity to productauditor MET-R2
+  and MET-R3. The paper control "an analytics event named activated that
+  fires on sign-up" moved to productauditor MET-R2. The Also check on sign-up
+  anxiety reducers hands a guarantee or trial whose number the code
+  contradicts (a 30-day refund checked at 14 days, a 14-day trial set to 7)
+  to productauditor CLM-R5.
+- `JRN.md`: JRN-R1's Not a finding if hands a missing route that belongs to
+  a sold or announced feature whose code exists but is not registered to
+  productauditor CLM-R3. JRN-R2's Not a finding if hands a past-due or locked
+  account with no update-payment action after a failed renewal to
+  productauditor BILL-R6; a failed payment at checkout stays in JRN-R2. The
+  Also check on README, marketing, and docs promises now covers only journeys
+  that exist in the code and break; a capability that does not exist at all
+  is productauditor CLM-R1.
+- `PROC.md`: the Not here line hands routine account, plan, and billing
+  operations done by SQL or scripts to productauditor CUST-R5.
+- `TRU.md`: the Not here line hands what cancellation, downgrade, and renewal
+  do at the billing provider and to access (productauditor BILL), the charged
+  amount differing from the final amount shown (productauditor ENT-R1),
+  invented product output and capability or technical-guarantee claims the
+  code does not back (productauditor CLM), and a contact or support
+  destination that is a placeholder or test value (productauditor VOC-R2) to
+  productauditor. TRU-R3's Verify the fix now compares the first price shown
+  with the final total shown before payment; whether the charge equals that
+  total is productauditor ENT-R1.
+- `USE.md`: the Not here line hands a submission that succeeds but reaches no
+  one (productauditor VOC-R1), a sold feature that is a stub (productauditor
+  CLM-R2), shared work deleted as a side effect of removing a member or
+  deleting a member's user, even after a confirmation (productauditor
+  CUST-R2), and records deleted or locked as a side effect of a downgrade, a
+  lapse, or a trial end, even after a confirmation (productauditor BILL-R8),
+  so USE-R1 and BILL-R8 no longer both file a data-deleting downgrade.
+- `scan.sh`: when a card has more leads than `--max` (12 by default), it
+  picks the ones it shows round-robin across files in path order (the first
+  lead of each file, then the second of each, until the cap) and still prints
+  them in path and line order. Before, it showed the first 12 in path order,
+  so one file full of hits hid every file after it. `scan.sh --help` now
+  explains `--max` and the selection.
+- The scripts read an optional `SCAN_SKIP_RE` from `assets/skill.conf`, a
+  regex of paths this auditor's scans and probes skip. uxauditor sets none, so
+  the setting changes nothing here.
+- Scans skip `productaudit.md`, the new auditor's report, as they skip the
+  other reports.
+
+### Fixed
+
+- On macOS and with gawk, files such as `admin.js` and `admin.css` are no
+  longer dropped from scans and probes as if they were minified bundles: the
+  scripts now pass regexes to awk through `ENVIRON`, which keeps their
+  backslashes.
+- The file list leaves out symlinks, submodules, and tracked files that are
+  deleted or outside a sparse checkout, so ripgrep and grep search the same
+  files and no scan follows a link out of the project.
+- Surface probes take their first hit in path and line order, so
+  `inventory.sh` and `new-report.sh` cite the same hit on every run; ripgrep
+  prints files in no fixed order.
+- Reports are never written through a symlink, and the temporary file for a
+  report write stays in the project, beside the report. `score.sh --write`
+  keeps the report's permission bits and refuses a read-only report instead
+  of replacing it.
+- `check-report.sh` requires every dimension in exactly one of the Active and
+  Not applicable lines (Not assessed in `only=` mode), with a reason in
+  parentheses for each not-applicable dimension.
+- Only the IDs after "Members:" count as systemic-pattern members, and CWE,
+  CVE, and hash names (such as SHA-256) in a root fix or Related line are no
+  longer read as finding IDs.
+- `new-report.sh --mode only=` normalizes its list: spaces and empty items
+  are dropped, and each ID is kept once.
+- Leads no longer depend on the user's ripgrep config, `GREP_OPTIONS`, or
+  locale.
+- Projects inside a folder that an outer repository ignores are scanned.
+
 ## [auditor-suite 1.1.0] - 2026-09-26
 
 Rebuilt so small and local models can run the audit, following the suite's
@@ -131,11 +219,11 @@ about the install/inspect command-line experience.
 First release.
 
 ### Added
-- The tool-neutral audit engine ([`engine/uxauditor.md`](engine/uxauditor.md)): a read-only, end-to-end UX audit that writes a scored, prioritized, self-contained `uxaudit.md` and prints the verdict in chat.
+- The tool-neutral audit engine (`engine/uxauditor.md` in the standalone repo): a read-only, end-to-end UX audit that writes a scored, prioritized, self-contained `uxaudit.md` and prints the verdict in chat.
 - Eleven analysis lenses grounded in established standards: Usability and Heuristics (Nielsen's 10), Accessibility and Inclusive Design (WCAG 2.2 AA), User Journeys and Flows, Process and Workflow Efficiency (Lean, Theory of Constraints), Interaction and Visual Design, Information Architecture and Navigation, Content and UX Writing, Onboarding, Conversion and Engagement (AARRR), Forms and Input (Baymard), Performance and Responsiveness (Core Web Vitals), and Trust, Ethics and Transparency (the deceptive-design taxonomy).
 - A weighted scoring model with A-F bands and a Critical-caps-the-score rule, severity mapped to Nielsen's 0-4 scale, and Confirmed / Likely / Suspected confidence so runtime-only findings are flagged for verification.
 - `install.sh`: detects installed AI coding tools under `$HOME` and renders the engine into each tool's native skill or slash-command format (Claude Code, Codex CLI, Gemini CLI, Cursor, opencode, Windsurf, Antigravity, pi). Idempotent, with an `uninstall` mode.
-- [`AGENTS.md`](AGENTS.md) portable directive for any tool that reads `AGENTS.md`.
+- An `AGENTS.md` portable directive (standalone repo) for any tool that reads `AGENTS.md`.
 - Repository scaffolding: README, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, LICENSE (MIT), `.editorconfig`, `.gitignore`, and a CI workflow that enforces plain-ASCII files and installer and engine consistency.
 
 [1.0.0]: https://github.com/hannsxpeter/uxauditor/releases/tag/v1.0.0

@@ -2,7 +2,7 @@
 
 Weight 10. Always active.
 Owns: surviving provider and network failures: timeouts and deadlines, the retry predicate and backoff, idempotent retries, not swallowing errors, fallback and graceful degradation, circuit breaking, and bounded concurrency.
-Not here: agent loop bounds (AGENT-R2); a stop reason never read (APIUSE-R1); telemetry and request-ID capture (OBSERV); a retired or incompatible fallback model (MODEL-R2, MODEL-R6); parse or validation failures swallowed (OUTPUT-R3).
+Not here: agent loop bounds (AGENT-R2); a stop reason never read (APIUSE-R1); telemetry and request-ID capture (OBSERV); a retired or incompatible fallback model (MODEL-R2, MODEL-R6); parse or validation failures swallowed (OUTPUT-R3); invented results shown as real output on a production path when no call failed (productauditor CLM-R7).
 Standards: provider error and rate-limit references (references/facts.md), OWASP LLM10:2025.
 Read first: the client construction, any retry decorator or wrapper, and the error handling around each model call.
 

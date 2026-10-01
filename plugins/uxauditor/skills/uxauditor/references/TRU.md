@@ -2,7 +2,7 @@
 
 Weight 6. Always active.
 Owns: deceptive design in the deceptive.design taxonomy (preselection, obstruction and hard to cancel, sneaking and hidden costs, hidden subscription, forced action, interface interference, trick wording, confirmshaming, fake urgency, fake scarcity, fake social proof, nagging, disguised ads, comparison prevention), symmetry of joining and leaving, consent, pricing transparency, credibility, honest social proof, and privacy at the point of collection.
-Not here: protection of personal data in storage and transit (secauditor); the accessibility of the consent banner (ACC); walls before first value that deceive no one (CNV-R1); the clarity of ordinary copy (CNT).
+Not here: protection of personal data in storage and transit (secauditor); the accessibility of the consent banner (ACC); walls before first value that deceive no one (CNV-R1); the clarity of ordinary copy (CNT); what cancellation, downgrade, and renewal do at the billing provider and to access (productauditor BILL); the charged amount differing from the final amount shown (productauditor ENT-R1); invented product output, and capability and technical-guarantee claims the code does not back (productauditor CLM); a contact or support destination that exists but is a placeholder or test value (productauditor VOC-R2).
 Standards: the deceptive.design taxonomy; EU DSA Article 25; GDPR Articles 4(11) and 7 with the EDPB consent guidelines; EU Consumer Rights Directive Article 22; ROSCA and state automatic-renewal laws; Stanford web credibility guidelines. Dates and current status are in references/facts.md; cite them from there.
 Read first: the sign-up, checkout, pricing, and cancellation routes, the consent or cookie banner, account settings and notification preferences, and any countdown, stock, review, or testimonial component.
 
@@ -34,7 +34,7 @@ A deceptive pattern confirmed in code is Critical: it deceives users and exposes
 - Not a finding if: the all-in price shows from the first price the user sees; tax that depends on the address is labeled as extra from the start; the renewal terms sit next to the start button.
 - Severity: Critical when confirmed (drip pricing, a hidden subscription, sneaking into the basket); High when the disclosure exists but sits below the button or in fine print.
 - Fix: show the all-in price early; put renewal price, date, and how to cancel next to the button that starts the trial; send a reminder before the first charge.
-- Verify the fix: for a default order, the first price shown equals the amount charged.
+- Verify the fix: for a default order, the first price shown equals the final total shown before payment (whether the charge equals that total is productauditor ENT-R1).
 - Refs: deceptive.design hidden costs, hidden subscription, sneaking; ROSCA; FTC Rule on Unfair or Deceptive Fees; Consumer Rights Directive Article 22
 
 ### TRU-R4 Pressure patterns: fake urgency, fake scarcity, fake social proof, confirmshaming, or nagging (quick)

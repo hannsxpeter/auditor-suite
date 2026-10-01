@@ -2,7 +2,7 @@
 
 Weight 6. Always active.
 Owns: realized spend and abuse economics: prompt caches that never hit, bulk work on realtime endpoints, per-user and per-tenant spend limits, and recomputed work.
-Not here: a missing caching mechanism (APIUSE-R4); model tier and routing (MODEL-R6); output caps and reasoning budgets (MODEL-R5); agent loop bounds (AGENT-R2); unbounded history (PROMPT-R5); usage capture and cost attribution (OBSERV-R2).
+Not here: a missing caching mechanism (APIUSE-R4); model tier and routing (MODEL-R6); output caps and reasoning budgets (MODEL-R5); agent loop bounds (AGENT-R2); unbounded history (PROMPT-R5); usage capture and cost attribution (OBSERV-R2); plan quotas sold to customers on model features: a sold quota that nothing checks (productauditor ENT-R5) or that is set to another number (productauditor ENT-R4), and its unit, scope, and period (productauditor ENT-R6).
 Standards: OWASP LLM10:2025 (Unbounded Consumption), provider pricing, caching, and batch pages (references/facts.md).
 Read first: the prompt builders on high-volume paths, cache settings, batch and cron jobs, and any quota or rate-limit code in front of model calls.
 
@@ -29,7 +29,7 @@ Read first: the prompt builders on high-volume paths, cache settings, batch and 
 ### COST-R3 No per-user or per-tenant token or spend limit before the call
 - Leads: `scan.sh COST-R3` lists quota, budget, and rate-limit code.
 - Confirm: a public or multi-user endpoint calls the model with no per-user, per-key, or per-tenant limit on tokens, spend, or requests checked before the call; or limits count only HTTP requests, not tokens; or usage is checked only after the call.
-- Not a finding if: a gateway enforces per-key budgets (read its config); the tool is internal and single-user.
+- Not a finding if: a gateway enforces per-key budgets (read its config); the tool is internal and single-user; the plan copy sells a model-call quota for this endpoint and nothing enforces it (productauditor ENT-R5).
 - Severity: High on an internet-facing endpoint (denial of wallet). Medium for authenticated internal use. Use Suspected when a limit may live outside the repo.
 - Fix: enforce per-user and per-tenant token and spend budgets before the call, cap input size, and record actual usage after it.
 - Verify the fix: a test that exceeds the budget gets a 429 with no model call.

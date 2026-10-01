@@ -34,7 +34,8 @@ done
 [ -n "$ROOT" ] || ROOT="$(cd "$(dirname "$REPORT")" && pwd)"
 [ -d "$ROOT" ] || as_die "--root $ROOT is not a directory"
 
-PARSED="$(awk -f "$AS_SCRIPT_DIR/_parse.awk" "$REPORT")"
+DIMS=" $(as_dim_ids | tr '\n' ' ')"
+PARSED="$(awk -v dims="$DIMS" -f "$AS_SCRIPT_DIR/_parse.awk" "$REPORT")"
 PROBS=""
 NPROB=0
 problem() {
@@ -90,7 +91,44 @@ ACTIVE="$(printf '%s' "$ACTIVE_RAW" | tr ', ' '\n\n' | awk 'NF')"
 for d in $ACTIVE; do
   as_is_dim "$d" || problem "\"- Active dimensions:\" lists $d, which is not a dimension of $SKILL_NAME ($(as_dim_ids | tr '\n' ' '))"
 done
-NA_IDS="$(printf '%s\n' "$NA_RAW" | sed 's/([^)]*)//g' | tr ', )' '\n\n\n' | awk 'NF')"
+
+list_words() {
+  # list_words: the words of a dimension list (stdin) outside parentheses,
+  # one per line as word<TAB>1 when a non-empty "(reason)" follows it, else
+  # word<TAB>0. Nested parentheses inside a reason are fine.
+  awk '{
+    s = $0; n = length(s); depth = 0; w = ""
+    for (i = 1; i <= n + 1; i++) {
+      c = (i <= n) ? substr(s, i, 1) : " "
+      if (depth > 0) {
+        if (c == "(") depth++
+        else if (c == ")") depth--
+        continue
+      }
+      if (c ~ /[A-Za-z0-9_]/) { w = w c; continue }
+      if (w != "") {
+        j = i
+        while (j <= n && substr(s, j, 1) == " ") j++
+        r = 0
+        if (j <= n && substr(s, j, 1) == "(") {
+          k = j + 1; dd = 1
+          while (k <= n && dd > 0) {
+            ch = substr(s, k, 1)
+            if (ch == "(") dd++
+            else if (ch == ")") dd--
+            else if (ch ~ /[A-Za-z0-9]/) r = 1
+            k++
+          }
+        }
+        print w "\t" r
+        w = ""
+      }
+      if (c == "(") depth++
+    }
+  }'
+}
+NA_WORDS="$(printf '%s\n' "$NA_RAW" | list_words)"
+NA_IDS="$(printf '%s\n' "$NA_WORDS" | cut -f1)"
 for d in $NA_IDS; do
   as_is_dim "$d" || continue
   if printf '%s\n' "$ACTIVE" | grep -qx "$d"; then
@@ -98,8 +136,12 @@ for d in $NA_IDS; do
   fi
   if [ "$(as_dim_field "$d" 3)" = "always" ]; then
     problem "$d is always audited and cannot be not applicable; move it back to \"- Active dimensions:\""
+  elif printf '%s\n' "$NA_WORDS" | grep -qx "$d${AS_TAB}0"; then
+    problem "$d is not applicable without a reason; write it as \"$d (why it does not apply)\" on the \"- Not applicable:\" line"
   fi
 done
+NOT_ASSESSED_IDS=""
+case "$MODE" in only=*) NOT_ASSESSED_IDS="$(meta notassessed | list_words | cut -f1)" ;; esac
 case "$MODE" in
   full|quick)
     for d in $(as_dim_ids); do
@@ -112,6 +154,27 @@ case "$MODE" in
     want="$(printf '%s' "${MODE#only=}" | tr ',' '\n' | awk 'NF' | sort)"
     have="$(printf '%s\n' "$ACTIVE" | awk 'NF' | sort)"
     [ "$want" = "$have" ] || problem "mode $MODE but \"- Active dimensions:\" lists $(printf '%s' "$ACTIVE" | tr '\n' ' '); they must match"
+    ;;
+esac
+# Every dimension sits in exactly one list, so no run can drop one silently.
+case "$MODE" in
+  full|quick|only=*)
+    lists="\"- Active dimensions:\" and \"- Not applicable:\""
+    case "$MODE" in only=*) lists="\"- Active dimensions:\", \"- Not applicable:\", and \"- Not assessed:\"" ;; esac
+    for d in $(as_dim_ids); do
+      a="$(printf '%s\n' "$ACTIVE" | grep -cx "$d")"
+      n="$(printf '%s\n' "$NA_IDS" | grep -cx "$d")"
+      x="$(printf '%s\n' "$NOT_ASSESSED_IDS" | grep -cx "$d")"
+      if [ $((a + n + x)) -eq 0 ]; then
+        case "$MODE" in
+          only=*) problem "$d is in none of $lists; list every dimension of $SKILL_NAME in exactly one of them" ;;
+          *) [ "$(as_dim_field "$d" 3)" = "always" ] ||
+              problem "$d is in neither \"- Active dimensions:\" nor \"- Not applicable:\"; list it as active if the project has its surface (inventory.sh says), otherwise as \"$d (why it does not apply)\" under not applicable" ;;
+        esac
+      elif [ $((a + n + x)) -gt 1 ] && ! { [ "$a" -gt 0 ] && [ "$n" -gt 0 ]; }; then
+        problem "$d is listed more than once across $lists; keep it in exactly one"
+      fi
+    done
     ;;
 esac
 
@@ -203,9 +266,25 @@ for id in $FIDS; do
 
   rel="$(finding_field "$id" related)"
   if [ -n "$rel" ] && ! printf '%s' "$rel" | grep -qi '^none'; then
-    for ref in $(printf '%s\n' "$rel" | awk '{ s = $0; while (match(s, /(SYS-[0-9]+|[A-Z][A-Z0-9]*-[0-9][0-9][0-9])/)) { print substr(s, RSTART, RLENGTH); s = substr(s, RSTART + RLENGTH) } }'); do
-      if ! printf '%s\n%s\n' "$FIDS" "$SYSIDS" | grep -qx "$ref"; then
+    # Every SYS-n and ID-shaped token (ABC-123, never one followed by
+    # another digit, so CVE-2023-30861 is skipped) must name something in
+    # this report, except IDs from well-known standards (CWE-614, SHA-256),
+    # which are ignored here; they belong under References.
+    for ref in $(printf '%s\n' "$rel" | awk '{
+      s = $0
+      while (match(s, /(SYS-[0-9]+|[A-Z][A-Z0-9]*-[0-9][0-9][0-9])/)) {
+        t = substr(s, RSTART, RLENGTH); nx = substr(s, RSTART + RLENGTH, 1); s = substr(s, RSTART + RLENGTH)
+        if (nx ~ /[0-9]/) continue
+        p = t; sub(/-[0-9]+$/, "", p)
+        if (index(" CWE CVE CAPEC OWASP WCAG ASVS GHSA SHA AES RFC ISO ", " " p " ") == 0) print t
+      }
+    }'); do
+      printf '%s\n%s\n' "$FIDS" "$SYSIDS" | grep -qx "$ref" && continue
+      p="${ref%-*}"
+      if [ "$p" = "SYS" ] || as_is_dim "$p"; then
         problem "$id: Related names $ref, which is not a finding or systemic pattern in this report"
+      else
+        problem "$id: Related names $ref, which is not a finding or systemic pattern in this report ($p is not a dimension of $SKILL_NAME); Related lists only finding IDs and SYS-n, so fix the ID, or put CWE and CVE IDs under References"
       fi
     done
   fi
@@ -266,14 +345,20 @@ EOF
 done
 
 # 5. Systemic patterns.
-syslines="$(rec SYS)"
+# Tabs become "|" first: IFS tabs would collapse an empty members field.
+syslines="$(rec SYS | tr '\t' '|')"
 if [ -n "$syslines" ]; then
-  while IFS="$AS_TAB" read -r sid members lno; do
+  while IFS='|' read -r sid members lno; do
     [ -n "$sid" ] || continue
     nmem="$(printf '%s' "$members" | tr ',' '\n' | awk 'NF' | wc -l | tr -d ' ')"
-    [ "$nmem" -ge 2 ] || problem "$sid (line $lno) needs at least two member finding IDs; a single finding is not a pattern"
+    [ "$nmem" -ge 2 ] || problem "$sid (line $lno) needs at least two member finding IDs after \"Members:\" (\"- SYS-1: root cause. Members: ID-001, ID-002. Root fix: one fix.\"); a single finding is not a pattern"
     for m in $(printf '%s' "$members" | tr ',' ' '); do
-      printf '%s\n' "$FIDS" | grep -qx "$m" || problem "$sid lists $m, which is not a finding in this report"
+      printf '%s\n' "$FIDS" | grep -qx "$m" && continue
+      if as_is_dim "${m%-*}"; then
+        problem "$sid lists $m, which is not a finding in this report"
+      else
+        problem "$sid lists $m, which is not a finding in this report (${m%-*} is not a dimension of $SKILL_NAME); list only finding IDs after \"Members:\", and name CWE or CVE IDs in the root cause or root fix"
+      fi
     done
   done <<EOF
 $syslines

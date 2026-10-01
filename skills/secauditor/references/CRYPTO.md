@@ -2,7 +2,7 @@
 
 Weight 11. Always active.
 Owns: encryption algorithms and modes, IVs and nonces, randomness for security values, home-rolled crypto, key handling and sizes, TLS in transit (inbound and outbound, including disabled certificate checks), and protection of sensitive data at rest, in caches, and in URLs.
-Not here: password hashing and credential comparison (AUTHN); hardcoded keys and secret storage (SECRET); personal data in logs (LOGPRIV); database column encryption depth (dbauditor).
+Not here: password hashing and credential comparison (AUTHN); hardcoded keys and secret storage (SECRET); personal data in logs (LOGPRIV); database column encryption depth (dbauditor); customer-facing encryption guarantees the code contradicts (productauditor CLM-R5).
 Standards: OWASP A04:2025 (A02:2021), ASVS V11 and V12, NIST SP 800-131A, 800-52, 800-57.
 Read first: the crypto or security utility module, every place that encrypts, signs, or generates tokens, and the HTTP client and server setup.
 

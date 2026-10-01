@@ -14,5 +14,17 @@ trim_trailing_whitespace = false
 [*.sh]
 indent_size = 2
 
+# Tab-separated tables (dimensions.tsv, patterns.tsv, surfaces.tsv): a tab is
+# the column separator, never indentation, and a trailing tab or space can be
+# part of the last column (an empty field, or a regex that ends in a space).
+[*.tsv]
+indent_style = tab
+indent_size = unset
+trim_trailing_whitespace = false
+
+# The Python eval and example-report fixtures use four-space indentation.
+[*.py]
+indent_size = 4
+
 [Makefile]
 indent_style = tab

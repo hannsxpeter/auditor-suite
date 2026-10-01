@@ -68,7 +68,7 @@ All nine dimensions apply to every codebase, so none is ever marked not applicab
 
 ## How to judge
 
-This audit is the whole-codebase baseline: how the code is built, tested, run, and kept healthy, plus a security survey. Security depth belongs to secauditor, the data layer (schema, indexes, query plans, migrations in depth) to dbauditor, LLM integration to llmauditor, UI implementation to uiauditor, and product journeys to uxauditor. When a sibling should look deeper, say so in Scope and limitations; do not do its work.
+This audit is the whole-codebase baseline: how the code is built, tested, run, and kept healthy, plus a security survey. Security depth belongs to secauditor, the data layer (schema, indexes, query plans, migrations in depth) to dbauditor, LLM integration to llmauditor, UI implementation to uiauditor, search and AI-engine visibility to seoauditor, product journeys to uxauditor, and customer-facing claims, plan gates and the plan catalog, flag behavior, analytics keys, and product telemetry to productauditor. When a sibling should look deeper, say so in Scope and limitations; do not do its work.
 
 - Hunt paper constructs first: code that looks robust and carries no weight. A catch that swallows the error, a validator defined and never called, middleware registered but not applied to the routes it should guard, a test that asserts nothing, a health check that returns 200 without checking anything, a rate limiter that does not limit. Each dimension file lists the ones to look for.
 - Read the code, not the names, comments, or docs. Where a doc, config, or comment says one thing and the code does another, that gap is a finding: DOC owns docs that lie, ARC owns structure that breaks the declared architecture.
