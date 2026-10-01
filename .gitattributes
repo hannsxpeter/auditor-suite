@@ -1,7 +1,33 @@
+# Store and check out every text file with LF endings. The scripts run under
+# bash 3.2 and BSD awk, a CR breaks a shell line or an awk field, and the
+# lint compares the shared and vendored copies byte for byte.
 * text=auto eol=lf
 
 *.md text eol=lf
 *.sh text eol=lf
+*.awk text eol=lf
+*.tsv text eol=lf
+*.conf text eol=lf
 *.json text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
+
+# Binary fixture assets: never normalized, never diffed as text.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+
+# plugins/<skill>/skills/<skill>/ is a copy of skills/<skill>/ made by
+# scripts/refresh-plugins.sh (lint plugin-sync checks it). Review the
+# canonical file; GitHub collapses these diffs and leaves them out of the
+# language stats. The plugin.json manifests are written by hand and stay
+# visible.
+plugins/*/skills/** linguist-generated=true
+
+# Fixture projects the auditors are tested against, not hub code: keep them
+# out of the repository language stats.
+evals/*/full-audit/repo/** linguist-vendored=true
+tests/fixtures/** linguist-vendored=true

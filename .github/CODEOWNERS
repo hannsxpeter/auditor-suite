@@ -4,6 +4,7 @@
 # is @hannsxpeter; the default rule covers everything. Path-specific rules
 # below make the high-blast-radius surfaces explicit, so a future
 # co-maintainer can see at a glance which files trigger which reviewers.
+# Directory rules cover every auditor, so adding one needs no edit here.
 
 # Default fallback: hub maintainer reviews everything.
 * @hannsxpeter
@@ -16,9 +17,23 @@
 /install.sh @hannsxpeter
 /uninstall.sh @hannsxpeter
 
-# The meta-linter mechanically enforces suite discipline. A check that fails
-# to fail silently degrades the protection the suite has against drift.
+# The meta-linter, the skill roster, and the sync and eval scripts. A check
+# that fails to fail silently degrades the protection the suite has against
+# drift.
 /scripts/ @hannsxpeter
+
+# The one editable copy of the shared protocol, template, and scripts. A
+# change here is copied into every auditor by scripts/sync-shared.sh.
+/shared/ @hannsxpeter
+
+# Canonical auditor sources (skills/<name>/, all eight auditors including
+# productauditor), their vendored plugin copies, and the plugin manifests.
+/skills/ @hannsxpeter
+/plugins/ @hannsxpeter
+
+# Test suites, the lint self-test, example-report fixtures, and eval cases.
+/tests/ @hannsxpeter
+/evals/ @hannsxpeter
 
 # CI workflows. A workflow regression cascades to every push.
 /.github/workflows/ @hannsxpeter
@@ -26,3 +41,6 @@
 # Plugin marketplace manifest. A manifest typo breaks Claude Code's
 # /plugin install command for every consumer.
 /.claude-plugin/marketplace.json @hannsxpeter
+
+# Release version: the lint requires every version string to agree with it.
+/VERSION @hannsxpeter

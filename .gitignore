@@ -1,5 +1,15 @@
-# macOS
+# OS junk
 .DS_Store
+._*
+Thumbs.db
+Desktop.ini
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
 # Logs
 *.log
@@ -7,19 +17,15 @@
 # Local harness state; never commit session or worktree data.
 .claude/
 
-# Release tarballs are attached to GitHub Releases, not committed.
+# Packaged archives are never committed; GitHub builds the release archives.
 *.tar.gz
 *.tgz
 dist/
 
-# Generated audit reports from dogfooding the suite on itself.
-codeaudit.md
-dbaudit.md
-llmaudit.md
-secaudit.md
-seoaudit.md
-uiaudit.md
-uxaudit.md
+# Generated audit reports from dogfooding the suite on itself: every auditor
+# writes <name>audit.md at the repo root (lint suite-registry checks each one).
+/*audit.md
 
 # Eval run output from scripts/eval.sh (claude plugin eval results).
+# tests/lint-selftest.sh removes this exact line; keep it as written.
 evals/results/
