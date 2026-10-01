@@ -35,6 +35,8 @@ Two principles make it more than a linter:
 
 Every recommendation that changes a large table carries the lock-safe path (`CREATE INDEX CONCURRENTLY`, `NOT VALID` then `VALIDATE`, expand-contract, batched backfill), because the fix must not cause the outage.
 
+Boundaries: dbauditor owns idempotency, transactions, cascades, and references across services. [productauditor](../productauditor) owns what billing and membership changes do to customers: a billing provider never called, a second subscription, usage billed for failed work, and shared work lost when a member leaves. The suite map is in [SUITE.md](../../SUITE.md).
+
 ## Modes
 
 - `/dbauditor` or `/dbauditor full`: every active dimension and every card.
@@ -51,7 +53,7 @@ The skill is a short procedural spine (`SKILL.md`) plus files it reads only when
 - `references/nonrelational.md`: the store-specific checks for MongoDB, DynamoDB, Cassandra, Redis, search engines and vector stores, warehouses and dbt, and time-series databases.
 - `references/facts.md`: dated engine and framework facts (for example `NULLS NOT DISTINCT` from PostgreSQL 15, MySQL CHECK enforcement from 8.0.16, ORM type defaults) with a review date.
 - `references/example-report.md`: a complete report that passes the validator, as a format anchor.
-- `scripts/`: read-only helpers. `inventory.sh` maps the project and decides the conditional dimensions (and says so when there is no database layer to audit); `scan.sh` turns cards into leads; `new-report.sh` writes the report skeleton; `score.sh` computes every score from the findings; `check-report.sh` validates the report, including that every cited `path:line` exists and contains the quoted code.
+- `scripts/`: read-only helpers. `inventory.sh` maps the project and decides the conditional dimensions (and says so when there is no database layer to audit); `scan.sh` turns cards into leads; `new-report.sh` writes the report skeleton; `score.sh` computes every score from the findings; `check-report.sh` validates the report, including that every cited `path:line` exists and that code quoted in Evidence appears within 6 lines of the first cited location.
 - `assets/`: the report template and the tables the scripts read (`skill.conf`, `dimensions.tsv`, `patterns.tsv`, `surfaces.tsv`).
 
 The model does the judgment (reading the DDL and queries, confirming or refuting each lead, choosing severity from the card's conditions); the scripts do the bookkeeping. Scores are deterministic: the same findings always produce the same score.

@@ -2,7 +2,7 @@
 
 Weight 14. Always active.
 Owns: whether relationships between rows are enforced by the database: foreign keys, their validation state, ON DELETE and ON UPDATE rules, junction tables, soft-deleted parents with live children, and references that cross a database or service boundary.
-Not here: the index on a foreign key column (INDEX-R1); uniqueness (CONSTRAINTS); packed lists of IDs in one column and polymorphic pairs (SCHEMA-R1, SCHEMA-R3); the unique index on a soft-delete table (CONSTRAINTS-R2); how to add a constraint without locking (MIGRATION-R2).
+Not here: the index on a foreign key column (INDEX-R1); uniqueness (CONSTRAINTS); packed lists of IDs in one column and polymorphic pairs (SCHEMA-R1, SCHEMA-R3); the unique index on a soft-delete table (CONSTRAINTS-R2); how to add a constraint without locking (MIGRATION-R2); a subscription or plan copied from the billing provider with no webhook or reconciliation (productauditor BILL-R3); whether a removed member's shared work should survive (productauditor CUST-R2).
 Standards: SQL Antipatterns (Karwin), PostgreSQL, MySQL, SQL Server, and SQLite foreign key docs.
 Read first: every migration or schema dump that creates or alters a table, the ORM association declarations, and every code path that deletes rows.
 
@@ -20,7 +20,7 @@ Read first: every migration or schema dump that creates or alters a table, the O
 ### INTEGRITY-R2 ON DELETE CASCADE reaches financial, audit, or other rows that must survive (quick)
 - Leads: `scan.sh INTEGRITY-R2` lists cascade rules in the DDL and the ORM.
 - Confirm: a cascade (`ON DELETE CASCADE`, `onDelete: Cascade`, `on_delete=models.CASCADE`, `dependent: :destroy`, `CascadeType.REMOVE`) runs from a parent that code or users can delete to rows that must outlive it (orders, invoices, payments, ledger lines, audit rows), directly or through a chain. Follow the chain two or three levels.
-- Not a finding if: the children are disposable (sessions, tokens, join rows, cart lines, drafts); the parent is never hard-deleted (cite the absence of a delete path); the cascade is the documented erasure path and the rows are archived first.
+- Not a finding if: the children are disposable (sessions, tokens, join rows, cart lines, drafts); the parent is never hard-deleted (cite the absence of a delete path); the cascade is the documented erasure path and the rows are archived first; the rows are a workspace's shared content reached from a user or membership delete (productauditor CUST-R2).
 - Severity: Critical when a user-reachable or routine delete can remove financial or audit rows; High when only an admin or maintenance path can; Medium for other valuable data.
 - Fix: `ON DELETE RESTRICT` (or `SET NULL` for optional links) and an app-managed delete that archives first; keep CASCADE for disposable children. Changing the rule means dropping and re-adding the key: use `NOT VALID` then `VALIDATE` on a large table.
 - Verify the fix: a test that deletes a parent with financial children fails with a foreign key violation.

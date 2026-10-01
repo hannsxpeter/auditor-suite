@@ -2,7 +2,7 @@
 
 Weight 8. Always active.
 Owns: activation and time to value, hard gates before first value, the first-run experience (doing, not touring; templates and sample data; progressive disclosure), plan limits and paywalls inside tasks, measurement of the funnel (AARRR), and the reasons to come back (retention and re-engagement).
-Not here: empty-state copy (CNT-R2); the fields on the sign-up form (FRM-R4); a charge the user was not told about, preselected add-ons, and nagging (TRU); dead ends on the way (JRN-R2).
+Not here: empty-state copy (CNT-R2); the fields on the sign-up form (FRM-R4); a charge the user was not told about, preselected add-ons, and nagging (TRU); dead ends on the way (JRN-R2); whether product events, including the activation event and funnel steps, fire once at the true outcome, carry user and account identity, match the tracking plan, and capture revenue (productauditor MET).
 Standards: AARRR (acquisition, activation, retention, referral, revenue); activation event and time to value; the Hooked model (trigger, action, reward, investment).
 Read first: the sign-up and onboarding routes, the first screen after sign-up, the plan, trial, and limit checks, the analytics calls, and the email or notification jobs.
 
@@ -38,7 +38,7 @@ Read first: the sign-up and onboarding routes, the first screen after sign-up, t
 ### CNV-R4 The activation event and funnel steps are not measured
 - Leads: `scan.sh CNV-R4` lists analytics calls; check which funnel steps fire an event.
 - Confirm: analytics is present, but no event fires at the activation event (the first hands-on experience of core value) or at the funnel steps (sign-up started, sign-up finished, first core action), so nobody can see where users drop off.
-- Not a finding if: the product has no analytics by a documented privacy choice (note it in Scope and limitations instead); a server-side funnel records the same steps.
+- Not a finding if: the product has no analytics by a documented privacy choice (note it in Scope and limitations instead); a server-side funnel records the same steps; an event for the step exists but fires at the wrong moment, more than once, or without user and account identity (productauditor MET-R2, MET-R3).
 - Severity: Medium; Low for an internal tool.
 - Fix: name the activation event, then fire one event per funnel step with the same user or session id.
 - Verify the fix: a test run through sign-up and the first core action emits each named event once.
@@ -49,10 +49,9 @@ Read first: the sign-up and onboarding routes, the first screen after sign-up, t
 - Funnel leaks: walk acquisition, activation, retention, and revenue; name the step with the largest likely drop-off (Suspected without analytics); long forms, missing progress, and dead ends on the way file under FRM, JRN, and CNT.
 - Retention: a reason to come back (saved work, teammates, fresh content, a habit loop of trigger, action, reward, and investment); re-engagement tied to something the user values, not generic reminders (repeated nagging is TRU-R4).
 - Data asked before it is needed in onboarding files under FRM-R4.
-- Anxiety reducers on the sign-up page ("no card required", a guarantee, cancel anytime) that are true; a false one is TRU.
+- Anxiety reducers on the sign-up page ("no card required", a guarantee, cancel anytime) that are true; a false one is TRU; a guarantee or trial whose number the code contradicts (a 30-day refund checked at 14 days, a 14-day trial set to 7) is productauditor CLM-R5.
 
 ## Paper controls (look protective, protect nothing)
 - An onboarding checklist that marks items done when viewed, not when completed.
 - A "Skip tour" button that restarts the tour on the next page.
 - Sample data seeded in development fixtures but never for new accounts in production.
-- An analytics event named "activated" that fires on sign-up.

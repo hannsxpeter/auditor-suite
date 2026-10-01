@@ -2,7 +2,7 @@
 
 Weight 18. Always active.
 Owns: whether each operation checks that this caller may do this to this record: object-level and function-level checks, deny-by-default, privilege fields, mass assignment, excessive data exposure, tenant isolation.
-Not here: how identity is established, tokens, sessions (AUTHN); rate limits (APISEC); the CORS configuration (MISCFG).
+Not here: how identity is established, tokens, sessions (AUTHN); rate limits (APISEC); the CORS configuration (MISCFG); plan gates, plan limits and quotas, and the plan catalog (productauditor ENT); a plan, price, credit, or balance value the client sets stays AUTHZ-R3, except a plan or paid flag set on the checkout success or return request (productauditor BILL-R1).
 Standards: OWASP A01:2025 (A01:2021), API1, API3, and API5:2023, ASVS V8.
 Read first: the route table, the auth or policy middleware and where it is mounted, and one handler per resource that reads or changes records.
 
@@ -28,7 +28,7 @@ Read first: the route table, the auth or policy middleware and where it is mount
 
 ### AUTHZ-R3 Client can set protected fields such as role, owner, tenant, or price (quick)
 - Leads: `scan.sh AUTHZ-R3` lists whole-body binds and protected fields assigned from the request.
-- Confirm: request data is bound to a record wholesale (`Object.assign(user, req.body)`, `Model.create(req.body)`, `permit!`, `**request.json`), or a role, admin flag, owner, tenant, balance, or price is taken from the request.
+- Confirm: request data is bound to a record wholesale (`Object.assign(user, req.body)`, `Model.create(req.body)`, `permit!`, `**request.json`), or a role, admin flag, owner, tenant, plan, balance, or price is taken from the request.
 - Not a finding if: an allowlist, DTO, or serializer strips protected fields first (read it); the field is recomputed on the server after binding.
 - Severity: Critical when a user can raise their own privileges or take ownership; High otherwise.
 - Fix: bind through an explicit allowlist of editable fields; set role, owner, and tenant from the session only.

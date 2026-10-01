@@ -11,7 +11,7 @@ Read first: the route table or screen list, every programmatic navigation and re
 ### JRN-R1 A core journey sends users to a step that does not exist, or loops (quick)
 - Leads: `scan.sh JRN-R1` lists programmatic navigations and redirects; compare each target with the route table.
 - Confirm: a navigation, redirect, or link on a core journey points to a path that no route defines, or two guards redirect to each other (sign-in to onboarding to sign-in), or a required step's next action returns to the same step.
-- Not a finding if: the route exists elsewhere (file-based routing: check the pages or app folder; a catch-all that renders the right page; a server route); the link sits behind a flag that is off (cite the flag).
+- Not a finding if: the route exists elsewhere (file-based routing: check the pages or app folder; a catch-all that renders the right page; a server route); the link sits behind a flag that is off (cite the flag); the missing route belongs to a sold or announced feature whose code exists but is not registered (productauditor CLM-R3).
 - Severity: Critical when every user on sign-up, sign-in, checkout, or the main task hits it; High on a secondary journey.
 - Fix: point the navigation at the defined route or add the missing route; break a redirect loop by checking the target state before redirecting.
 - Verify the fix: a route test follows each navigation on the journey and gets the intended page, not the not-found page.
@@ -20,7 +20,7 @@ Read first: the route table or screen list, every programmatic navigation and re
 ### JRN-R2 An error, expired, or failed state ends the journey with no way forward
 - Leads: `scan.sh JRN-R2` lists not-found, error, expired-link, and failed-payment renders.
 - Confirm: an error page, an expired or used link, a failed payment, or an invitation that no longer works renders a message with no action: no retry, no link back into the journey, no way to request a new link, no contact path.
-- Not a finding if: the page keeps the navigation and names the next step; a retry or "send a new link" action is present (read the component).
+- Not a finding if: the page keeps the navigation and names the next step; a retry or "send a new link" action is present (read the component); the dead end is a past-due or locked account after a failed renewal with no update-payment action (productauditor BILL-R6; a failed payment at checkout stays here).
 - Severity: High when it strands users in sign-in, password reset, checkout, or invitation acceptance; Medium otherwise.
 - Fix: give every terminal state a forward action: retry, request a new link, return to the last good step, or contact support with the context attached.
 - Verify the fix: open each state (expired token, declined card, unknown route) and find a working forward action.
@@ -57,7 +57,7 @@ Read first: the route table or screen list, every programmatic navigation and re
 - The Map's single worst friction moment appears as a finding in some dimension, or Scope and limitations says why not.
 - Friction inventory: hesitation, backtracking, re-reading, error recovery, and forced context switches (leaving for email, SMS, or support to continue) along each core journey.
 - Jobs to be done: the journey serves only the functional job; nothing reduces anxiety at the risky step (guarantees, undo, "no card required", a preview) or inertia (import or migration from the tool the user leaves).
-- The README, marketing copy, or docs promise a journey that the code does not deliver (the gap is a finding; cite the code).
+- The README, marketing copy, or docs promise a journey that exists in the code but breaks before it delivers (the gap is a finding; cite the code); a capability that does not exist at all is productauditor CLM-R1.
 - Emotional low points in the Map (waiting, uncertainty, surprise costs) with nothing that eases them.
 
 ## Paper controls (look protective, protect nothing)

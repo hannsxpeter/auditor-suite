@@ -1,7 +1,7 @@
 # Database audit: harbor-stays-bookings
 
 > Read-only database audit of the code as written, 2026-09-26. No database was connected, no migration was run, and no data was touched. Mode: full. Scope: whole project.
-> Self-contained: every finding cites the file and line it is about, so an agent holding only this report and the code can act on it. Written with dbauditor (auditor-suite 1.1.0).
+> Self-contained: every finding cites the file and line it is about, so an agent holding only this report and the code can act on it. Written with dbauditor (auditor-suite 1.2.0).
 
 ## Snapshot
 

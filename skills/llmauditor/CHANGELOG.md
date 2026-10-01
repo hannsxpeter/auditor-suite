@@ -4,6 +4,69 @@ All notable changes to llmauditor are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [auditor-suite 1.2.0] - 2026-10-01
+
+Released with productauditor, the suite's eighth auditor. The cards now name
+the product topics that moved to it, and the shared scripts pick leads more
+fairly and gain fixes.
+
+### Changed
+
+- `SKILL.md`: the judgment notes hand model-call quotas a plan sells and
+  invented output shown as real when no call failed to productauditor.
+- `RELIABILITY.md`: the Not here line hands invented results shown as real
+  output on a production path when no call failed to productauditor CLM-R7.
+  RELIABILITY-R5 keeps a failed call turned into a silent default answer.
+- `COST.md`: the Not here line hands model-call quotas that a plan sells to
+  productauditor: a sold quota that nothing checks (ENT-R5), one set to
+  another number (ENT-R4), and its unit, scope, and period (ENT-R6). COST-R3
+  keeps spend limits with no plan term behind them, and its Not a finding if
+  covers a sold quota for the endpoint that nothing enforces, so one missing
+  check is filed once.
+- `SKILL.md`: when a probe is wrong and you move a dimension between the
+  Active and Not applicable lines, keep its reason in parentheses, for example
+  `RAG (embeddings are used only to find duplicates)`; `check-report.sh` now
+  requires one.
+- `scan.sh`: when a card has more leads than `--max` (12 by default), it
+  picks the ones it shows round-robin across files in path order (the first
+  lead of each file, then the second of each, until the cap) and still prints
+  them in path and line order. Before, it showed the first 12 in path order,
+  so one file full of hits hid every file after it. `scan.sh --help` now
+  explains `--max` and the selection.
+- The scripts read an optional `SCAN_SKIP_RE` from `assets/skill.conf`, a
+  regex of paths this auditor's scans and probes skip. llmauditor sets none, so
+  the setting changes nothing here.
+- Scans skip `productaudit.md`, the new auditor's report, as they skip the
+  other reports.
+
+### Fixed
+
+- On macOS and with gawk, files such as `admin.js` and `admin.css` are no
+  longer dropped from scans and probes as if they were minified bundles: the
+  scripts now pass regexes to awk through `ENVIRON`, which keeps their
+  backslashes.
+- The file list leaves out symlinks, submodules, and tracked files that are
+  deleted or outside a sparse checkout, so ripgrep and grep search the same
+  files and no scan follows a link out of the project.
+- Surface probes take their first hit in path and line order, so
+  `inventory.sh` and `new-report.sh` cite the same hit on every run; ripgrep
+  prints files in no fixed order.
+- Reports are never written through a symlink, and the temporary file for a
+  report write stays in the project, beside the report. `score.sh --write`
+  keeps the report's permission bits and refuses a read-only report instead
+  of replacing it.
+- `check-report.sh` requires every dimension in exactly one of the Active and
+  Not applicable lines (Not assessed in `only=` mode), with a reason in
+  parentheses for each not-applicable dimension.
+- Only the IDs after "Members:" count as systemic-pattern members, and CWE,
+  CVE, and hash names (such as SHA-256) in a root fix or Related line are no
+  longer read as finding IDs.
+- `new-report.sh --mode only=` normalizes its list: spaces and empty items
+  are dropped, and each ID is kept once.
+- Leads no longer depend on the user's ripgrep config, `GREP_OPTIONS`, or
+  locale.
+- Projects inside a folder that an outer repository ignores are scanned.
+
 ## [auditor-suite 1.1.0] - 2026-09-26
 
 Restructured so the skill works for small and local models as well as frontier

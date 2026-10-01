@@ -2,7 +2,7 @@
 
 Weight 6. Active when HTTP routes or API handlers exist.
 Owns: the API-surface residue of the OWASP API Top 10: unbounded resource consumption (rate limits outside login, page sizes, body and upload caps, GraphQL cost), sensitive business flows open to automation, API inventory (old versions, shadow and non-production routes, exposed schema explorers), unsafe consumption of third-party APIs, and webhook signing.
-Not here: object- and property-level access (AUTHZ); login throttling and authentication (AUTHN); SSRF (INJ-R4); CORS and verbose errors (MISCFG); TLS on outbound clients (CRYPTO).
+Not here: object- and property-level access (AUTHZ); login throttling and authentication (AUTHN); SSRF (INJ-R4); CORS and verbose errors (MISCFG); TLS on outbound clients (CRYPTO); deprecation signals and breaking-change versioning of the product's own public API (productauditor SHIP-R5, SHIP-R6); an unreleased feature's route that skips the release flag the UI checks (productauditor SHIP-R2).
 Standards: OWASP API Security Top 10 2023 (API4, API6, API8, API9, API10), CWE-770, 400, 345.
 Read first: the route table and its versions, the rate-limit and body-parser setup, GraphQL server options, webhook receivers and senders, and outbound integration clients.
 

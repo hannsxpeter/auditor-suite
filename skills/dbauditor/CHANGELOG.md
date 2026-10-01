@@ -5,6 +5,76 @@ All notable changes to dbauditor are documented here. The format is based on
 skill versions with the auditor-suite release train named in the hub
 [`VERSION`](../../VERSION) file.
 
+## [auditor-suite 1.2.0] - 2026-10-01
+
+Released with productauditor, the suite's eighth auditor. The cards now name
+the product topics that moved to it, and the shared scripts pick leads more
+fairly and gain fixes.
+
+### Changed
+
+- `SKILL.md`: the judgment notes hand what billing and membership changes do
+  to customers (a provider never called, a second subscription, usage billed
+  for failed work, shared work lost when a member leaves) to productauditor.
+- `TXN.md`: the Not here line hands usage billed for failed or unrequested
+  operations and seat counts the provider never learns (productauditor
+  BILL-R7), and a cancel or upgrade that never calls the billing provider or a
+  second active subscription from checkout (productauditor BILL-R4), to
+  productauditor. TXN-R3 and TXN-R4 keep idempotency and provider calls that
+  diverge on a crash.
+- `INTEGRITY.md`: the Not here line hands a subscription or plan copied from
+  the billing provider with no webhook or reconciliation (productauditor
+  BILL-R3), and whether a removed member's shared work should survive
+  (productauditor CUST-R2), to productauditor. INTEGRITY-R2's Not a finding if
+  gains a workspace's shared content reached from a user or membership delete.
+- `SCHEMA.md`: the Not here line hands a plan or subscription status copied
+  from the billing provider (productauditor BILL-R3) and an entitlement check
+  that compares against a plan value billing never writes (productauditor
+  ENT-R2) to productauditor.
+- `SKILL.md`: when a probe is wrong and you move a dimension between the
+  Active and Not applicable lines, keep its reason in parentheses, for example
+  `MIGRATION (another service owns the schema)`; `check-report.sh` now
+  requires one.
+- `scan.sh`: when a card has more leads than `--max` (12 by default), it
+  picks the ones it shows round-robin across files in path order (the first
+  lead of each file, then the second of each, until the cap) and still prints
+  them in path and line order. Before, it showed the first 12 in path order,
+  so one file full of hits hid every file after it. `scan.sh --help` now
+  explains `--max` and the selection.
+- The scripts read an optional `SCAN_SKIP_RE` from `assets/skill.conf`, a
+  regex of paths this auditor's scans and probes skip. dbauditor sets none, so
+  the setting changes nothing here.
+- Scans skip `productaudit.md`, the new auditor's report, as they skip the
+  other reports.
+
+### Fixed
+
+- On macOS and with gawk, files such as `admin.js` and `admin.css` are no
+  longer dropped from scans and probes as if they were minified bundles: the
+  scripts now pass regexes to awk through `ENVIRON`, which keeps their
+  backslashes.
+- The file list leaves out symlinks, submodules, and tracked files that are
+  deleted or outside a sparse checkout, so ripgrep and grep search the same
+  files and no scan follows a link out of the project.
+- Surface probes take their first hit in path and line order, so
+  `inventory.sh` and `new-report.sh` cite the same hit on every run; ripgrep
+  prints files in no fixed order.
+- Reports are never written through a symlink, and the temporary file for a
+  report write stays in the project, beside the report. `score.sh --write`
+  keeps the report's permission bits and refuses a read-only report instead
+  of replacing it.
+- `check-report.sh` requires every dimension in exactly one of the Active and
+  Not applicable lines (Not assessed in `only=` mode), with a reason in
+  parentheses for each not-applicable dimension.
+- Only the IDs after "Members:" count as systemic-pattern members, and CWE,
+  CVE, and hash names (such as SHA-256) in a root fix or Related line are no
+  longer read as finding IDs.
+- `new-report.sh --mode only=` normalizes its list: spaces and empty items
+  are dropped, and each ID is kept once.
+- Leads no longer depend on the user's ripgrep config, `GREP_OPTIONS`, or
+  locale.
+- Projects inside a folder that an outer repository ignores are scanned.
+
 ## [auditor-suite 1.1.0] - 2026-09-26
 
 Restructured so the skill works for small and local models as well as frontier

@@ -2,7 +2,7 @@
 
 Weight 5. Always active.
 Owns: whether the running system can be seen and operated: what is logged and whether logs leak secrets or personal data, metrics, tracing, and error reporting, health and readiness checks, configuration kept out of code and set per environment, schema migrations, and a reproducible build and run.
-Not here: secrets hardcoded in code or config (SEC-R5); errors caught and dropped before anything could log them (ERR-R1); lockfiles and version pins (DEP-R5); migration design in depth (dbauditor).
+Not here: secrets hardcoded in code or config (SEC-R5); errors caught and dropped before anything could log them (ERR-R1); lockfiles and version pins (DEP-R5); migration design in depth (dbauditor); analytics project keys shared by every environment, and test or CI traffic counted in product analytics (productauditor MET-R6); billing provider test or sandbox mode selected for production (productauditor BILL-R2).
 Standards: CWE-532, CWE-778, CWE-1051, OWASP A09:2025, the Twelve-Factor App (config, logs, build and run).
 Read first: the logger setup, the health endpoints, the config loader, the Dockerfile, Procfile, or deploy manifests, the migrations folder, and the CI workflows. Calibrate each card to the project's maturity: a weekend script needs none of the metrics a production service does, and the Calibration line should say which bar you used.
 

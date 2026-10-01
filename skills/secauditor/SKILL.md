@@ -66,11 +66,11 @@ Stop early only if inventory.sh finds no source code, or if you cannot read the 
 | IAC | Cloud, Container and Infrastructure-as-Code Security | 2 | container, IaC, or Kubernetes files exist | references/IAC.md |
 | LLMSEC | AI and LLM Application Security | 2 | a model SDK or LLM framework is used | references/LLMSEC.md |
 
-new-report.sh decides the conditional dimensions from probes and prints why; if a probe is wrong, move the ID between the Active and Not applicable lines and say why in Scope and limitations. Weights re-normalize over the active dimensions. secauditor has no floor dimensions: Critical findings cap scores as protocol section 8 describes.
+new-report.sh decides the conditional dimensions from probes and prints why; if a probe is wrong, move the ID between the Active and Not applicable lines, keep its reason in parentheses, for example `AUTHN (sign-in is handled by the VPN gateway)`, and say why in Scope and limitations. Weights re-normalize over the active dimensions. secauditor has no floor dimensions: Critical findings cap scores as protocol section 8 describes.
 
 ## How to judge
 
-This audit covers the security of the code as written and configured: who can do what, how untrusted input reaches dangerous sinks, how secrets and data are protected, and where the trust boundaries really are. Code quality, architecture, and performance belong to codeauditor; the database layer to dbauditor; LLM-integration depth to llmauditor. Touch those only where they create a security weakness.
+This audit covers the security of the code as written and configured: who can do what, how untrusted input reaches dangerous sinks, how secrets and data are protected, and where the trust boundaries really are. Code quality, architecture, and performance belong to codeauditor; the database layer to dbauditor; LLM-integration depth to llmauditor; plan gates and quotas, paid access that waits for a confirmed payment, an unreleased feature's route that skips the release flag, public API deprecation and versioning, and customer-facing encryption guarantees to productauditor. Touch those only where they create a security weakness.
 
 - Source to sink: for injection and access findings, Evidence names where the untrusted value enters and where it is used.
 - Exploitability, not presence: Impact says who can reach it, from where, with what input, and the precondition (signed in or not, which role, which setting). If reachability depends on deployment you cannot see, use Likely or Suspected.

@@ -4,6 +4,78 @@ All notable changes to codeauditor are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [auditor-suite 1.2.0] - 2026-10-01
+
+Released with productauditor, the suite's eighth auditor. The cards now name
+the product topics that moved to it, and the shared scripts pick leads more
+fairly and gain fixes.
+
+### Changed
+
+- `SKILL.md`: the judgment notes name seoauditor and productauditor among the
+  siblings and hand customer-facing claims, plan gates and the plan catalog,
+  flag behavior, analytics keys, and product telemetry to productauditor.
+- `DOC.md`: the Not here line hands customer-facing claims in pricing,
+  marketing, help, release notes, and in-app copy, and product docs marked done
+  (productauditor CLM, CLM-R8), a kill switch that is read but cannot switch
+  (productauditor SHIP-R3), and a public contract change shipped with no
+  changelog entry or version bump (productauditor SHIP-R6) to productauditor.
+  DOC-R2 keeps a documented kill switch the code never reads.
+- `QUAL.md`: the Not here line hands flag behavior (productauditor SHIP), a
+  sold feature behind an always-off flag or an unregistered route
+  (productauditor CLM-R3), and plan, price, and limit definitions copied across
+  the code (productauditor ENT-R8) to productauditor. QUAL-R4's Not a finding
+  if gains code behind a flag that customer-facing copy or release notes sell.
+- `ARC.md`: the Not here line hands plan catalogs and named business metrics
+  defined in several places to productauditor ENT-R8 and KPI-R5.
+- `SEC.md`: the Not here line hands plan and feature entitlement gates,
+  including a plan gate defined but never mounted, to productauditor ENT-R5.
+  SEC-R1 and SEC-R2 keep every other guard.
+- `OBS.md`: the Not here line hands analytics project keys shared by every
+  environment and test or CI traffic in product analytics (productauditor
+  MET-R6), and billing provider test or sandbox mode selected for production
+  (productauditor BILL-R2), to productauditor. OBS-R5 keeps other
+  per-environment config.
+- `scan.sh`: when a card has more leads than `--max` (12 by default), it
+  picks the ones it shows round-robin across files in path order (the first
+  lead of each file, then the second of each, until the cap) and still prints
+  them in path and line order. Before, it showed the first 12 in path order,
+  so one file full of hits hid every file after it. `scan.sh --help` now
+  explains `--max` and the selection.
+- The scripts read an optional `SCAN_SKIP_RE` from `assets/skill.conf`, a
+  regex of paths this auditor's scans and probes skip. codeauditor sets none, so
+  the setting changes nothing here.
+- Scans skip `productaudit.md`, the new auditor's report, as they skip the
+  other reports.
+
+### Fixed
+
+- On macOS and with gawk, files such as `admin.js` and `admin.css` are no
+  longer dropped from scans and probes as if they were minified bundles: the
+  scripts now pass regexes to awk through `ENVIRON`, which keeps their
+  backslashes.
+- The file list leaves out symlinks, submodules, and tracked files that are
+  deleted or outside a sparse checkout, so ripgrep and grep search the same
+  files and no scan follows a link out of the project.
+- Surface probes take their first hit in path and line order, so
+  `inventory.sh` and `new-report.sh` cite the same hit on every run; ripgrep
+  prints files in no fixed order.
+- Reports are never written through a symlink, and the temporary file for a
+  report write stays in the project, beside the report. `score.sh --write`
+  keeps the report's permission bits and refuses a read-only report instead
+  of replacing it.
+- `check-report.sh` requires every dimension in exactly one of the Active and
+  Not applicable lines (Not assessed in `only=` mode), with a reason in
+  parentheses for each not-applicable dimension.
+- Only the IDs after "Members:" count as systemic-pattern members, and CWE,
+  CVE, and hash names (such as SHA-256) in a root fix or Related line are no
+  longer read as finding IDs.
+- `new-report.sh --mode only=` normalizes its list: spaces and empty items
+  are dropped, and each ID is kept once.
+- Leads no longer depend on the user's ripgrep config, `GREP_OPTIONS`, or
+  locale.
+- Projects inside a folder that an outer repository ignores are scanned.
+
 ## [auditor-suite 1.1.0] - 2026-09-26
 
 Restructured so the skill works for small and local models as well as frontier
