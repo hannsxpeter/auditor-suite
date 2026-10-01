@@ -1,0 +1,7 @@
+{
+  "appUrl": "https://app.fieldnote-hq.com",
+  "paddle": {
+    "apiBase": "https://sandbox-api.paddle.com",
+    "environment": "sandbox"
+  }
+}
