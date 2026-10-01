@@ -4,6 +4,8 @@ Inconsistencies found across the seven auditors and the hub tooling at auditor-s
 
 How drift is prevented from 1.1.0 on: one shared copy of the protocol, report template, and scripts in `shared/` with a byte-identity lint (`shared-sync`); one report format enforced by `check-report.sh`; one scoring implementation (`_score.awk`) pinned by `tests/run.sh`; descriptions checked across SKILL.md, plugin manifests, and the marketplace (`plugin-sync`); and the full runtime payload checked in plugins (`plugin-sync`).
 
+Sections 1 to 8 cover that 1.1.0 work. Section 9 covers the drift between the 1.1.0 docs and the 1.1.0 tooling, found while adding productauditor, and how 1.2.0 resolved it.
+
 ## Contents
 
 1. Contract drift
@@ -14,6 +16,7 @@ How drift is prevented from 1.1.0 on: one shared copy of the protocol, report te
 6. Documentation drift
 7. Overlaps inside each auditor
 8. Stale facts
+9. Docs against tooling (resolved in 1.2.0)
 
 ## 1. Contract drift
 
@@ -94,3 +97,23 @@ The other six auditors' resolutions are listed in their CHANGELOG 1.1.0 entries.
 | dbauditor | Two unsourced numbers (5 to 15 percent write cost per index, 30 to 60 percent index bloat from random UUID keys) were stated as facts. | Removed; the cards describe the effect without a number. |
 | uiauditor | Said global CSS custom properties "never cross the shadow boundary", so tokens were inert inside custom elements. Custom properties inherit through shadow roots; it is ordinary selectors and stylesheets that do not. | Corrected in the DS and STYLE cards. |
 | seoauditor | Said `property=` on Twitter card tags makes them inert, and treated Next.js `output: 'export'` as a client-rendering signal (static export pre-renders HTML). | Reworded to "use the documented `name=` attribute"; static export is no longer flagged. The unsourced "97 percent of llms.txt files get zero AI fetches" figure is marked "verify" in facts.md. |
+
+## 9. Docs against tooling (resolved in 1.2.0)
+
+The 1.1.0 docs promised checks the tooling did not make, and the hub kept its roster by hand. Adding productauditor exposed both.
+
+| Where | Drift | Resolution |
+|---|---|---|
+| lint.sh, sync-shared.sh, refresh-plugins.sh, install.sh, uninstall.sh | Each script carried its own list of the seven skill names, and `plugin-sync` expected the meta plugin to depend on all seven. Adding an auditor meant five script edits, and nothing checked that `evals/`, `tests/fixtures/`, the README and SUITE.md tables, or the report exclusion named the same skills. | The roster is the set of `skills/` directories (`scripts/_skills.sh`), and the installers take every `skills/<name>/` that holds a `SKILL.md`. `lint.sh suite-registry` checks every place that names the auditors. The auditor count in prose and the AGENTS.md list stay hand-kept, and MAINTAINING.md and RELEASE-CHECKLIST.md say so. |
+| Shared scripts vs CI | Regexes reached awk through `awk -v`. BSD awk and gawk strip backslashes from `-v` values, so the exclusion `\.min\.js$` became `.min.js$` and dropped `admin.js` and similar files from every audit on macOS and with gawk. CI ran only on Ubuntu, whose mawk keeps the backslashes, so it stayed green. AGENTS.md said "Keep awk POSIX (BSD awk and mawk)", and CONTRIBUTING.md said a green local run means a green build. | Every regex reaches awk through ENVIRON (`as_match_lines`). CI runs the lint and its self-test on macOS (`/bin/bash` 3.2, BSD awk) and on Ubuntu, then the lint under mawk and gawk. AGENTS.md and CONTRIBUTING.md state the ENVIRON rule. |
+| CONTRIBUTING.md, AUTHORING.md vs `unicode-clean` | Said the lint rejects em dashes, en dashes, arrows, and emojis anywhere in the tree. The check matched the em dash, the en dash, and one arrow (U+2192), in tracked files only. | The check covers every arrow, box drawing, symbols and dingbats, emoji, and the emoji variation selector, in tracked files and in untracked files that git does not ignore. The docs list exactly that. |
+| CONTRIBUTING.md vs lint.sh | Told contributors to verify with `bash scripts/lint.sh shared-sync plugin-sync`. The lint kept only the last name it was given, so only `plugin-sync` ran. | The lint runs every check it is given and rejects an unknown name; `tests/lint-selftest.sh` pins both. |
+| 1.0.0 CHANGELOG, CONTRIBUTING.md vs `bash-syntax` | Said the lint enforces bash 3.2 syntax, with no associative arrays, `mapfile`, or `${var,,}`. The check ran `bash -n` under the CI's bash 5, which accepts all three. | `bash-syntax` also flags the bash 4 constructs that `bash -n` accepts, and CI runs the lint under macOS `/bin/bash` 3.2. |
+| README, SUITE.md vs `check-report.sh` | Said the validator checks that each cited `path:line` contains the quoted code. It checks that every cited line exists and that one quoted span of 6 or more characters appears within 6 lines of the first cited location. | README, SUITE.md, and ARCHITECTURE.md state the rule as coded. |
+| ARCHITECTURE.md, evals/README.md vs the graders | Said the read-only graders catch any edit and any file besides the report. They watch only the Edit tool and the list of created files, so a change made through Bash, or a Write over an existing file, goes unseen. | Both docs say what the graders see, and to read a kept run's transcript when in doubt. |
+| AUTHORING.md, ARCHITECTURE.md, evals/README.md vs the eval cases | Said each case plants six to ten defects; the shipped cases plant 9 to 11. | The rule is 6 to 12, and the docs give the shipped range. |
+| AUTHORING.md vs lint and secauditor | Said to tag a card `(quick)` when its Severity can be Critical, but nothing checked it. secauditor SECRET-R5 (secrets in logs, errors, or image layers) could be Critical untagged, so quick mode never worked it. | `skill-structure` fails a card whose Severity can be Critical without the tag, and a `(quick)` card whose Severity never reaches Critical. SECRET-R5 is tagged. |
+| AUTHORING.md vs lint | Said the lint rejects real secret formats (`AKIA...`, `ghp_`) in eval fixtures. No check looks for them. | AUTHORING.md says GitHub push protection rejects them and the lint does not. |
+| SUITE.md vs install.sh | Listed `~/.agents/skills/` as the path for any Agent Skills harness, but install.sh wrote it only when pi or OpenClaw was present, and both installers ignored `CLAUDE_CONFIG_DIR` and `CODEX_HOME`. | install.sh writes the neutral path when `~/.agents` exists and honors both variables; `tests/install.sh` pins it. |
+
+How drift is prevented from 1.2.0 on: no script lists the skills, and `suite-registry` checks every file that names them; `tests/lint-selftest.sh` proves the checks it covers fail on an injected violation; and CI runs on both platforms the shared scripts must support.

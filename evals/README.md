@@ -14,7 +14,7 @@ evals/<skill>/full-audit/
   graders/       one file per check
 ```
 
-The fixture for each skill is a small realistic project with six to ten planted defects, one per file, and two decoys: code that looks like a defect but is safe. File names never reveal the defects. The example report shipped with each skill audits a different project (`tests/fixtures/<skill>/`), so the skill never sees the answers.
+The fixture for each skill is a small realistic project with planted defects, one per file, and two decoys: code that looks like a defect but is safe. [docs/AUTHORING.md](../docs/AUTHORING.md) section 6 sets the sizes; the shipped cases have 9 to 11 planted defects. File names never reveal the defects. The example report shipped with each skill audits a different project (`tests/fixtures/<skill>/`), so the skill never sees the answers.
 
 ## Graders
 
@@ -24,10 +24,12 @@ The fixture for each skill is a small realistic project with six to ten planted 
 | `ignores-<slug>` | regex over the report, `not_contains` | no finding's first cited location is the decoy | with-only |
 | `report-written` | regex over the report | the report exists and starts with a heading | both |
 | `finding-format` | regex over the report | at least one finding block in the exact format | both |
-| `read-only` | tool_used | the run never edited a file other than its report | both |
+| `read-only` | tool_used | the run never used the Edit tool on a file other than its report | both |
 | `only-report-created` | regex over created files | the report is the only file created | both |
 | `skill-used` | tool_used | the Skill tool loaded the auditor | with-only |
 | `validator-used` | tool_used | the run ran `check-report.sh` | with-only |
+
+The two read-only graders watch the Edit tool and the list of created files. Neither sees a source file changed through Bash (`sed -i`, a redirect), and a file overwritten with Write is caught only if the runner counts it as created. Read a kept run's transcript when read-only behavior is in doubt.
 
 "With-only" graders describe the plugin's own mechanics; they do not count in the no-plugin arm, so the with-minus-without delta compares like with like.
 
@@ -39,7 +41,7 @@ bash scripts/eval.sh secauditor --model claude-haiku-4-5 --runs 3 --max-cost-usd
 
 `scripts/eval.sh` assembles a temporary plugin from `plugins/<skill>/` plus `evals/<skill>/`, then runs `claude plugin eval` with the scaffold enabled, `--trust-plugin`, `--allow-tools Write Edit Bash` (auditors write and fill in their report and run their bundled read-only scripts), and results under `evals/results/` (git-ignored). Any other `claude plugin eval` option passes through: `--model`, `--runs`, `-j`, `--ablation none`, `--max-cost-usd`, `--keep-temp`, `--json`.
 
-To compare against an older version of a skill, add `--ref`:
+To compare against an older version of a skill, add `--ref` right after the skill name (eval.sh reads it only there). The plugin comes from that git ref; the eval case comes from the working tree:
 
 ```bash
 bash scripts/eval.sh secauditor --ref v1.0.0 --model claude-haiku-4-5 --runs 3 --ablation none --no-publish
@@ -58,6 +60,8 @@ Runs call the model with your credentials and count against your plan or API bil
 Recorded in the hub [CHANGELOG](../CHANGELOG.md) for each release. At 1.1.0, on Haiku 4.5, the seven skills scored 0.86 to 1.00 against 0.21 to 0.64 with no skill (mean delta +0.53). secauditor, run three times per arm, scored 1.00 on every run against a no-skill mean of 0.60. On Sonnet 5 it scored 1.00 against 0.87 without the skill: the frontier model finds most defects natively, so the skill adds less there.
 
 The first finding that shaped the 1.1.0 design: three 1.0.0 skills (codeauditor, secauditor, dbauditor) made Haiku 4.5 load a long third-person skill, reply that "the audit is running", and end its turn without writing a report. Every 1.1.0 spine now opens by telling the model to do the audit itself, now.
+
+productauditor is new in 1.2.0. Its eval case has not been run yet; per MAINTAINING.md, its scores go in the 1.2.0 hub CHANGELOG entry once the maintainer approves the run.
 
 ## Other models and harnesses
 
