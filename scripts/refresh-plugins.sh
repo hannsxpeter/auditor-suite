@@ -4,7 +4,8 @@
 #
 # The payload is what a harness needs at runtime: SKILL.md, references/,
 # scripts/, and assets/. README, CHANGELOG, LICENSE, and evals stay in the
-# canonical tree only. The canonical source of truth is skills/<skill>/.
+# canonical tree only. The canonical source of truth is skills/<skill>/, and
+# the skills are every directory under skills/ (scripts/_skills.sh).
 #
 # Runs scripts/sync-shared.sh first so the shared core is current, then copies
 # the payload. Verify with: bash scripts/lint.sh plugin-sync
@@ -14,10 +15,10 @@
 set -eu
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-SKILLS="codeauditor secauditor dbauditor llmauditor seoauditor uiauditor uxauditor"
+. "$ROOT/scripts/_skills.sh"
 PAYLOAD="SKILL.md references scripts assets"
 
-bash "$ROOT/scripts/sync-shared.sh" > /dev/null
+"${BASH:-bash}" "$ROOT/scripts/sync-shared.sh" > /dev/null
 
 for s in $SKILLS; do
   src="$ROOT/skills/$s"
