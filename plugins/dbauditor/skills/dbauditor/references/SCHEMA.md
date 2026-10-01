@@ -2,7 +2,7 @@
 
 Weight 11. Always active.
 Owns: whether the model itself is right, the design choice rather than the enforcement: packed lists, missing primary keys, polymorphic pairs, entity-attribute-value tables, how state is modeled, copies of other rows' data, logic hidden in triggers and procedures, soft delete as a design choice, repeating groups, god tables, and naming.
-Not here: a missing unique constraint on a natural key (CONSTRAINTS-R1); NOT NULL, CHECK, and generated columns (CONSTRAINTS); physical column types (TYPES); foreign keys (INTEGRITY); `SECURITY DEFINER` functions (DBSEC, Also check).
+Not here: a missing unique constraint on a natural key (CONSTRAINTS-R1); NOT NULL, CHECK, and generated columns (CONSTRAINTS); physical column types (TYPES); foreign keys (INTEGRITY); `SECURITY DEFINER` functions (DBSEC, Also check); a plan or subscription status copied from the billing provider (productauditor BILL-R3); an entitlement check that compares against a plan value billing never writes (productauditor ENT-R2).
 Standards: SQL Antipatterns (Karwin), Designing Data-Intensive Applications (Kleppmann), PostgreSQL docs.
 Read first: the full table list with columns (schema dump or migrations), the entity map you wrote, and any trigger, function, or procedure definitions. In a warehouse or document store, read references/nonrelational.md first: denormalization is correct there.
 

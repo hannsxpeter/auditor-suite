@@ -1,7 +1,7 @@
 # Security audit: secauditor
 
 > Read-only security audit of the code as written, 2026-09-26. No exploits were run and no live system was touched. Mode: full. Scope: whole project.
-> Self-contained: every finding cites the file and line it is about, so an agent holding only this report and the code can act on it. Written with secauditor (auditor-suite 1.1.0).
+> Self-contained: every finding cites the file and line it is about, so an agent holding only this report and the code can act on it. Written with secauditor (auditor-suite 1.2.0).
 
 ## Snapshot
 

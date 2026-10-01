@@ -34,7 +34,7 @@ done
 [ -n "$REPORT" ] || REPORT="$REPORT_FILE"
 [ -f "$REPORT" ] || as_die "no report at $REPORT; create it first with: bash $AS_SKILL_DIR/scripts/new-report.sh"
 
-BLOCKS="$(awk -f "$AS_SCRIPT_DIR/_parse.awk" "$REPORT" |
+BLOCKS="$(awk -v dims=" $(as_dim_ids | tr '\n' ' ')" -f "$AS_SCRIPT_DIR/_parse.awk" "$REPORT" |
   awk -f "$AS_SCRIPT_DIR/_score.awk" \
     -v headline="$HEADLINE" -v quick_headline="$QUICK_HEADLINE" -v report_file="$(basename "$REPORT")" \
     "$AS_ASSETS/dimensions.tsv" -)" || as_die "scoring failed"
@@ -62,16 +62,24 @@ case "$ACTION" in
     fi
     ;;
   write)
+    as_report_path_ok "$REPORT"
     for name in score fix-first plan; do
       grep -q "^<!-- BEGIN GENERATED: $name" "$REPORT" || as_die "the report has no '<!-- BEGIN GENERATED: $name' line; copy the marker pair back from $AS_ASSETS/report-template.md"
       grep -q "^<!-- END GENERATED: $name -->" "$REPORT" || as_die "the report has no '<!-- END GENERATED: $name -->' line; copy the marker pair back from $AS_ASSETS/report-template.md"
     done
-    tmp="$(mktemp "${TMPDIR:-/tmp}/auditor-score.XXXXXX")" || as_die "mktemp failed"
-    blocks_file="$(mktemp "${TMPDIR:-/tmp}/auditor-blocks.XXXXXX")" || as_die "mktemp failed"
-    printf '%s\n' "$BLOCKS" > "$blocks_file"
-    awk -v bf="$blocks_file" '
+    # The rename below would replace a read-only report, which writing into
+    # it never did; refuse instead.
+    [ -w "$REPORT" ] || as_die "$REPORT is read-only; make it writable (chmod u+w $REPORT) to update its generated blocks"
+    # The new report goes to a temp file beside it, renamed over it and
+    # keeping its permission bits; the blocks reach awk through ENVIRON, so
+    # nothing is written to TMPDIR.
+    tmp="$(as_report_tmp "$REPORT")" || exit 2
+    trap 'rm -f "$tmp"' EXIT
+    AS_BLOCKS="$BLOCKS" awk '
       BEGIN {
-        while ((getline l < bf) > 0) {
+        n = split(ENVIRON["AS_BLOCKS"], bl, "\n")
+        for (i = 1; i <= n; i++) {
+          l = bl[i]
           if (l ~ /^#BLOCK /) { cur = substr(l, 8); continue }
           body[cur] = body[cur] l "\n"
         }
@@ -82,8 +90,8 @@ case "$ACTION" in
       }
       /^<!-- END GENERATED: / { skip = 0 }
       !skip { print }
-    ' "$REPORT" > "$tmp" && cat "$tmp" > "$REPORT"
-    rm -f "$tmp" "$blocks_file"
+    ' "$REPORT" > "$tmp" || as_die "could not update $REPORT"
+    as_report_commit "$tmp" "$REPORT" keep
     printf 'updated the generated blocks in %s\n' "$REPORT"
     printf '%s\n' "$(block score)" | head -1
     if [ -n "$problems" ]; then

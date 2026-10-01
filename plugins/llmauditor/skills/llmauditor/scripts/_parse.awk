@@ -3,6 +3,9 @@
 # Canonical copy: shared/scripts/_parse.awk in the auditor-suite hub. Used by
 # score.sh and check-report.sh so both read a report the same way. POSIX awk
 # (tested with BSD awk and mawk); no gawk extensions.
+# Variable: dims, the skill's dimension IDs as " ID ID ... " (both callers
+# pass it with -v); in a SYS line with no "Members:" label, only IDs with
+# one of these prefixes count as members.
 #
 # Records (tab-separated, first field is the record type):
 #   H2    line  heading                  a "## " section heading
@@ -55,16 +58,43 @@ function code_spans(s, arr,    n, a, b, rest) {
   return n
 }
 
-# Finding IDs (ABC-123) in s, comma-joined.
-function finding_ids(s,    out, rest, t) {
+# Finding IDs (ABC-123) in s, comma-joined, never one followed by another
+# digit, so CVE-2023-30861 is not read as CVE-202. With anyprefix set (an
+# explicit "Members:" list) every such ID counts, so a mistyped member such
+# as INJX-003 is reported; otherwise (prose before "Root fix:") only IDs
+# whose prefix is one of the dims count, so SHA-256, AES-128, or CWE-306 in
+# the root cause is not taken for a member.
+function finding_ids(s, anyprefix,    out, rest, t, nx, p) {
   out = ""
   rest = s
   while (match(rest, /[A-Z][A-Z0-9]*-[0-9][0-9][0-9]/)) {
     t = substr(rest, RSTART, RLENGTH)
-    out = out (out == "" ? "" : ",") t
+    nx = substr(rest, RSTART + RLENGTH, 1)
     rest = substr(rest, RSTART + RLENGTH)
+    if (nx ~ /[0-9]/) continue
+    p = t
+    sub(/-[0-9]+$/, "", p)
+    if (!anyprefix && dims != "" && index(dims, " " p " ") == 0) continue
+    out = out (out == "" ? "" : ",") t
   }
   return out
+}
+
+# The members part of a SYS line: the text after "Members:" up to the next
+# ". " or "Root fix:"; with no "Members:" label, the text before "Root fix:".
+# The root cause and the root fix are prose and never count as members.
+function sys_members(s,    low, p) {
+  low = tolower(s)
+  p = index(low, "members:")
+  if (p > 0) {
+    s = substr(s, p + 8)
+    low = substr(low, p + 8)
+    p = index(s, ". ")
+    if (p > 0) { s = substr(s, 1, p - 1); low = substr(low, 1, p - 1) }
+  }
+  p = index(low, "root fix:")
+  if (p > 0) s = substr(s, 1, p - 1)
+  return s
 }
 
 # Card IDs (ABC-R1) in s, comma-joined.
@@ -199,7 +229,8 @@ section == "Systemic patterns (root causes)" && /^- SYS-[0-9]+/ {
   sub(/[^A-Z0-9-].*$/, "", sid)
   rest = line
   sub(/^- SYS-[0-9]+/, "", rest)
-  printf "SYS\t%s\t%s\t%d\n", sid, finding_ids(rest), NR
+  labeled = (index(tolower(rest), "members:") > 0)
+  printf "SYS\t%s\t%s\t%d\n", sid, finding_ids(sys_members(rest), labeled), NR
   next
 }
 

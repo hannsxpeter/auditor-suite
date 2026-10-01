@@ -1,0 +1,22 @@
+{
+  "name": "productauditor",
+  "description": "Audits a product through a product manager's and head of product's lens from its code, config, copy, and product docs (claims and delivery, plans and entitlements, billing and subscription lifecycle, customer accounts and operations, product metrics, business metric definitions, release and sunset, experiments, and feedback loops) and writes productaudit.md, a scored, prioritized, self-contained report, then prints the verdict in chat. Use when the user asks for a product audit, a PM or product-director review, product due diligence, whether the code delivers and enforces what the pricing page sells, how trials, renewals, and cancellations behave, or whether usage, revenue, and KPIs are measured correctly. Read-only and static: never edits source, never runs the product, and never queries analytics, billing, feature-flag, or CRM services or a model. Modes: full (default), quick (Critical-class triage), only=DIM,DIM, or a path. Invoke with /productauditor in Claude Code or $productauditor in Codex.",
+  "version": "1.2.0",
+  "author": {
+    "name": "aihxp",
+    "url": "https://github.com/hannsxpeter"
+  },
+  "homepage": "https://github.com/hannsxpeter/auditor-suite/tree/main/skills/productauditor",
+  "repository": "https://github.com/hannsxpeter/auditor-suite/tree/main/skills/productauditor",
+  "license": "MIT",
+  "keywords": [
+    "auditor-suite",
+    "ai-skill",
+    "audit",
+    "product",
+    "product-management",
+    "pricing",
+    "billing",
+    "product-analytics"
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "auditor-suite",
-  "description": "Bundle of all seven auditor-suite specialist skills. Installing this plugin pulls every auditor via dependencies; install one of the specialists directly if you want only that skill.",
-  "version": "1.1.0",
+  "description": "Bundle of all eight auditor-suite specialist skills. Installing this plugin pulls every auditor via dependencies; install one of the specialists directly if you want only that skill.",
+  "version": "1.2.0",
   "author": {
     "name": "aihxp",
     "url": "https://github.com/hannsxpeter"
@@ -21,6 +21,7 @@
     "llmauditor",
     "seoauditor",
     "uiauditor",
-    "uxauditor"
+    "uxauditor",
+    "productauditor"
   ]
 }
