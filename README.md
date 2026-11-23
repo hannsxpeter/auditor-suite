@@ -15,11 +15,9 @@
 
 <p align="center"><em>You ask. The auditor scores. Another agent can fix from the report alone.</em></p>
 
-The Auditor Suite turns your AI coding tool into a specialist review team. Each auditor owns one domain (security, code health, data, LLM, SEO, UI, UX, or product), reads the repo without changing it, writes a prioritized `<name>audit.md`, and prints the verdict in chat. Built for small and local models as well as frontier ones: a short procedural spine, rule cards loaded on demand, and shared scripts that inventory, scan, score, and validate.
+Each auditor owns one domain, reads the repo without changing it, writes a prioritized `<name>audit.md`, and prints the verdict in chat. Works on small and frontier models. Implements the [Agent Skills standard](https://agentskills.io). Sibling of [`ready-suite`](https://github.com/hannsxpeter/ready-suite).
 
-Sibling of [`hannsxpeter/ready-suite`](https://github.com/hannsxpeter/ready-suite): the ready skills build a product; the auditors judge what got built. Implements the [Agent Skills standard](https://agentskills.io).
-
-Want evidence before the full map? Start with the [Quick Proof](docs/quick-proof.md).
+Ten-minute proof: [Quick Proof](docs/quick-proof.md).
 
 ---
 

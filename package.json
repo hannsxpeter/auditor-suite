@@ -1,7 +1,7 @@
 {
   "name": "@hxp-tools/auditor-suite",
   "version": "1.3.0",
-  "description": "Eight read-only audit skills for AI coding agents. Each auditor scores one domain, writes a prioritized report, and prints the verdict in chat.",
+  "description": "Eight read-only audits for AI coding agents. One domain each. Scored reports agents can act on.",
   "bin": {
     "auditor-suite": "bin/install.js"
   },
