@@ -9,6 +9,10 @@ plus the plugin packaging publish that train together.
 Per-skill history from before the consolidation lives in each
 `skills/<skill-name>/CHANGELOG.md`.
 
+## [1.3.2] - 2026-11-23
+
+Patch train bump. No rubric changes.
+
 ## [1.3.1] - 2026-11-23
 
 Patch: amber inspector graphics (away from codedna cyan), simplified About/README

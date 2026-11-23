@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/hannsxpeter/auditor-suite/main/assets/hero.svg" alt="Auditor Suite 1.3.1. Eight read-only audits, one scored report each. Status board lists 8 auditors, 85 dimensions, 1 report format, read-only contract, and 6 plus installer targets." width="100%">
+  <img src="https://raw.githubusercontent.com/hannsxpeter/auditor-suite/main/assets/hero.svg" alt="Auditor Suite 1.3.2. Eight read-only audits, one scored report each. Status board lists 8 auditors, 85 dimensions, 1 report format, read-only contract, and 6 plus installer targets." width="100%">
 </p>
 
 <p align="center">
   <a href="https://github.com/hannsxpeter/auditor-suite/actions/workflows/lint.yml"><img alt="lint" src="https://github.com/hannsxpeter/auditor-suite/actions/workflows/lint.yml/badge.svg"></a>
   <a href="https://www.npmjs.com/package/@hxp-tools/auditor-suite"><img alt="npm" src="https://img.shields.io/npm/v/@hxp-tools/auditor-suite.svg"></a>
-  <a href="https://github.com/hannsxpeter/auditor-suite/releases/tag/v1.3.1"><img alt="release" src="https://img.shields.io/badge/release-v1.3.1-blue"></a>
-  <a href="VERSION"><img alt="version" src="https://img.shields.io/badge/version-1.3.1-blue"></a>
+  <a href="https://github.com/hannsxpeter/auditor-suite/releases/tag/v1.3.2"><img alt="release" src="https://img.shields.io/badge/release-v1.3.2-blue"></a>
+  <a href="VERSION"><img alt="version" src="https://img.shields.io/badge/version-1.3.2-blue"></a>
   <a href="SUITE.md"><img alt="agent skills" src="https://img.shields.io/badge/Agent%20Skills-compatible-2f6fed"></a>
   <a href="LICENSE"><img alt="license" src="https://img.shields.io/github/license/hannsxpeter/auditor-suite"></a>
 </p>
