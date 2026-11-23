@@ -10,7 +10,7 @@
 # score.sh --write), through those helpers.
 # Bash 3.2 compatible: no associative arrays, no mapfile, no ${var,,}.
 
-AS_SUITE_VERSION="1.3.0"
+AS_SUITE_VERSION="1.3.1"
 
 AS_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 AS_SKILL_DIR="$(cd "$AS_SCRIPT_DIR/.." && pwd)"
