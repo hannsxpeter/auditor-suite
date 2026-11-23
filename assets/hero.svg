@@ -5,38 +5,38 @@
     .sans{font-family:"Avenir Next","Helvetica Neue",Helvetica,Arial,sans-serif}
     .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
   </style>
-  <rect x="0.5" y="0.5" width="1199" height="419" rx="10" fill="#0F1419" stroke="#243040"/>
-  <path d="M1 44H1199V11a10 10 0 0 0-10-10H11A10 10 0 0 0 1 11Z" fill="#161B22"/>
-  <line x1="1" y1="44" x2="1199" y2="44" stroke="#243040"/>
-  <text x="32" y="28" class="mono" font-size="13" font-weight="700" fill="#4CC9F0" letter-spacing="1.5">AUDITOR SUITE 1.3.0</text>
-  <text x="600" y="28" class="mono" font-size="13" fill="#8B9BB4" text-anchor="middle">@hxp-tools/auditor-suite</text>
-  <text x="1168" y="28" class="mono" font-size="13" fill="#8B9BB4" text-anchor="end">PRESS START  /secauditor quick</text>
+  <rect x="0.5" y="0.5" width="1199" height="419" rx="10" fill="#14110E" stroke="#2E2820"/>
+  <path d="M1 44H1199V11a10 10 0 0 0-10-10H11A10 10 0 0 0 1 11Z" fill="#1C1814"/>
+  <line x1="1" y1="44" x2="1199" y2="44" stroke="#2E2820"/>
+  <text x="32" y="28" class="mono" font-size="13" font-weight="700" fill="#E8A54B" letter-spacing="1.5">AUDITOR SUITE 1.3.0</text>
+  <text x="600" y="28" class="mono" font-size="13" fill="#A09078" text-anchor="middle">@hxp-tools/auditor-suite</text>
+  <text x="1168" y="28" class="mono" font-size="13" fill="#A09078" text-anchor="end">PRESS START  /secauditor quick</text>
 
-  <text x="52" y="168" class="sans" font-size="92" font-weight="800" fill="#E8EEF7" letter-spacing="-3">Auditor Suite</text>
-  <rect x="52" y="188" width="56" height="6" fill="#4CC9F0"/>
-  <text x="52" y="238" class="sans" font-size="28" font-weight="600" fill="#E8EEF7">Eight read-only audits.</text>
-  <text x="52" y="276" class="sans" font-size="28" font-weight="600" fill="#E8EEF7">One scored report each.</text>
-  <text x="52" y="318" class="sans" font-size="17" fill="#8B9BB4">Security, code, data, LLM, SEO, UI, UX, and product. Agents act on the findings.</text>
+  <text x="52" y="168" class="sans" font-size="92" font-weight="800" fill="#F5EFE4" letter-spacing="-3">Auditor Suite</text>
+  <rect x="52" y="188" width="56" height="6" fill="#E8A54B"/>
+  <text x="52" y="238" class="sans" font-size="28" font-weight="600" fill="#F5EFE4">Eight read-only audits.</text>
+  <text x="52" y="276" class="sans" font-size="28" font-weight="600" fill="#F5EFE4">One scored report each.</text>
+  <text x="52" y="318" class="sans" font-size="17" fill="#A09078">Security, code, data, LLM, SEO, UI, UX, and product. Agents act on the findings.</text>
 
   <g transform="translate(776 76)">
-    <rect width="392" height="270" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="31" class="mono" font-size="12" font-weight="700" fill="#8B9BB4" letter-spacing="2">STATUS BOARD</text>
-    <line x1="0" y1="46" x2="392" y2="46" stroke="#243040"/>
-    <g class="sans" font-size="17" fill="#E8EEF7">
+    <rect width="392" height="270" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="31" class="mono" font-size="12" font-weight="700" fill="#A09078" letter-spacing="2">STATUS BOARD</text>
+    <line x1="0" y1="46" x2="392" y2="46" stroke="#2E2820"/>
+    <g class="sans" font-size="17" fill="#F5EFE4">
       <text x="20" y="80">Auditors</text>
       <text x="20" y="124">Dimensions</text>
       <text x="20" y="168">Report format</text>
       <text x="20" y="212">Contract</text>
       <text x="20" y="256">Installer targets</text>
     </g>
-    <g class="mono" font-size="22" font-weight="700" fill="#4CC9F0" text-anchor="end">
+    <g class="mono" font-size="22" font-weight="700" fill="#E8A54B" text-anchor="end">
       <text x="372" y="80">8</text>
       <text x="372" y="124">85</text>
       <text x="372" y="168">1</text>
       <text x="372" y="212">READ-ONLY</text>
       <text x="372" y="256">6+</text>
     </g>
-    <g stroke="#243040">
+    <g stroke="#2E2820">
       <line x1="0" y1="90" x2="392" y2="90"/><line x1="0" y1="134" x2="392" y2="134"/>
       <line x1="0" y1="178" x2="392" y2="178"/><line x1="0" y1="222" x2="392" y2="222"/>
     </g>

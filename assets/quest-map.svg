@@ -5,108 +5,108 @@
     .sans{font-family:"Avenir Next","Helvetica Neue",Helvetica,Arial,sans-serif}
     .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
   </style>
-  <rect x="0.5" y="0.5" width="1199" height="707" rx="10" fill="#0F1419" stroke="#243040"/>
-  <path d="M1 44H1199V11a10 10 0 0 0-10-10H11A10 10 0 0 0 1 11Z" fill="#161B22"/>
-  <line x1="1" y1="44" x2="1199" y2="44" stroke="#243040"/>
-  <text x="32" y="28" class="mono" font-size="13" font-weight="700" fill="#4CC9F0" letter-spacing="1.5">QUEST MAP</text>
-  <text x="1168" y="28" class="mono" font-size="13" fill="#8B9BB4" text-anchor="end">EIGHT AUDITORS  ONE DOMAIN EACH</text>
+  <rect x="0.5" y="0.5" width="1199" height="707" rx="10" fill="#14110E" stroke="#2E2820"/>
+  <path d="M1 44H1199V11a10 10 0 0 0-10-10H11A10 10 0 0 0 1 11Z" fill="#1C1814"/>
+  <line x1="1" y1="44" x2="1199" y2="44" stroke="#2E2820"/>
+  <text x="32" y="28" class="mono" font-size="13" font-weight="700" fill="#E8A54B" letter-spacing="1.5">QUEST MAP</text>
+  <text x="1168" y="28" class="mono" font-size="13" fill="#A09078" text-anchor="end">EIGHT AUDITORS  ONE DOMAIN EACH</text>
 
   <g transform="translate(36 84)">
-    <rect width="264" height="272" rx="4" fill="#161B22" stroke="#4CC9F0"/>
-    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#4CC9F0">01</text>
-    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#E8EEF7">codeauditor</text>
-    <text x="20" y="114" class="sans" font-size="13" fill="#8B9BB4">Whole-codebase baseline</text>
-    <line x1="20" y1="130" x2="244" y2="130" stroke="#243040"/>
-    <text x="20" y="152" class="mono" font-size="10" fill="#8B9BB4" letter-spacing="1.5">CLEAR IT WITH</text>
-    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/codeauditor</text>
-    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/codeauditor quick</text>
-    <line x1="20" y1="232" x2="244" y2="232" stroke="#243040"/>
-    <text x="20" y="254" class="sans" font-size="12" fill="#8B9BB4">Reward: codeaudit.md</text>
-    <rect x="180" y="20" width="64" height="22" rx="3" fill="#4CC9F0"/>
-    <text x="212" y="35" class="mono" font-size="12" font-weight="700" fill="#0F1419" text-anchor="middle" letter-spacing="1.5">START</text>
+    <rect width="264" height="272" rx="4" fill="#1C1814" stroke="#E8A54B"/>
+    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#E8A54B">01</text>
+    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#F5EFE4">codeauditor</text>
+    <text x="20" y="114" class="sans" font-size="13" fill="#A09078">Whole-codebase baseline</text>
+    <line x1="20" y1="130" x2="244" y2="130" stroke="#2E2820"/>
+    <text x="20" y="152" class="mono" font-size="10" fill="#A09078" letter-spacing="1.5">CLEAR IT WITH</text>
+    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/codeauditor</text>
+    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/codeauditor quick</text>
+    <line x1="20" y1="232" x2="244" y2="232" stroke="#2E2820"/>
+    <text x="20" y="254" class="sans" font-size="12" fill="#A09078">Reward: codeaudit.md</text>
+    <rect x="180" y="20" width="64" height="22" rx="3" fill="#E8A54B"/>
+    <text x="212" y="35" class="mono" font-size="12" font-weight="700" fill="#14110E" text-anchor="middle" letter-spacing="1.5">START</text>
   </g>
   <g transform="translate(324 84)">
-    <rect width="264" height="272" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#4CC9F0">02</text>
-    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#E8EEF7">secauditor</text>
-    <text x="20" y="114" class="sans" font-size="13" fill="#8B9BB4">OWASP and CWE depth</text>
-    <line x1="20" y1="130" x2="244" y2="130" stroke="#243040"/>
-    <text x="20" y="152" class="mono" font-size="10" fill="#8B9BB4" letter-spacing="1.5">CLEAR IT WITH</text>
-    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/secauditor</text>
-    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/secauditor quick</text>
-    <line x1="20" y1="232" x2="244" y2="232" stroke="#243040"/>
-    <text x="20" y="254" class="sans" font-size="12" fill="#8B9BB4">Reward: secaudit.md</text>
+    <rect width="264" height="272" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#E8A54B">02</text>
+    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#F5EFE4">secauditor</text>
+    <text x="20" y="114" class="sans" font-size="13" fill="#A09078">OWASP and CWE depth</text>
+    <line x1="20" y1="130" x2="244" y2="130" stroke="#2E2820"/>
+    <text x="20" y="152" class="mono" font-size="10" fill="#A09078" letter-spacing="1.5">CLEAR IT WITH</text>
+    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/secauditor</text>
+    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/secauditor quick</text>
+    <line x1="20" y1="232" x2="244" y2="232" stroke="#2E2820"/>
+    <text x="20" y="254" class="sans" font-size="12" fill="#A09078">Reward: secaudit.md</text>
   </g>
   <g transform="translate(612 84)">
-    <rect width="264" height="272" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#4CC9F0">03</text>
-    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#E8EEF7">dbauditor</text>
-    <text x="20" y="114" class="sans" font-size="13" fill="#8B9BB4">Schema, queries, scale</text>
-    <line x1="20" y1="130" x2="244" y2="130" stroke="#243040"/>
-    <text x="20" y="152" class="mono" font-size="10" fill="#8B9BB4" letter-spacing="1.5">CLEAR IT WITH</text>
-    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/dbauditor</text>
-    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/dbauditor quick</text>
-    <line x1="20" y1="232" x2="244" y2="232" stroke="#243040"/>
-    <text x="20" y="254" class="sans" font-size="12" fill="#8B9BB4">Reward: dbaudit.md</text>
+    <rect width="264" height="272" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#E8A54B">03</text>
+    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#F5EFE4">dbauditor</text>
+    <text x="20" y="114" class="sans" font-size="13" fill="#A09078">Schema, queries, scale</text>
+    <line x1="20" y1="130" x2="244" y2="130" stroke="#2E2820"/>
+    <text x="20" y="152" class="mono" font-size="10" fill="#A09078" letter-spacing="1.5">CLEAR IT WITH</text>
+    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/dbauditor</text>
+    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/dbauditor quick</text>
+    <line x1="20" y1="232" x2="244" y2="232" stroke="#2E2820"/>
+    <text x="20" y="254" class="sans" font-size="12" fill="#A09078">Reward: dbaudit.md</text>
   </g>
   <g transform="translate(900 84)">
-    <rect width="264" height="272" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#4CC9F0">04</text>
-    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#E8EEF7">llmauditor</text>
-    <text x="20" y="114" class="sans" font-size="13" fill="#8B9BB4">Prompts, RAG, agents</text>
-    <line x1="20" y1="130" x2="244" y2="130" stroke="#243040"/>
-    <text x="20" y="152" class="mono" font-size="10" fill="#8B9BB4" letter-spacing="1.5">CLEAR IT WITH</text>
-    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/llmauditor</text>
-    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/llmauditor quick</text>
-    <line x1="20" y1="232" x2="244" y2="232" stroke="#243040"/>
-    <text x="20" y="254" class="sans" font-size="12" fill="#8B9BB4">Reward: llmaudit.md</text>
+    <rect width="264" height="272" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#E8A54B">04</text>
+    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#F5EFE4">llmauditor</text>
+    <text x="20" y="114" class="sans" font-size="13" fill="#A09078">Prompts, RAG, agents</text>
+    <line x1="20" y1="130" x2="244" y2="130" stroke="#2E2820"/>
+    <text x="20" y="152" class="mono" font-size="10" fill="#A09078" letter-spacing="1.5">CLEAR IT WITH</text>
+    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/llmauditor</text>
+    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/llmauditor quick</text>
+    <line x1="20" y1="232" x2="244" y2="232" stroke="#2E2820"/>
+    <text x="20" y="254" class="sans" font-size="12" fill="#A09078">Reward: llmaudit.md</text>
   </g>
   <g transform="translate(36 396)">
-    <rect width="264" height="272" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#4CC9F0">05</text>
-    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#E8EEF7">seoauditor</text>
-    <text x="20" y="114" class="sans" font-size="13" fill="#8B9BB4">Search and AI visibility</text>
-    <line x1="20" y1="130" x2="244" y2="130" stroke="#243040"/>
-    <text x="20" y="152" class="mono" font-size="10" fill="#8B9BB4" letter-spacing="1.5">CLEAR IT WITH</text>
-    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/seoauditor</text>
-    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/seoauditor quick</text>
-    <line x1="20" y1="232" x2="244" y2="232" stroke="#243040"/>
-    <text x="20" y="254" class="sans" font-size="12" fill="#8B9BB4">Reward: seoaudit.md</text>
+    <rect width="264" height="272" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#E8A54B">05</text>
+    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#F5EFE4">seoauditor</text>
+    <text x="20" y="114" class="sans" font-size="13" fill="#A09078">Search and AI visibility</text>
+    <line x1="20" y1="130" x2="244" y2="130" stroke="#2E2820"/>
+    <text x="20" y="152" class="mono" font-size="10" fill="#A09078" letter-spacing="1.5">CLEAR IT WITH</text>
+    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/seoauditor</text>
+    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/seoauditor quick</text>
+    <line x1="20" y1="232" x2="244" y2="232" stroke="#2E2820"/>
+    <text x="20" y="254" class="sans" font-size="12" fill="#A09078">Reward: seoaudit.md</text>
   </g>
   <g transform="translate(324 396)">
-    <rect width="264" height="272" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#4CC9F0">06</text>
-    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#E8EEF7">uiauditor</text>
-    <text x="20" y="114" class="sans" font-size="13" fill="#8B9BB4">A11y, HTML, styling</text>
-    <line x1="20" y1="130" x2="244" y2="130" stroke="#243040"/>
-    <text x="20" y="152" class="mono" font-size="10" fill="#8B9BB4" letter-spacing="1.5">CLEAR IT WITH</text>
-    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/uiauditor</text>
-    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/uiauditor quick</text>
-    <line x1="20" y1="232" x2="244" y2="232" stroke="#243040"/>
-    <text x="20" y="254" class="sans" font-size="12" fill="#8B9BB4">Reward: uiaudit.md</text>
+    <rect width="264" height="272" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#E8A54B">06</text>
+    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#F5EFE4">uiauditor</text>
+    <text x="20" y="114" class="sans" font-size="13" fill="#A09078">A11y, HTML, styling</text>
+    <line x1="20" y1="130" x2="244" y2="130" stroke="#2E2820"/>
+    <text x="20" y="152" class="mono" font-size="10" fill="#A09078" letter-spacing="1.5">CLEAR IT WITH</text>
+    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/uiauditor</text>
+    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/uiauditor quick</text>
+    <line x1="20" y1="232" x2="244" y2="232" stroke="#2E2820"/>
+    <text x="20" y="254" class="sans" font-size="12" fill="#A09078">Reward: uiaudit.md</text>
   </g>
   <g transform="translate(612 396)">
-    <rect width="264" height="272" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#4CC9F0">07</text>
-    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#E8EEF7">uxauditor</text>
-    <text x="20" y="114" class="sans" font-size="13" fill="#8B9BB4">Journeys and workflows</text>
-    <line x1="20" y1="130" x2="244" y2="130" stroke="#243040"/>
-    <text x="20" y="152" class="mono" font-size="10" fill="#8B9BB4" letter-spacing="1.5">CLEAR IT WITH</text>
-    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/uxauditor</text>
-    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/uxauditor quick</text>
-    <line x1="20" y1="232" x2="244" y2="232" stroke="#243040"/>
-    <text x="20" y="254" class="sans" font-size="12" fill="#8B9BB4">Reward: uxaudit.md</text>
+    <rect width="264" height="272" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#E8A54B">07</text>
+    <text x="20" y="92" class="sans" font-size="22" font-weight="700" fill="#F5EFE4">uxauditor</text>
+    <text x="20" y="114" class="sans" font-size="13" fill="#A09078">Journeys and workflows</text>
+    <line x1="20" y1="130" x2="244" y2="130" stroke="#2E2820"/>
+    <text x="20" y="152" class="mono" font-size="10" fill="#A09078" letter-spacing="1.5">CLEAR IT WITH</text>
+    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/uxauditor</text>
+    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/uxauditor quick</text>
+    <line x1="20" y1="232" x2="244" y2="232" stroke="#2E2820"/>
+    <text x="20" y="254" class="sans" font-size="12" fill="#A09078">Reward: uxaudit.md</text>
   </g>
   <g transform="translate(900 396)">
-    <rect width="264" height="272" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#4CC9F0">08</text>
-    <text x="20" y="92" class="sans" font-size="20" font-weight="700" fill="#E8EEF7">productauditor</text>
-    <text x="20" y="114" class="sans" font-size="13" fill="#8B9BB4">Plans, billing, claims</text>
-    <line x1="20" y1="130" x2="244" y2="130" stroke="#243040"/>
-    <text x="20" y="152" class="mono" font-size="10" fill="#8B9BB4" letter-spacing="1.5">CLEAR IT WITH</text>
-    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/productauditor</text>
-    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#E8EEF7">/productauditor quick</text>
-    <line x1="20" y1="232" x2="244" y2="232" stroke="#243040"/>
-    <text x="20" y="254" class="sans" font-size="12" fill="#8B9BB4">Reward: productaudit.md</text>
+    <rect width="264" height="272" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="54" class="mono" font-size="38" font-weight="700" fill="#E8A54B">08</text>
+    <text x="20" y="92" class="sans" font-size="20" font-weight="700" fill="#F5EFE4">productauditor</text>
+    <text x="20" y="114" class="sans" font-size="13" fill="#A09078">Plans, billing, claims</text>
+    <line x1="20" y1="130" x2="244" y2="130" stroke="#2E2820"/>
+    <text x="20" y="152" class="mono" font-size="10" fill="#A09078" letter-spacing="1.5">CLEAR IT WITH</text>
+    <text x="20" y="176" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/productauditor</text>
+    <text x="20" y="198" class="mono" font-size="14" font-weight="700" fill="#F5EFE4">/productauditor quick</text>
+    <line x1="20" y1="232" x2="244" y2="232" stroke="#2E2820"/>
+    <text x="20" y="254" class="sans" font-size="12" fill="#A09078">Reward: productaudit.md</text>
   </g>
 </svg>

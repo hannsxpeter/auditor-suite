@@ -5,58 +5,58 @@
     .sans{font-family:"Avenir Next","Helvetica Neue",Helvetica,Arial,sans-serif}
     .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace}
   </style>
-  <rect x="0.5" y="0.5" width="1199" height="419" rx="10" fill="#0F1419" stroke="#243040"/>
-  <path d="M1 44H1199V11a10 10 0 0 0-10-10H11A10 10 0 0 0 1 11Z" fill="#161B22"/>
-  <line x1="1" y1="44" x2="1199" y2="44" stroke="#243040"/>
-  <text x="32" y="28" class="mono" font-size="13" font-weight="700" fill="#4CC9F0" letter-spacing="1.5">SCORECARD LOOP</text>
-  <text x="1168" y="28" class="mono" font-size="13" fill="#8B9BB4" text-anchor="end">NO XP  REAL GRADES</text>
+  <rect x="0.5" y="0.5" width="1199" height="419" rx="10" fill="#14110E" stroke="#2E2820"/>
+  <path d="M1 44H1199V11a10 10 0 0 0-10-10H11A10 10 0 0 0 1 11Z" fill="#1C1814"/>
+  <line x1="1" y1="44" x2="1199" y2="44" stroke="#2E2820"/>
+  <text x="32" y="28" class="mono" font-size="13" font-weight="700" fill="#E8A54B" letter-spacing="1.5">SCORECARD LOOP</text>
+  <text x="1168" y="28" class="mono" font-size="13" fill="#A09078" text-anchor="end">NO XP  REAL GRADES</text>
 
   <g transform="translate(36 84)">
-    <rect width="176" height="280" rx="4" fill="#161B22" stroke="#4CC9F0"/>
-    <text x="20" y="48" class="mono" font-size="28" font-weight="700" fill="#4CC9F0">1</text>
-    <text x="20" y="88" class="sans" font-size="20" font-weight="700" fill="#E8EEF7">Inventory</text>
-    <text x="20" y="120" class="sans" font-size="13" fill="#8B9BB4">Map the tree.</text>
-    <text x="20" y="142" class="sans" font-size="13" fill="#8B9BB4">Pick dimensions.</text>
-    <text x="20" y="250" class="mono" font-size="12" fill="#4CC9F0">inventory.sh</text>
+    <rect width="176" height="280" rx="4" fill="#1C1814" stroke="#E8A54B"/>
+    <text x="20" y="48" class="mono" font-size="28" font-weight="700" fill="#E8A54B">1</text>
+    <text x="20" y="88" class="sans" font-size="20" font-weight="700" fill="#F5EFE4">Inventory</text>
+    <text x="20" y="120" class="sans" font-size="13" fill="#A09078">Map the tree.</text>
+    <text x="20" y="142" class="sans" font-size="13" fill="#A09078">Pick dimensions.</text>
+    <text x="20" y="250" class="mono" font-size="12" fill="#E8A54B">inventory.sh</text>
   </g>
   <g transform="translate(228 84)">
-    <rect width="176" height="280" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="48" class="mono" font-size="28" font-weight="700" fill="#4CC9F0">2</text>
-    <text x="20" y="88" class="sans" font-size="20" font-weight="700" fill="#E8EEF7">Scan</text>
-    <text x="20" y="120" class="sans" font-size="13" fill="#8B9BB4">Cards become</text>
-    <text x="20" y="142" class="sans" font-size="13" fill="#8B9BB4">path:line leads.</text>
-    <text x="20" y="250" class="mono" font-size="12" fill="#4CC9F0">scan.sh</text>
+    <rect width="176" height="280" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="48" class="mono" font-size="28" font-weight="700" fill="#E8A54B">2</text>
+    <text x="20" y="88" class="sans" font-size="20" font-weight="700" fill="#F5EFE4">Scan</text>
+    <text x="20" y="120" class="sans" font-size="13" fill="#A09078">Cards become</text>
+    <text x="20" y="142" class="sans" font-size="13" fill="#A09078">path:line leads.</text>
+    <text x="20" y="250" class="mono" font-size="12" fill="#E8A54B">scan.sh</text>
   </g>
   <g transform="translate(420 84)">
-    <rect width="176" height="280" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="48" class="mono" font-size="28" font-weight="700" fill="#4CC9F0">3</text>
-    <text x="20" y="88" class="sans" font-size="20" font-weight="700" fill="#E8EEF7">Judge</text>
-    <text x="20" y="120" class="sans" font-size="13" fill="#8B9BB4">Confirm defects.</text>
-    <text x="20" y="142" class="sans" font-size="13" fill="#8B9BB4">Quote evidence.</text>
-    <text x="20" y="250" class="mono" font-size="12" fill="#4CC9F0">rule cards</text>
+    <rect width="176" height="280" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="48" class="mono" font-size="28" font-weight="700" fill="#E8A54B">3</text>
+    <text x="20" y="88" class="sans" font-size="20" font-weight="700" fill="#F5EFE4">Judge</text>
+    <text x="20" y="120" class="sans" font-size="13" fill="#A09078">Confirm defects.</text>
+    <text x="20" y="142" class="sans" font-size="13" fill="#A09078">Quote evidence.</text>
+    <text x="20" y="250" class="mono" font-size="12" fill="#E8A54B">rule cards</text>
   </g>
   <g transform="translate(612 84)">
-    <rect width="176" height="280" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="48" class="mono" font-size="28" font-weight="700" fill="#4CC9F0">4</text>
-    <text x="20" y="88" class="sans" font-size="20" font-weight="700" fill="#E8EEF7">Score</text>
-    <text x="20" y="120" class="sans" font-size="13" fill="#8B9BB4">Deterministic</text>
-    <text x="20" y="142" class="sans" font-size="13" fill="#8B9BB4">grades from findings.</text>
-    <text x="20" y="250" class="mono" font-size="12" fill="#4CC9F0">score.sh</text>
+    <rect width="176" height="280" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="48" class="mono" font-size="28" font-weight="700" fill="#E8A54B">4</text>
+    <text x="20" y="88" class="sans" font-size="20" font-weight="700" fill="#F5EFE4">Score</text>
+    <text x="20" y="120" class="sans" font-size="13" fill="#A09078">Deterministic</text>
+    <text x="20" y="142" class="sans" font-size="13" fill="#A09078">grades from findings.</text>
+    <text x="20" y="250" class="mono" font-size="12" fill="#E8A54B">score.sh</text>
   </g>
   <g transform="translate(804 84)">
-    <rect width="176" height="280" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="48" class="mono" font-size="28" font-weight="700" fill="#4CC9F0">5</text>
-    <text x="20" y="88" class="sans" font-size="20" font-weight="700" fill="#E8EEF7">Report</text>
-    <text x="20" y="120" class="sans" font-size="13" fill="#8B9BB4">One self-contained</text>
-    <text x="20" y="142" class="sans" font-size="13" fill="#8B9BB4">work order.</text>
-    <text x="20" y="250" class="mono" font-size="12" fill="#4CC9F0">*audit.md</text>
+    <rect width="176" height="280" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="48" class="mono" font-size="28" font-weight="700" fill="#E8A54B">5</text>
+    <text x="20" y="88" class="sans" font-size="20" font-weight="700" fill="#F5EFE4">Report</text>
+    <text x="20" y="120" class="sans" font-size="13" fill="#A09078">One self-contained</text>
+    <text x="20" y="142" class="sans" font-size="13" fill="#A09078">work order.</text>
+    <text x="20" y="250" class="mono" font-size="12" fill="#E8A54B">*audit.md</text>
   </g>
   <g transform="translate(996 84)">
-    <rect width="168" height="280" rx="4" fill="#161B22" stroke="#243040"/>
-    <text x="20" y="48" class="mono" font-size="28" font-weight="700" fill="#4CC9F0">6</text>
-    <text x="20" y="88" class="sans" font-size="20" font-weight="700" fill="#E8EEF7">Verdict</text>
-    <text x="20" y="120" class="sans" font-size="13" fill="#8B9BB4">Scorecard and</text>
-    <text x="20" y="142" class="sans" font-size="13" fill="#8B9BB4">top fixes in chat.</text>
-    <text x="20" y="250" class="mono" font-size="12" fill="#4CC9F0">check-report</text>
+    <rect width="168" height="280" rx="4" fill="#1C1814" stroke="#2E2820"/>
+    <text x="20" y="48" class="mono" font-size="28" font-weight="700" fill="#E8A54B">6</text>
+    <text x="20" y="88" class="sans" font-size="20" font-weight="700" fill="#F5EFE4">Verdict</text>
+    <text x="20" y="120" class="sans" font-size="13" fill="#A09078">Scorecard and</text>
+    <text x="20" y="142" class="sans" font-size="13" fill="#A09078">top fixes in chat.</text>
+    <text x="20" y="250" class="mono" font-size="12" fill="#E8A54B">check-report</text>
   </g>
 </svg>
