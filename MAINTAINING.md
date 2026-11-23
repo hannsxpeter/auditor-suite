@@ -11,6 +11,7 @@ train. When the train bumps, these move together, and
 `bash scripts/lint.sh suite-release` plus `plugin-sync` enforce the agreement:
 
 - `VERSION`
+- `package.json` version (npm package `@hxp-tools/auditor-suite`)
 - README version badge (`version-x.y.z-blue`) and release badge
   (`release-vx.y.z-blue`, linking `releases/tag/vx.y.z`)
 - `SUITE.md` "Release train: x.y.z" line
@@ -64,8 +65,13 @@ or field names, or skill names.
     ```bash
     git tag -a vx.y.z -m "auditor-suite x.y.z"
     git push origin vx.y.z
-    gh release create vx.y.z --title "auditor-suite x.y.z" --notes-file <notes>
+    gh release create vx.y.z --title "auditor-suite x.y.z" --notes-file RELEASE.md
+    npm publish --access public
     ```
+
+    Publish under the `hxp-tools` npm org as `@hxp-tools/auditor-suite`. Prefer
+    `npm run release:check` (or `prepublishOnly`) before `npm publish`. Do not
+    commit npm tokens.
 
 See [`RELEASE-CHECKLIST.md`](RELEASE-CHECKLIST.md) for the compact version.
 
@@ -151,4 +157,4 @@ full history via subtree merges. To trace a skill across the boundary use
 commits as ancestors of main. The pre-consolidation layouts
 (engine files, per-repo installers, plugin manifests) are all reachable in
 history if archaeology is ever needed. productauditor, added in 1.2.0, was
-built in this monorepo and has no standalone history.
+built in this monorepo and has no standalone history. Pre-consolidation release prose and the resolved drift log live in git history only.

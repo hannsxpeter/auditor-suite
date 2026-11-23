@@ -56,7 +56,7 @@ The lint runs `tests/run.sh` and `tests/install.sh` itself (check `script-tests`
 
 - `README.md`: user-facing overview and install paths.
 - `SUITE.md`: the suite map, auditor boundaries, the contract, and composition principles.
-- `docs/ARCHITECTURE.md`, `docs/AUTHORING.md`, `docs/DRIFT.md`: design, authoring rules, and the drift log.
+- `docs/ARCHITECTURE.md`, `docs/AUTHORING.md`, `docs/quick-proof.md`: design, authoring rules, and the first-run proof path.
 - `MAINTAINING.md`: maintainer rituals and version-bump rules.
 - `CONTRIBUTING.md`: contributor workflow and PR standards.
 - `evals/README.md`: running and reading the eval cases.

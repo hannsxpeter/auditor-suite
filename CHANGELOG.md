@@ -9,6 +9,39 @@ plus the plugin packaging publish that train together.
 Per-skill history from before the consolidation lives in each
 `skills/<skill-name>/CHANGELOG.md`.
 
+## [1.3.0] - 2026-11-23
+
+Product surface release: publish as `@hxp-tools/auditor-suite` on npm, relaunch
+the README as a product with graphics, and drop historical drift/archive docs
+from the tree. Auditor rubrics, scoring, and report format are unchanged from
+1.2.0.
+
+### Added
+
+- npm package `@hxp-tools/auditor-suite` with `bin/install.js`. `npx` materializes
+  skills into `~/.auditor-suite` and runs the existing bash installer so harness
+  symlinks stay stable across npm cache cleanup.
+- Root marketing graphics: `assets/hero.svg`, `assets/quest-map.svg`,
+  `assets/scorecard.svg` (GitHub raw; not in the npm tarball).
+- [docs/quick-proof.md](docs/quick-proof.md): ten-minute install-and-triage path.
+- [RELEASE.md](RELEASE.md): human-facing notes for the GitHub release.
+- `package.json` scripts: `pack:check`, `release:check`, `prepublishOnly`.
+
+### Changed
+
+- README: Press start (`npx`), quest map of eight auditors, scorecard loop, and
+  npm/release badges. Plugin and from-source installs remain, with a pick-one
+  warning.
+- Suite train bumped to 1.3.0 across `VERSION`, manifests, shared scripts, and
+  example-report banners.
+
+### Removed
+
+- `docs/DRIFT.md` (resolved drift log from 1.0.0 through 1.2.0; still in git
+  history).
+- `docs/STANDALONE-ARCHIVE.md` (standalone-era release prose; still in git
+  history).
+
 ## [1.2.0] - 2026-10-01
 
 An eighth auditor, productauditor, and a hub that no longer lists the skills

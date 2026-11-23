@@ -2,7 +2,7 @@
 
 Eight read-only audit skills for AI coding agents. Each auditor scores one domain of a codebase end to end, writes a prioritized `<name>audit.md` report at the repo root, and prints the verdict in chat. Install what you need. Each defect has one owning auditor; where two auditors touch one topic, the boundaries below say which one files it.
 
-Release train: 1.2.0
+Release train: 1.3.0
 
 ## What each auditor owns
 

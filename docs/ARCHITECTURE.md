@@ -24,7 +24,7 @@ Through 1.0.0 each auditor was one large SKILL.md (about 5,000 to 18,000 tokens)
 - The hardest judgment was left unchecked: "score each dimension 0 to 100 on adequacy", weight re-normalization by hand, ownership maps with split rules, and self-attested quality gates.
 - Nothing verified that a cited `file:line` exists, the worst failure for a report meant as a work order for another agent.
 - There was no worked example of a finished report.
-- The seven files had drifted apart (see [DRIFT.md](DRIFT.md)).
+- The seven files had drifted apart (resolved in the 1.1.0 shared core; see git history for the old drift log).
 
 ## 2. The principle
 

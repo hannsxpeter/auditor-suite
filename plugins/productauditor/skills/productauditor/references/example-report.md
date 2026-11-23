@@ -1,7 +1,7 @@
 # Product audit: duebook
 
 > Read-only product audit of the code as written, 2026-10-01. The product was not run, and no analytics, billing, feature-flag, or CRM service was queried; findings that depend on real usage or provider settings are marked Likely or Suspected. Mode: full. Scope: whole project.
-> Self-contained: every finding cites the file and line it is about, so an agent holding only this report and the code can act on it. Written with productauditor (auditor-suite 1.2.0).
+> Self-contained: every finding cites the file and line it is about, so an agent holding only this report and the code can act on it. Written with productauditor (auditor-suite 1.3.0).
 
 ## Snapshot
 

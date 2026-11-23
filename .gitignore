@@ -14,6 +14,11 @@ Desktop.ini
 # Logs
 *.log
 
+# npm local install / pack leftovers
+node_modules/
+package-lock.json
+*.tgz
+
 # Local harness state; never commit session or worktree data.
 .claude/
 

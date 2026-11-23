@@ -5,6 +5,7 @@ Compact version of the release-train ritual in
 checked before tagging.
 
 - [ ] `VERSION` updated to the new train `x.y.z`
+- [ ] `package.json` version is `x.y.z`
 - [ ] README version badge says `version-x.y.z-blue`
 - [ ] README release badge says `release-vx.y.z-blue` and links the new tag
 - [ ] `SUITE.md` says `Release train: x.y.z`
@@ -23,4 +24,5 @@ checked before tagging.
 - [ ] For a minor or major train: eval cases run for changed skills on a small model, scores recorded in the hub CHANGELOG
 - [ ] PR merged to `main`; CI green on `main` in both jobs, `lint (ubuntu-latest)` and `lint (macos-latest)`
 - [ ] Annotated tag `vx.y.z` ("auditor-suite x.y.z") pushed
-- [ ] GitHub release created with notes
+- [ ] GitHub release created with notes (`RELEASE.md`)
+- [ ] `npm publish --access public` for `@hxp-tools/auditor-suite@x.y.z`
